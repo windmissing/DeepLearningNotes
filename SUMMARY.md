@@ -15,5 +15,8 @@
         * [YOLO算法](CV/Detection/YOLO.md)
         * [候选区域算法](CV/Detection/RegionProposal.md)
     * [风格迁移](CV/Style.md)
+    * [人脸验证与人脸识别](CV/Face/Face.md)
+        * [Siamese Network](CV/Face/Siamese.md)
+        * [三元组损失函数](CV/Face/Triplet.md)
 * NLP
     * [NMT](NLP/2020-11-12-NMT-Summary.md)

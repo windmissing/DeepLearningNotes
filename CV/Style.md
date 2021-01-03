@@ -2,6 +2,9 @@
 
 # DL Network是怎么学习的
 
+Zeilier and Fergus., 2013. Visiualizing and understanding convolutional networks  
+
+分析一个已经训练好的NN：  
 1. 选择layer 1的Unit，观察怎样的输入让这些unit最“兴奋”，得到这样9张图。    
 
 ![](/assets/28.png)  
@@ -13,12 +16,19 @@
 ![](/assets/31.png)  
 ![](/assets/32.png)  
 
+结论：靠后的layer的unit would see a larger region of the image。  
+
 # 网络迁移的算法
 
-定义：  
+Gatvs. et. al., 2015. A newral algorithm of artistic style  
+这篇论文不难  
+
+## 定义  
 原图像为Content，简称C  
 风格图像为Style，简称S  
 生成图像为Generated，简称G  
+
+## 过程
 
 1. 随机初始化G  
 2. 定义代价函数J（G）  
@@ -39,22 +49,24 @@ $$
 
 ## $J_C$代价函数
 
-假设使用第l层hidden layer来计算content cost  
+（1）使用某个pre-trained ConvNet，例如VCG  
+
+（2）选择网络中的某一层hidden layer来计算content cost，假设使用第l层  
 - l太小，则生成图像太接近原图像  
 - l太大，则生成图像与原图像差太多  
 因此要合理地选择l，通常选择网络的中间层。  
-
-定义：$a^{[l](C)}$和$a^{[l](G)}$分别为C和G在第l层的激活值(a，也可写作h)  
-如果：$a^{[l](C)}$和$a^{[l](G)}$接近  
-则：图像C和G接近   
-因此  
+（3）定义符号  
+$a^{[l](C)}$和$a^{[l](G)}$分别为C和G在第l层的激活值(a，也可写作h)  
+（4）定义代价函数  
+认为：如果$a^{[l](C)}$和$a^{[l](G)}$接近，则图像C和G接近   
+因此：    
 $$
 J_C(C, G) = \frac{1}{2}||a^{[l](C)} - a^{[l](G)}||^2
 $$
 
 ## $J_S$代价函数
 
-定义一个图像的style为:**correlation between activationas accross channels**  
+定义一个图像的style为:**correlation between activationas accross channels**，即某个Conv层不同channel之间的相关性。    
 
 怎样评价两个通道的correlation？  
 ![](/assets/images/Chapter9/29.png)  
