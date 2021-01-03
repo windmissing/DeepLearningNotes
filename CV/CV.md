@@ -1,8 +1,9 @@
 Computer Vision Problems
 
-1. 图像分类  
-2. 目标侦测  
-3. 风格迁移
+- 图像分类问题：Image Classification，判断图像是不是汽车  
+- 图像定位分类问题：Image Classification With Localization，判断图像是不是一辆汽车，并标出洗车的位置  
+- 物体检测问题：检测图像中是否存在车子。如果有车子，标出洗车的位置。如果有多个车子，标出每个车子的位置。  
+- 风格迁移
 
 
 ![](/assets/1.png)
