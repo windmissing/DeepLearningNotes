@@ -19,4 +19,7 @@
         * [Siamese Network](CV/Face/Siamese.md)
         * [三元组损失函数](CV/Face/Triplet.md)
 * NLP
+    * [语言模型](NLP/LanguageModel.md)
+    * 词汇表征
+        * [One-hot Embedding](Chapter10/WordEmbedding/OneHotEmbedding.md)
     * [NMT](NLP/2020-11-12-NMT-Summary.md)

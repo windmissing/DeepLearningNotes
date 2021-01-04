@@ -55,6 +55,7 @@ $$
 - l太小，则生成图像太接近原图像  
 - l太大，则生成图像与原图像差太多  
 因此要合理地选择l，通常选择网络的中间层。  
+
 （3）定义符号  
 $a^{[l](C)}$和$a^{[l](G)}$分别为C和G在第l层的激活值(a，也可写作h)  
 （4）定义代价函数  
@@ -66,25 +67,36 @@ $$
 
 ## $J_S$代价函数
 
+### 什么是图像的风格
+
 定义一个图像的style为:**correlation between activationas accross channels**，即某个Conv层不同channel之间的相关性。    
 
 怎样评价两个通道的correlation？  
-![](/assets/images/Chapter9/29.png)  
-例如这张图，当某个通道的filter关注某种样式时，另一通道一定关注另一种某个样式，则认为两个通道是high correlation的。  
+![](/assets/29.png)  
+例如这张图，假设图像在某一层上具有这样一些channel。大格子代表不同的channel，小格子代表同一channel关注的不同特征。当某个通道的filter关注某种样式时，另一通道一定关注另一种某个样式，则认为两个通道是high correlation的。相关度correlation表示两个channel同时出现的可能性。    
 如果一个通道filter关注的样式和另一个通道没有什么关系，则认为是low correlation的。  
-
 $J_\text{style}$定义如下：  
 已知S的每个channel的filter，评价G中how often出现同样的filter组合。  
-定义：  
-$a_{i,j,k}^l$S中H=i, W=j, C=k的点处的activation。  
-$G^{l,s}$为图像S的第l层的gram matrix/style matrix。  
+
+### 定义符号
+ 
+$a_{i,j,k}^{[l]}$：图像S中H=i, W=j, C=k的点处的a。  
+$G^{[l],(S)}$：图像S的第l层的gram matrix/style matrix，大小为$n^{[l]}_c \times n^{[l]}_c$  
+$G^{[l],(S)}_{k_1,k_2}$：图像S的第l层通道k1与通道k2的相关性。  
+gram matrix是线性代数中的术语。  
+
+### 定义代价函数
+
 $$
 \begin{aligned}
-G^{l,s}_{kk'} &=& \sum_i\sum_j a_{ijk}^{ls} * a_{ijk'}^{ls}  \\ 
-G^{l,G}_{kk'} &=& \sum_i\sum_j a_{ijk}^{lG} * a_{ijk'}^{lG}  \\
-J_\text{style}^l(S, G) &=& ||G^{ls} - G^{lG}||^2_F   \\
-&=& \frac{1}{(\cdots)}\sum_k\sum_{k'}(G^{l,s}_{kk'} - G^{l,G}_{kk'})^2  && \text{分母用于Normalize}  \\
+G^{l,s}_{k_1k_2} &=& \sum_i\sum_j a_{ijk_1}^{ls} * a_{ijk_2}^{ls}  \\ 
+G^{l,G}_{k_1k_2} &=& \sum_i\sum_j a_{ijk_1}^{lG} * a_{ijk_2}^{lG}  \\
+J_\text{style}^l(S, G) &=& \frac{1}{2n_H^ln_W^ln_C^l}||G^{ls} - G^{lG}||^2_F   \\
+&=& \frac{1}{(2n_H^ln_W^ln_C^l)}\sum_k\sum_{k'}(G^{l,s}_{k_1k_2} - G^{l,G}_{k_1k_2})  && \text{分母用于Normalize}  \\
 J_\text{style}(S, G) &=& \sum_l \lambda^l J_\text{style}^l(S, G) \\
 J(G) &=& \alpha J_\text{content}(C, G) + \beta J_\text{style}(S, G)
 \end{aligned}
 $$
+
+$\lambda$是超参数。  
+内容代价函数只算一层，风格代价函数要遍历所有层。  
