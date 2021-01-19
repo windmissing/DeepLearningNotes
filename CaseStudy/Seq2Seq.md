@@ -1,6 +1,7 @@
 # Seq2Seq
 
 Seq2Seq与Language Model都可以用于生成字符串，它们的区别是：LM是随机生成字符串，Seq2Seq是条件生成字符串。  
+![](/assets/53.png) 
 
 ## Neural Translation
 
