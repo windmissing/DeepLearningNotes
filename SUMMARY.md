@@ -19,6 +19,8 @@
     * [人脸验证与人脸识别](CV/Face/Face.md)
         * [Siamese Network](CV/Face/Siamese.md)
         * [三元组损失函数](CV/Face/Triplet.md)
+    * 实践
+        * [读入VGG16预训练模型](CV/Practice/load_vgg_model.md)
 * NLP
     * [语言模型](NLP/LanguageModel.md)
     * 词汇表征
