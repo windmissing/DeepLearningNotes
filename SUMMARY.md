@@ -35,3 +35,6 @@
         * [词嵌入除偏](NLP/Debiasing.md)
     * [情绪分类]((NLP/SentimentClassification.md)
     * [NMT](NLP/2020-11-12-NMT-Summary.md)
+* 语音
+    * [语音识别](Audio/Speech.md)
+    * [触发字检测](Audio/TriggerWord.md)
