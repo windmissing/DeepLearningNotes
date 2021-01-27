@@ -135,3 +135,5 @@ BP =
 \exp(\frac{1 - \text{MT length}}{\text{reference length}}), && \text{otherwise}
 \end{cases}
 $$
+
+BLEU是一个比较好的用单一实数来评价NMT的方法。加速了整个NMT领域的进程。也可以用于评价其它文件生成的结果。不用于语音，因为语音通常只有一个答案。  

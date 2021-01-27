@@ -8,6 +8,7 @@
     * [1*1卷积](CaseStudy/SpecialConv.md)
     * [Inception网络](CaseStudy/Inception.md)
     * [Seq2Seq](CaseStudy/Seq2Seq.md)
+    * [注意力模型](CaseStudy/Attention/Attention.md)
 * [CV](CV/CV.md)
     * [目标定位](CV/Localization.md)
     * [Landmark Detection](CV/LandmarkDetection.md)
@@ -21,6 +22,8 @@
         * [三元组损失函数](CV/Face/Triplet.md)
     * 实践
         * [读入VGG16预训练模型](CV/Practice/load_vgg_model.md)
+        * [基于预训练模型的图像重构](CV/Practise/ImageReconstruction.md)
+        * [基于预训练模型的风格重构](CV/Practise/StyleReconstruction.md)
 * NLP
     * [语言模型](NLP/LanguageModel.md)
     * 词汇表征
@@ -36,5 +39,5 @@
     * [情绪分类]((NLP/SentimentClassification.md)
     * [NMT](NLP/2020-11-12-NMT-Summary.md)
 * 语音
-    * [语音识别](Audio/Speech.md)
-    * [触发字检测](Audio/TriggerWord.md)
+    * [语音辨识](NLP/Speech.md)
+    * [触发字检测](NLP/TriggerWord.md)
