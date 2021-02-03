@@ -9,6 +9,7 @@
     * [Inception网络](CaseStudy/Inception.md)
     * [Seq2Seq](CaseStudy/Seq2Seq.md)
     * [注意力模型](CaseStudy/Attention/Attention.md)
+    * [指针网络](CaseStudy/PointerNetwork.md)
 * [CV](CV/CV.md)
     * [目标定位](CV/Localization.md)
     * [Landmark Detection](CV/LandmarkDetection.md)

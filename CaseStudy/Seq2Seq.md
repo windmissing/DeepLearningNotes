@@ -12,7 +12,8 @@ Cho et. al., 2014. Learning phrase representations using RNN encoder-decoder for
 ## Image Captioning
 
 Mao et. al., 2014 Deep Captioning with nultimodal returrent neural netowrks  
-Vinyals et al., 2014. Show and tell: Neural image caption generator  
+Vinyals et al., 2014. Show and tell: Neural image caption generator    
+Kelvin Xu. al., 2015. Show, Attend and Tell: Neural Image Cpation Generation With Visual Attention  
 
 根据图像生成描述：AlexNet + Decoder  
 ![](/assets/52.png)
