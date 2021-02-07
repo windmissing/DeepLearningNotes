@@ -1,40 +1,15 @@
-# Attention-based Model基础版（只读模型）
+# 任务描述
 
-![](/assets/images/Chapter10/88.png)   
+根据Ducument和Query生成Answer  
+Answer是提前定义好的, 要从这些答案中选择一个正确答案.  
+这是一个多分类问题
+squad比赛  
 
-## 应用
+# 模型
 
-1. seq2seq  
-2. 阅读理解 squad比赛  
-
-## 基于Attention-based技术的Memory Network  
-
-![](/assets/images/Chapter10/89.png)   
-1. 把Document中的每个句子转成向量，N个句子得到N个高维向量  
-2. 降维，N个高维向量降到N个低维向量x  
-3. 将Query转成向量q  
-4. 计算q与x的match score，每个x对应一个score，定义为$\alpha$  
-5. 根据$\alpha$对x做加权求和$\sum_i\alpha_i x_i$  
-6. 5的结果和q一起进入一个DNN  
-7. 由DNN产生answer  
-
-# Attention-based Model进阶版
-
-Sentence to vector can be jointly trained.  
-![](/assets/images/Chapter10/90.png)   
-
-## 改进1
-
-Document产生2个向量，分别是x和h。  
-第4步使用x计算match score，用于决定从哪些向量抽取信息。  
-第5步使用h生成最终被抽取的信息。$\sum_i\alpha_i h_i$   
-
-## 改进2 hopping
-
-根据当前的结果生成新的问题向量q  
-基于新的q再计算答案  
-
-hopping可以做多次，hopping的次数可以是人为决定，也可以Machine自己决定ReasoNet。  
+Memory Netowrk
+Attention-based Model基础版（只读模型）
+ReasoNet
 
 ## 应用
 
