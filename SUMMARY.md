@@ -12,6 +12,8 @@
     * [Memory Netowrk](CaseStudy/Attention/MemoryNetwork.md)
     * [指针网络](CaseStudy/PointerNetwork.md)
     * [循环网络](CaseStudy/Recursive.md)
+    * [RNN的各种应用](CaseStudy/Applications.md)
+
 * [CV](CV/CV.md)
     * [目标定位](CV/Localization.md)
     * [Landmark Detection](CV/LandmarkDetection.md)
@@ -23,6 +25,7 @@
     * [人脸验证与人脸识别](CV/Face/Face.md)
         * [Siamese Network](CV/Face/Siamese.md)
         * [三元组损失函数](CV/Face/Triplet.md)
+    * [Domain-Adversarial Training](CV/DomainAdversarial.md)
     * 实践
         * [读入VGG16预训练模型](CV/Practice/load_vgg_model.md)
         * [基于预训练模型的图像重构](CV/Practise/ImageReconstruction.md)
@@ -39,8 +42,16 @@
         * [负采样算法](NLP/WordEmbedding/NegativeSampling.md)
         * [词向量算法](NLP/WordEmbedding/GloVec.md)
         * [词嵌入除偏](NLP/Debiasing.md)
+        * [Embedding](NLP/Embedding.md)
     * [情绪分类]((NLP/SentimentClassification.md)
     * [NMT](NLP/2020-11-12-NMT-Summary.md)
 * 语音
     * [语音辨识](NLP/Speech.md)
     * [触发字检测](NLP/TriggerWord.md)
+* 通用问题
+    * [Zero Shot问题](Common/ZeroShot.md)
+    * [深度自编码器](Common/AutoEncoder.md)
+    * [Deep Learing VS Structured Learning](Chapter10/Structured.md)
+
+
+
