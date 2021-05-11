@@ -13,7 +13,7 @@
     * [指针网络](CaseStudy/PointerNetwork.md)
     * [循环网络](CaseStudy/Recursive.md)
     * [RNN的各种应用](CaseStudy/Applications.md)
-
+    * [Highway Network](CaseStudy/Highway.md)
 * [CV](CV/CV.md)
     * [目标定位](CV/Localization.md)
     * [Landmark Detection](CV/LandmarkDetection.md)
@@ -51,7 +51,51 @@
 * 通用问题
     * [Zero Shot问题](Common/ZeroShot.md)
     * [深度自编码器](Common/AutoEncoder.md)
-    * [Deep Learing VS Structured Learning](Chapter10/Structured.md)
+    * [Deep Learing VS Structured Learning](Common/Structured.md)
+* 生成对抗网络 GAN
+    * [深度生成模型](GAN/Generative.md)
+    * [条件生成对抗网络](GAN/Condition.md)
+    * [非监督条件生成](GAN/unsupervised.md)
+    * [GAN的理论基础](GAN/Thoery.md)
+    * [通用框架](GAN/Framework.md)
+    * [LSGAN](GAN/LSGAN.md)
+    * [WGAN](GAN/WGAN.md)
+    * [Energy-based GAN](GAN/EBGAN.md)
+    * [Info GAN](GAN/Info.md)
+    * [VAE GAN](GAN/VAEGAN.md)
+    * [BiGAN](GAN/BiGAN.md)
+    * [Domain Adversarial Training](GAN/DAT.md)
+    * [照片编辑应用](GAN/Phote.md)
+    * [序列生成的应用](GAN/Sequence.md)
+    * [GAN的估计](GAN/Evaluation.md)
+* 增强学习 RL
+    * [增强学习](RL/Reinforce.md)
+    * Policy Based
+        * [Basic Version](RL/Policy1.md)
+        * [公式改进](RL/Policy2.md)
+        * [off-policy](RL/Policy3.md)
+        * [近端优化策略](RL/Policy4.md)
+    * Value Based
+        * [value function](RL/Value1.md)
+        * [Q-Learning](RL/Value2.md)
+        * [Q-Learning的改进算法](RL/Value3.md)
+    * [Q-Learning Vs Policy Based](RL/Compare.md)
+    * Q-Learning结合Policy Based
+        * [复习](RL/A3C1.md)
+        * [A3C](RL/A3C2.md)
+        * [Pathwise Derivative Policy Gradient](RL/A3C3.md)
+    * [稀疏奖励](RL/Sparse.md)
+    * [模仿学习](RL/Imitation.md)
+* 其它
+    * [异常侦测](1209400866/Anomaly.md)
+        * [case 1：labelled data](1209400866/Labelled.md)
+        * [case 3：polluted unlabelled data](1209400866/Unlabelled.md)
+    * 对抗模型 attack ML models
+        * [攻击](1209400866/Attack.md)
+        * [防御](1209400866/Defense.md)
+    * [模型的可解释性 Explainable ML](1209400866/Explainable.md)
+    * [Life Long Learning](1209400866/LLL.md)
+    * [Meta Learning](1209400866/Meta.md)
 
 
 
