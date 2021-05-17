@@ -46,8 +46,9 @@
     * [情绪分类]((NLP/SentimentClassification.md)
     * [NMT](NLP/2020-11-12-NMT-Summary.md)
 * 语音
-    * [语音辨识](NLP/Speech.md)
-    * [触发字检测](NLP/TriggerWord.md)
+    * [音频预处理](Audio/Preprocess.md)
+    * [语音辨识](Audio/Speech.md)
+    * [触发字检测](Audio/TriggerWord.md)
 * 通用问题
     * [Zero Shot问题](Common/ZeroShot.md)
     * [深度自编码器](Common/AutoEncoder.md)
