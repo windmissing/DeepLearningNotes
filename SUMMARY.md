@@ -27,6 +27,7 @@
         * [三元组损失函数](CV/Face/Triplet.md)
     * [Domain-Adversarial Training](CV/DomainAdversarial.md)
     * [人体姿态估计HPE](CV/HPE/HPE.md)
+        * [DeepPose](CV/HPE/DeepPose.md)
     * 实践
         * [读入VGG16预训练模型](CV/Practice/load_vgg_model.md)
         * [基于预训练模型的图像重构](CV/Practise/ImageReconstruction.md)
