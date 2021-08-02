@@ -1,0 +1,1734 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Deep Learing VS Structured Learning · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="windmissing">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex-plus/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-alerts/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-donate/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-sectionx/sectionx.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-click-reveal/click_reveal.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="AutoEncoder.html" />
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"repo":"windmissing/DeepLearningNotes","types":["star","watch","fork"],"size":"small"};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../2020-04-17-deep-learning-study-path.html">
+            
+                <a href="../2020-04-17-deep-learning-study-path.html">
+            
+                    
+                    DL学习路线
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    Case Study
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../CaseStudy/ClassicNetwork.html">
+            
+                <a href="../CaseStudy/ClassicNetwork.html">
+            
+                    
+                    经典网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../CaseStudy/ResNet.html">
+            
+                <a href="../CaseStudy/ResNet.html">
+            
+                    
+                    残差网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../CaseStudy/SpecialConv.html">
+            
+                <a href="../CaseStudy/SpecialConv.html">
+            
+                    
+                    1*1卷积
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../CaseStudy/Inception.html">
+            
+                <a href="../CaseStudy/Inception.html">
+            
+                    
+                    Inception网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../CaseStudy/Seq2Seq.html">
+            
+                <a href="../CaseStudy/Seq2Seq.html">
+            
+                    
+                    Seq2Seq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../CaseStudy/Attention/Attention.html">
+            
+                <a href="../CaseStudy/Attention/Attention.html">
+            
+                    
+                    注意力模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../CaseStudy/Attention/MemoryNetwork.md">
+            
+                <span>
+            
+                    
+                    Memory Netowrk
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="../CaseStudy/PointerNetwork.html">
+            
+                <a href="../CaseStudy/PointerNetwork.html">
+            
+                    
+                    指针网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="../CaseStudy/Recursive.html">
+            
+                <a href="../CaseStudy/Recursive.html">
+            
+                    
+                    循环网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.10" data-path="../CaseStudy/Applications.html">
+            
+                <a href="../CaseStudy/Applications.html">
+            
+                    
+                    RNN的各种应用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.11" data-path="../CaseStudy/Highway.html">
+            
+                <a href="../CaseStudy/Highway.html">
+            
+                    
+                    Highway Network
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../CV/CV.html">
+            
+                <a href="../CV/CV.html">
+            
+                    
+                    CV
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../CV/Localization.html">
+            
+                <a href="../CV/Localization.html">
+            
+                    
+                    目标定位
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../CV/LandmarkDetection.html">
+            
+                <a href="../CV/LandmarkDetection.html">
+            
+                    
+                    Landmark Detection
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" >
+            
+                <span>
+            
+                    
+                    目标检测
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.3.1" data-path="../CV/Detection/SlidingWindow.html">
+            
+                <a href="../CV/Detection/SlidingWindow.html">
+            
+                    
+                    滑动窗口算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3.2" data-path="../CV/Detection/YOLO.html">
+            
+                <a href="../CV/Detection/YOLO.html">
+            
+                    
+                    YOLO算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3.3" data-path="../CV/Detection/RegionProposal.html">
+            
+                <a href="../CV/Detection/RegionProposal.html">
+            
+                    
+                    候选区域算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../CV/Style.html">
+            
+                <a href="../CV/Style.html">
+            
+                    
+                    风格迁移
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../CV/Face/Face.html">
+            
+                <a href="../CV/Face/Face.html">
+            
+                    
+                    人脸验证与人脸识别
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.5.1" data-path="../CV/Face/Siamese.html">
+            
+                <a href="../CV/Face/Siamese.html">
+            
+                    
+                    Siamese Network
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5.2" data-path="../CV/Face/Triplet.html">
+            
+                <a href="../CV/Face/Triplet.html">
+            
+                    
+                    三元组损失函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../CV/DomainAdversarial.html">
+            
+                <a href="../CV/DomainAdversarial.html">
+            
+                    
+                    Domain-Adversarial Training
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../CV/HPE/HPE.html">
+            
+                <a href="../CV/HPE/HPE.html">
+            
+                    
+                    人体姿态估计HPE
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.7.1" data-path="../CV/HPE/DeepPose.html">
+            
+                <a href="../CV/HPE/DeepPose.html">
+            
+                    
+                    DeepPose
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" >
+            
+                <span>
+            
+                    
+                    实践
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.8.1" data-path="../CV/Practice/load_vgg_model.html">
+            
+                <a href="../CV/Practice/load_vgg_model.html">
+            
+                    
+                    读入VGG16预训练模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8.2" data-path="../CV/Practise/ImageReconstruction.md">
+            
+                <span>
+            
+                    
+                    基于预训练模型的图像重构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8.3" data-path="../CV/Practise/StyleReconstruction.md">
+            
+                <span>
+            
+                    
+                    基于预训练模型的风格重构
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" >
+            
+                <span>
+            
+                    
+                    NLP
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../NLP/LanguageModel.html">
+            
+                <a href="../NLP/LanguageModel.html">
+            
+                    
+                    语言模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" >
+            
+                <span>
+            
+                    
+                    词汇表征
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="../NLP/WordEmbedding/OneHotEmbedding.html">
+            
+                <a href="../NLP/WordEmbedding/OneHotEmbedding.html">
+            
+                    
+                    One-hot Embedding
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="../NLP/WordEmbedding/WordEmbedding.html">
+            
+                <a href="../NLP/WordEmbedding/WordEmbedding.html">
+            
+                    
+                    Word Embedding
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="../NLP/WordEmbedding/ReasonableAnalogies.html">
+            
+                <a href="../NLP/WordEmbedding/ReasonableAnalogies.html">
+            
+                    
+                    类比推理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="../NLP/WordEmbedding/LanguageModel.html">
+            
+                <a href="../NLP/WordEmbedding/LanguageModel.html">
+            
+                    
+                    用语言模型学习Embedding Matrix
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="../NLP/WordEmbedding/Word2Vec.html">
+            
+                <a href="../NLP/WordEmbedding/Word2Vec.html">
+            
+                    
+                    Word2Vec算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="../NLP/WordEmbedding/Skipgrams.html">
+            
+                <a href="../NLP/WordEmbedding/Skipgrams.html">
+            
+                    
+                    skip-grams算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.7" data-path="../NLP/WordEmbedding/NegativeSampling.html">
+            
+                <a href="../NLP/WordEmbedding/NegativeSampling.html">
+            
+                    
+                    负采样算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.8" data-path="../NLP/WordEmbedding/GloVec.html">
+            
+                <a href="../NLP/WordEmbedding/GloVec.html">
+            
+                    
+                    词向量算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.9" data-path="../NLP/Debiasing.md">
+            
+                <span>
+            
+                    
+                    词嵌入除偏
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.10" data-path="../NLP/Embedding.html">
+            
+                <a href="../NLP/Embedding.html">
+            
+                    
+                    Embedding
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../(NLP/SentimentClassification.md">
+            
+                <span>
+            
+                    
+                    情绪分类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../NLP/2020-11-12-NMT-Summary.html">
+            
+                <a href="../NLP/2020-11-12-NMT-Summary.html">
+            
+                    
+                    NMT
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    语音
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../Audio/Preprocess.html">
+            
+                <a href="../Audio/Preprocess.html">
+            
+                    
+                    音频预处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../Audio/Speech.html">
+            
+                <a href="../Audio/Speech.html">
+            
+                    
+                    语音辨识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../Audio/TriggerWord.html">
+            
+                <a href="../Audio/TriggerWord.html">
+            
+                    
+                    触发字检测
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    通用问题
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="ZeroShot.html">
+            
+                <a href="ZeroShot.html">
+            
+                    
+                    Zero Shot问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="AutoEncoder.html">
+            
+                <a href="AutoEncoder.html">
+            
+                    
+                    深度自编码器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7.3" data-path="Structured.html">
+            
+                <a href="Structured.html">
+            
+                    
+                    Deep Learing VS Structured Learning
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" >
+            
+                <span>
+            
+                    
+                    生成对抗网络 GAN
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../GAN/Generative.html">
+            
+                <a href="../GAN/Generative.html">
+            
+                    
+                    深度生成模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../GAN/Condition.html">
+            
+                <a href="../GAN/Condition.html">
+            
+                    
+                    条件生成对抗网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../GAN/unsupervised.html">
+            
+                <a href="../GAN/unsupervised.html">
+            
+                    
+                    非监督条件生成
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../GAN/Thoery.html">
+            
+                <a href="../GAN/Thoery.html">
+            
+                    
+                    GAN的理论基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="../GAN/Framework.html">
+            
+                <a href="../GAN/Framework.html">
+            
+                    
+                    通用框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.6" data-path="../GAN/LSGAN.html">
+            
+                <a href="../GAN/LSGAN.html">
+            
+                    
+                    LSGAN
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.7" data-path="../GAN/WGAN.html">
+            
+                <a href="../GAN/WGAN.html">
+            
+                    
+                    WGAN
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.8" data-path="../GAN/EBGAN.html">
+            
+                <a href="../GAN/EBGAN.html">
+            
+                    
+                    Energy-based GAN
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.9" data-path="../GAN/Info.html">
+            
+                <a href="../GAN/Info.html">
+            
+                    
+                    Info GAN
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.10" data-path="../GAN/VAEGAN.html">
+            
+                <a href="../GAN/VAEGAN.html">
+            
+                    
+                    VAE GAN
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.11" data-path="../GAN/BiGAN.html">
+            
+                <a href="../GAN/BiGAN.html">
+            
+                    
+                    BiGAN
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.12" data-path="../GAN/DAT.html">
+            
+                <a href="../GAN/DAT.html">
+            
+                    
+                    Domain Adversarial Training
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.13" data-path="../GAN/Phote.html">
+            
+                <a href="../GAN/Phote.html">
+            
+                    
+                    照片编辑应用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.14" data-path="../GAN/Sequence.html">
+            
+                <a href="../GAN/Sequence.html">
+            
+                    
+                    序列生成的应用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.15" data-path="../GAN/Evaluation.html">
+            
+                <a href="../GAN/Evaluation.html">
+            
+                    
+                    GAN的估计
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" >
+            
+                <span>
+            
+                    
+                    增强学习 RL
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../RL/Reinforce.html">
+            
+                <a href="../RL/Reinforce.html">
+            
+                    
+                    增强学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" >
+            
+                <span>
+            
+                    
+                    Policy Based
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.2.1" data-path="../RL/Policy1.html">
+            
+                <a href="../RL/Policy1.html">
+            
+                    
+                    Basic Version
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2.2" data-path="../RL/Policy2.html">
+            
+                <a href="../RL/Policy2.html">
+            
+                    
+                    公式改进
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2.3" data-path="../RL/Policy3.html">
+            
+                <a href="../RL/Policy3.html">
+            
+                    
+                    off-policy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2.4" data-path="../RL/Policy4.html">
+            
+                <a href="../RL/Policy4.html">
+            
+                    
+                    近端优化策略
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" >
+            
+                <span>
+            
+                    
+                    Value Based
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.3.1" data-path="../RL/Value1.html">
+            
+                <a href="../RL/Value1.html">
+            
+                    
+                    value function
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.2" data-path="../RL/Value2.html">
+            
+                <a href="../RL/Value2.html">
+            
+                    
+                    Q-Learning
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.3" data-path="../RL/Value3.html">
+            
+                <a href="../RL/Value3.html">
+            
+                    
+                    Q-Learning的改进算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../RL/Compare.html">
+            
+                <a href="../RL/Compare.html">
+            
+                    
+                    Q-Learning Vs Policy Based
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" >
+            
+                <span>
+            
+                    
+                    Q-Learning结合Policy Based
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.5.1" data-path="../RL/A3C1.html">
+            
+                <a href="../RL/A3C1.html">
+            
+                    
+                    复习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5.2" data-path="../RL/A3C2.html">
+            
+                <a href="../RL/A3C2.html">
+            
+                    
+                    A3C
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5.3" data-path="../RL/A3C3.html">
+            
+                <a href="../RL/A3C3.html">
+            
+                    
+                    Pathwise Derivative Policy Gradient
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="../RL/Sparse.html">
+            
+                <a href="../RL/Sparse.html">
+            
+                    
+                    稀疏奖励
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="../RL/Imitation.html">
+            
+                <a href="../RL/Imitation.html">
+            
+                    
+                    模仿学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" >
+            
+                <span>
+            
+                    
+                    其它
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../1209400866/Anomaly.html">
+            
+                <a href="../1209400866/Anomaly.html">
+            
+                    
+                    异常侦测
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="../1209400866/Labelled.html">
+            
+                <a href="../1209400866/Labelled.html">
+            
+                    
+                    case 1：labelled data
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="../1209400866/Unlabelled.html">
+            
+                <a href="../1209400866/Unlabelled.html">
+            
+                    
+                    case 3：polluted unlabelled data
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" >
+            
+                <span>
+            
+                    
+                    对抗模型 attack ML models
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="../1209400866/Attack.html">
+            
+                <a href="../1209400866/Attack.html">
+            
+                    
+                    攻击
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="../1209400866/Defense.html">
+            
+                <a href="../1209400866/Defense.html">
+            
+                    
+                    防御
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../1209400866/Explainable.html">
+            
+                <a href="../1209400866/Explainable.html">
+            
+                    
+                    模型的可解释性 Explainable ML
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../1209400866/LLL.html">
+            
+                <a href="../1209400866/LLL.html">
+            
+                    
+                    Life Long Learning
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="../1209400866/Meta.html">
+            
+                <a href="../1209400866/Meta.html">
+            
+                    
+                    Meta Learning
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Deep Learing VS Structured Learning</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#deep-learing-vs-structured-learning"><b>1. </b>Deep Learing VS Structured Learning</a></li><li><span class="title-icon "></span><a href="#is-structured-learning-practical"><b>2. </b>is structured learning practical</a></li></ul></div><a href="#deep-learing-vs-structured-learning" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="deep-learing-vs-structured-learning"><a name="deep-learing-vs-structured-learning" class="anchor-navigation-ex-anchor" href="#deep-learing-vs-structured-learning"><i class="fa fa-link" aria-hidden="true"></i></a>1. Deep Learing VS Structured Learning</h1>
+<p>Deep Learning&#x662F;&#x6307;RNN&#x3001;LSTM&#x3001;DNN&#x7B49;&#x6280;&#x672F;<br>Structured Learning&#x662F;&#x6307;HMM&#x3001;CRF&#x3001;SVM&#x3001;&#x611F;&#x77E5;&#x673A;&#x7B49;&#x6280;&#x672F;  </p>
+<table>
+<thead>
+<tr>
+<th>Deep Learning</th>
+<th>Structured Learning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x65E0;&#x5411;&#x7684;RNN&#x4E0D;&#x8003;&#x8651;&#x6574;&#x4E2A;&#x5E8F;&#x5217;</td>
+<td>&#x4F7F;&#x7528;viterbi[?]&#xFF0C;&#x9700;&#x8981;&#x8003;&#x8651;&#x6574;&#x4E2A;&#x5E8F;&#x5217;</td>
+</tr>
+<tr>
+<td>&#x96BE;&#x4EE5;&#x8003;&#x8651;label dependency</td>
+<td>&#x53EF;&#x4EE5;&#x7ED3;&#x5408;label dependency</td>
+</tr>
+<tr>
+<td>cost&#x4E0D;&#x80FD;&#x53CD;&#x6620;error</td>
+<td>cost&#x80FD;&#x53CD;&#x5E94;error</td>
+</tr>
+<tr>
+<td>Deep</td>
+<td>Linear</td>
+</tr>
+</tbody>
+</table>
+<p>DL&#x6548;&#x679C;&#x66F4;&#x597D;&#xFF0C;&#x4F46;SL&#x4E5F;&#x5F88;&#x91CD;&#x8981;&#xFF0C;&#x5E38;&#x5E38;&#x5C06;&#x4E24;&#x8005;&#x7ED3;&#x5408;&#xFF0C;&#x80FD;&#x5F97;&#x5230;&#x6BD4;&#x8F83;&#x597D;&#x7684;&#x6548;&#x679C;&#x3002;  </p>
+<p>DL&#x4E0E;SL&#x7ED3;&#x5408;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<ol>
+<li>&#x8BED;&#x97F3;&#x8BC6;&#x522B;&#xFF1A;CNN/LSTM/DNN + HMM<br>HMM&#x516C;&#x5F0F;&#xFF1A;<br><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo><mo>=</mo><mi>P</mi><mo>(</mo><msub><mi>y</mi><mn>1</mn></msub><mi mathvariant="normal">&#x2223;</mi><mi>s</mi><mi>t</mi><mi>a</mi><mi>r</mi><mi>t</mi><mo>)</mo><msubsup><mo>&#x220F;</mo><mrow><mi>l</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>L</mi><mo>&#x2212;</mo><mn>1</mn></mrow></msubsup><mi>P</mi><mo>(</mo><mi>y</mi><mi mathvariant="normal">&#x2223;</mi><mi>l</mi><mo>+</mo><mn>1</mn><mi mathvariant="normal">&#x2223;</mi><msub><mi>y</mi><mi>l</mi></msub><mo>)</mo><mi>P</mi><mo>(</mo><mi>e</mi><mi>n</mi><mi>d</mi><mi mathvariant="normal">&#x2223;</mi><msub><mi>y</mi><mi>L</mi></msub><mo>)</mo><msubsup><mo>&#x220F;</mo><mrow><mi>l</mi><mo>=</mo><mn>1</mn></mrow><mi>L</mi></msubsup><mi>P</mi><mo>(</mo><msub><mi>x</mi><mi>l</mi></msub><mi mathvariant="normal">&#x2223;</mi><msub><mi>y</mi><mi>l</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">
+P(x, y) = P(y_1|start)\prod_{l=1}^{L-1}P(y|l+1|y_l)P(end|y_L)\prod_{l=1}^LP(x_l|y_l)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.8283360000000002em;"></span><span class="strut bottom" style="height:3.1304490000000005em;vertical-align:-1.302113em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mord mathrm">&#x2223;</span><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">t</span><span class="mclose">)</span><span class="mop op-limits"><span class="vlist"><span style="top:1.202113em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span><span class="mrel mtight">=</span><span class="mord mathrm mtight">1</span></span></span></span><span style="top:-0.000005000000000032756em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span><span class="mop op-symbol large-op">&#x220F;</span></span></span><span style="top:-1.250005em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mathit mtight">L</span><span class="mbin mtight">&#x2212;</span><span class="mord mathrm mtight">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mord mathrm">&#x2223;</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mord mathrm">&#x2223;</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit">e</span><span class="mord mathit">n</span><span class="mord mathit">d</span><span class="mord mathrm">&#x2223;</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight">L</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span><span class="mop op-limits"><span class="vlist"><span style="top:1.202113em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span><span class="mrel mtight">=</span><span class="mord mathrm mtight">1</span></span></span></span><span style="top:-0.000005000000000032756em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span><span class="mop op-symbol large-op">&#x220F;</span></span></span><span style="top:-1.250005em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord mathit mtight">L</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mord mathrm">&#x2223;</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span></span></span></span></span></li>
+</ol>
+<p>&#x5C06;HMM&#x5E94;&#x7528;&#x4E8E;&#x8BED;&#x97F3;&#x8BC6;&#x522B;&#xFF0C;&#x90A3;&#x4E48;x&#x4EE3;&#x8868;&#x58F0;&#x97F3;&#x4FE1;&#x53F7;&#xFF0C;y&#x4EE3;&#x8868;&#x8BED;&#x97F3;&#x8FA8;&#x8BC6;&#x7684;&#x7ED3;&#x679C;&#x3002;<br>&#x516C;&#x5F0F;&#x4E2D;&#x7B2C;&#x4E00;&#x4E2A;&#x8FDE;&#x4E58;&#x4EE3;&#x8868;transition&#x90E8;&#x5206;&#x3002;&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#x7531;HMM&#x8BAD;&#x7EC3;&#x3002;<br>&#x7B2C;&#x4E8C;&#x4E2A;&#x8FDE;&#x4E58;&#x4EE3;&#x8868;initial&#x90E8;&#x5206;&#x3002;&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#x7531;DL&#x63D0;&#x4F9B;&#x3002;<br><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><msub><mi>x</mi><mi>l</mi></msub><mi mathvariant="normal">&#x2223;</mi><msub><mi>y</mi><mi>l</mi></msub><mo>)</mo><mo>=</mo><mfrac><mrow><mi>P</mi><mo>(</mo><msub><mi>y</mi><mi>l</mi></msub><mi mathvariant="normal">&#x2223;</mi><msub><mi>x</mi><mi>l</mi></msub><mo>)</mo><mi>P</mi><mo>(</mo><msub><mi>x</mi><mi>l</mi></msub><mo>)</mo></mrow><mrow><mi>P</mi><mo>(</mo><msub><mi>y</mi><mi>l</mi></msub><mo>)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+P(x_l|y_l) = \frac{P(y_l|x_l)P(x_l)}{P(y_l)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.427em;"></span><span class="strut bottom" style="height:2.363em;vertical-align:-0.936em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mord mathrm">&#x2223;</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span></span></span></span><span style="top:-0.2300000000000001em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mord mathrm">&#x2223;</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></span></p>
+<p>&#x516C;&#x5F0F;&#x4E2D;&#xFF0C;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><msub><mi>y</mi><mi>l</mi></msub><mi mathvariant="normal">&#x2223;</mi><msub><mi>x</mi><mi>l</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">P(y_l|x_l)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mord">&#x2223;</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mclose">)</span></span></span></span>&#x7531;DL&#x8BAD;&#x7EC3;&#xFF0C;P(x_l)&#x53EF;&#x4EE5;&#x5FFD;&#x7565;&#xFF0C;&#x56E0;&#x4E3A;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mi>l</mi></msub></mrow><annotation encoding="application/x-tex">x_l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base"><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span></span></span></span>&#x4EE3;&#x8868;&#x8F93;&#x5165;,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><msub><mi>y</mi><mi>l</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">P(y_l)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mclose">)</span></span></span></span>&#x901A;&#x8FC7;&#x7EDF;&#x8BA1;&#x53EF;&#x5F97;&#x3002;  </p>
+<ol>
+<li>semantic tagging&#xFF1A;&#x53CC;&#x5411;LSTM + CRF/Structured SVM
+&#x5148;&#x7528;RNN&#x627E;&#x51FA;feature<br>&#x7531;&#x8FD9;&#x4E9B;feature&#x5B9A;&#x4E49;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>&#x3D5;</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\phi(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit">&#x3D5;</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span><br><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>&#x3D5;</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\phi(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit">&#x3D5;</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span>&#x7528;&#x4E8E;CRF/SVM</li>
+</ol>
+<h1 id="is-structured-learning-practical"><a name="is-structured-learning-practical" class="anchor-navigation-ex-anchor" href="#is-structured-learning-practical"><i class="fa fa-link" aria-hidden="true"></i></a>2. is structured learning practical</h1>
+<p>1:22&apos;12&apos;&apos;&#xFF0C;&#x8FD9;&#x90E8;&#x5206;&#x6CA1;&#x542C;&#x61C2;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="AutoEncoder.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 深度自编码器">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Deep Learing VS Structured Learning","level":"1.7.3","depth":2,"next":{"title":"生成对抗网络 GAN","level":"1.8","depth":1,"ref":"","articles":[{"title":"深度生成模型","level":"1.8.1","depth":2,"path":"GAN/Generative.md","ref":"GAN/Generative.md","articles":[]},{"title":"条件生成对抗网络","level":"1.8.2","depth":2,"path":"GAN/Condition.md","ref":"GAN/Condition.md","articles":[]},{"title":"非监督条件生成","level":"1.8.3","depth":2,"path":"GAN/unsupervised.md","ref":"GAN/unsupervised.md","articles":[]},{"title":"GAN的理论基础","level":"1.8.4","depth":2,"path":"GAN/Thoery.md","ref":"GAN/Thoery.md","articles":[]},{"title":"通用框架","level":"1.8.5","depth":2,"path":"GAN/Framework.md","ref":"GAN/Framework.md","articles":[]},{"title":"LSGAN","level":"1.8.6","depth":2,"path":"GAN/LSGAN.md","ref":"GAN/LSGAN.md","articles":[]},{"title":"WGAN","level":"1.8.7","depth":2,"path":"GAN/WGAN.md","ref":"GAN/WGAN.md","articles":[]},{"title":"Energy-based GAN","level":"1.8.8","depth":2,"path":"GAN/EBGAN.md","ref":"GAN/EBGAN.md","articles":[]},{"title":"Info GAN","level":"1.8.9","depth":2,"path":"GAN/Info.md","ref":"GAN/Info.md","articles":[]},{"title":"VAE GAN","level":"1.8.10","depth":2,"path":"GAN/VAEGAN.md","ref":"GAN/VAEGAN.md","articles":[]},{"title":"BiGAN","level":"1.8.11","depth":2,"path":"GAN/BiGAN.md","ref":"GAN/BiGAN.md","articles":[]},{"title":"Domain Adversarial Training","level":"1.8.12","depth":2,"path":"GAN/DAT.md","ref":"GAN/DAT.md","articles":[]},{"title":"照片编辑应用","level":"1.8.13","depth":2,"path":"GAN/Phote.md","ref":"GAN/Phote.md","articles":[]},{"title":"序列生成的应用","level":"1.8.14","depth":2,"path":"GAN/Sequence.md","ref":"GAN/Sequence.md","articles":[]},{"title":"GAN的估计","level":"1.8.15","depth":2,"path":"GAN/Evaluation.md","ref":"GAN/Evaluation.md","articles":[]}]},"previous":{"title":"深度自编码器","level":"1.7.2","depth":2,"path":"Common/AutoEncoder.md","ref":"Common/AutoEncoder.md","articles":[]},"dir":"ltr"},"config":{"plugins":["katex","katex-plus","alerts","github","github-buttons","splitter","-sharing","sharing-plus","donate","copy-code-button","anchor-navigation-ex","sectionx","click-reveal"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/windmissing/DeepLearningNotes"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"donate":{"alipay":"http://windmissing.github.io/images/2020/alipay.jpg","alipayText":"支付宝打赏","button":"赏","title":"","wechat":"http://windmissing.github.io/images/2020/weixin.jpg","wechatText":"微信打赏"},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"click-reveal":{},"sectionx":{},"highlight":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"katex-plus":{},"alerts":{},"github-buttons":{"repo":"windmissing/DeepLearningNotes","types":["star","watch","fork"],"size":"small"},"copy-code-button":{},"mygitalk":{"clientID":"c2f22d830996a0c3c80e","clientSecret":"6e8e587d8d3f6f5bcb3da83e7401f6aced510fa1","repo":"DeepLearningNotes","owner":"windmissing","admin":["windmissing"],"distractionFreeMode":false},"sharing":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"windmissing","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"3.2.3"},"file":{"path":"Common/Structured.md","mtime":"2021-08-02T03:07:04.485Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-08-02T03:08:20.579Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-alerts/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-donate/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sectionx/sectionx.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-click-reveal/click_reveal.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
