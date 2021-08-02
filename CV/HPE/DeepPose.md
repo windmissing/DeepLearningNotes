@@ -1,12 +1,20 @@
 # 基本信息
 
 2014 CVPR
-地址：https://arxiv.org/abs/1312.4659  
-第一篇将DNN深入HPE的paper。  
+地址：https://arxiv.org/abs/1411.4280  
+将离散热图引入损失函数。  
 
 # 模型
 
 ## First Stage
+
+![](/assets/150.png)  
+
+### 多分辨率部分
+
+X：不同的分辨率的full image  
+
+### 单分辨率部分
 
 X：图像的RGB信息  
 Y：关节的坐标信息  
