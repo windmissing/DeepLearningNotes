@@ -1,0 +1,3027 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Deep Learning Notes</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="Deep Learning Notes - 深度学习笔记">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc-2272f8a0.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-26934014.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-98665cc9.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Deep Learning Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/windmissing/DeepLearningNotes" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="数据集"><a class="header" href="#数据集">数据集</a></h1>
+<p>COCO数据集 - 训练集：<br>链接：https://pan.baidu.com/s/1x4s-AGkQ4hMxTGFZIkIdWw<br>提取码：38n7</p>
+<p>COCO数据集 - 验证集：<br>链接：https://pan.baidu.com/s/1CNxeOz-fhcneLFa2t4-s4Q<br>提取码：xanc</p>
+<p>COCO数据集 - 测试集：<br>链接：https://pan.baidu.com/s/1l-jh7lblStJUybjMkdellg<br>提取码：mm12</p>
+<p>COCO数据集 - annotations:
+链接：https://pan.baidu.com/s/1fM2m5xLBWAvJNyImFaLLBg
+提取码：cdsu</p>
+<p>ILSVRC2012数据集：<br>链接：https://pan.baidu.com/s/1Z8TO54qtrKZYumI8gEiAPg
+提取码：p9q7</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="dl-学习路线"><a href="#dl-学习路线" class="header">DL 学习路线</a></h1>
+<hr>
+<h2 id="layout-post-title--deep-learning自学路线-category-machine-learning-tags-"><a class="header" href="#layout-post-title--deep-learning自学路线-category-machine-learning-tags-">layout: post
+title:  “Deep Learning自学路线”
+category: [Machine Learning]
+tags: []</a></h2>
+<h1 id="入门"><a class="header" href="#入门">入门</a></h1>
+<h2 id="ml基础"><a class="header" href="#ml基础">ML基础</a></h2>
+<p>学习笔记：http://windmissing.github.io/machine%20learning/2019-12/machine-learing-study-path.html
+ML和DL的很多概念是相通的，有一定的ML基础对学习DL是有帮助的。</p>
+<h2 id="数学基础"><a class="header" href="#数学基础">数学基础</a></h2>
+<p>材料：《深度学习》 第一部分 应用数学与机器学习基础<br>作者：深度学习的三大开山鼻祖之一Yoshua Bengio<br>资源链接：https://pan.baidu.com/s/1GmmbqFewyCuEA7blXNC-7g 密码：6qqm<br>学习笔记：https://windmising.gitbook.io/mathematics-basic-for-ml/</p>
+<!-- more -->
+<h2 id="dl入门"><a class="header" href="#dl入门">DL入门</a></h2>
+<p>材料：Neural Networks and Deep Learning<br>作者：Hinton<br>资料链接：http://neuralnetworksanddeeplearning.com/index.html<br>学习笔记：https://windmising.gitbook.io/nielsen-nndl/<br>这是个英文材料，我一开始是拒绝的。但是因为没有找到很好的中文入门材料，只好去看了。看完这个材料的第一段，就对它路转粉。<br>虽然是英文材料，但是语言非常有亲和力，让人感觉看得很舒服，完全没有语言的隔阂感。<br>内容方面是“深入浅出”的典范。它非常浅湿，以致于其它书上都不屑于浪费笔墨的东西，它都认真地解释了一遍。它又非常很深度，有许多作者的思考和经验在里面。<br>对于完全没有DL的基础的同学，一定不要错过这个材料。</p>
+<h1 id="初级"><a class="header" href="#初级">初级</a></h1>
+<h2 id="理论"><a class="header" href="#理论">理论</a></h2>
+<p>材料：《深度学习》第二部分 深度网络：现代实践<br>中文资源链接：https://pan.baidu.com/s/1GmmbqFewyCuEA7blXNC-7g 密码：6qqm<br>英文资源链接：http://www.deeplearningbook.org
+学习笔记：https://windmissing.github.io/Bible-DeepLearning/<br>DL的经典材料。不要被这本书吓到了。其实这本书讲的内容还是比较直白的。只是涉及的内容太广，术语太多，用语太专业，让人看得比较费力。也正因为这些特点，被我拿来当入门材料，把DL的各个方面、各种术语混个眼熟。</p>
+<p>材料：《李宏毅机器学习中文课程》、《机器学习及其深层结构化》<br>作者：李宏毅<br>资料链接：<br>https://www.bilibili.com/video/av9770190/?from=search&amp;seid=17240241049019116161<br>https://www.bilibili.com/video/av9770302/?from=search&amp;seid=9981051227372686627
+学习笔记：跟《深度学习》的笔记记到一起了。<br>李宏毅老师的课程绝对走心。上课经验丰富。只知道怎么学生学习时的痛点在哪。知道怎么讲更容易让学生听懂。也知道学生听完后经常会问什么问题。<br>这两套视频课程非常多，看完需要耐心。我是挑着看的。以《深度学习》为主，这两套视频作为补充。</p>
+<h2 id="实践"><a class="header" href="#实践">实践</a></h2>
+<p>材料：pytorch中文手册<br>link：https://pytorch-cn.readthedocs.io/zh/latest/</p>
+<p>材料：深度学习工程师<br>作者：Ag<br>链接：网易云课堂<br>适合有一定理论基础。</p>
+<p>编程笔记：https://windmissing.github.io/programming_basics_for_ML/<br>实践笔记：https://github.com/windmissing/DeepLearningPractise<br>我自己把《深度学习》中的一些算法用pytorch实现了一下，其实就是调库，看看效果。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>如何定义CNN的超参数
+答：尽量不要自己设置超参数，而是查看文献中别人采用了哪些超参数。以前是一些经典的模型。</p>
+<p><img src="/assets/9.png" alt=""></p>
+<p>Input层和Pool层没有参数，大部分参数在FC层。<br>Activation Size越来越小，如果下降太快可能会影响网络性能。</p>
+<h1 id="lenet-5"><a class="header" href="#lenet-5">LeNet-5</a></h1>
+<p>论文：LeGun et at., 1998. Gradient-based learning applies to document recognition section II<br><img src="/assets/10.png" alt=""></p>
+<ol>
+<li>W减小，H减小，C增大。</li>
+<li>CONV -&gt; POOL -&gt; CONV -&gt; POOL -&gt; FC -&gt; FC -&gt; output，经典结构</li>
+<li>使用sigmoid/tanh — 废弃</li>
+<li>使用复杂的计算来处理POOL中的通道 — 当时性能限制，废弃</li>
+<li>池化使用了非线性函数 — 废弃</li>
+</ol>
+<h1 id="alexnet"><a class="header" href="#alexnet">AlexNet</a></h1>
+<p>论文：Krizhevsky et al., 2012. Image Net classification with deep convolutional neural networks<br><img src="/assets/11.png" alt=""></p>
+<ol>
+<li>特征数量大。</li>
+<li>能处理非常相似的基本模型。</li>
+<li>使用ReLU</li>
+<li>多GPU</li>
+<li>局部响应归一化 — 不常用</li>
+</ol>
+<h1 id="vgg--16"><a class="header" href="#vgg--16">VGG- 16</a></h1>
+<ol>
+<li>相对一致的结构</li>
+<li>特征数量非常大</li>
+</ol>
+<p><img src="/assets/148.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>He et.al., 2015. Deep residual networks for image recognitisn</p>
+<h1 id="什么是残差网络"><a class="header" href="#什么是残差网络">什么是残差网络</a></h1>
+<h2 id="residual-block"><a class="header" href="#residual-block">Residual Block</a></h2>
+<p>正常的网络层是这样的：<br><img src="/assets/12.png" alt=""></p>
+<p>$$
+\begin{aligned}
+z^{[l+1]} = W^{[l+1]}a^{[l]} + b^{[l]}  \
+a^{[l+1]} = g(z^{[l+1]})  \
+z^{[l+2]} = W^{[l+2]}a^{[l+1]} + b^{[l+1]}  \
+a^{[l+2]} = g(z^{[l+2]})
+\end{aligned}
+$$</p>
+<p>残差块是这样的：<br><img src="/assets/13.png" alt=""><br>图中黑色的线称为main path，绿色的线称为short cut/skip connection。<br>公式的变化体现在最后一行:</p>
+<p>$$
+\begin{aligned}
+z^{[l+1]} = W^{[l+1]}a^{[l]} + b^{[l]}  \
+a^{[l+1]} = g(z^{[l+1]})  \
+z^{[l+2]} = W^{[l+2]}a^{[l+1]} + b^{[l+1]}  \
+a^{[l+2]} = g(z^{[l+2]} + a^{[l]})
+\end{aligned}
+$$</p>
+<p>残差块使网络可以更深。网络深度与训练集性能的关系：<br><img src="/assets/14.png" alt=""></p>
+<h2 id="residual-network"><a class="header" href="#residual-network">Residual Network</a></h2>
+<p><img src="/assets/2.png" alt=""></p>
+<h1 id="为什么残差网络有用"><a class="header" href="#为什么残差网络有用">为什么残差网络有用？</a></h1>
+<p>$$
+\begin{aligned}
+a^{l+2} &amp;=&amp; g(z^{l+2} + a^l) \
+&amp;=&amp;g(W^{l+2}a^{l+1} + b^{l+2} + a^l)  &amp;&amp; (1) \
+&amp;=&amp; g(a^l) &amp;&amp; (2) \
+&amp;=&amp; a^{l}  &amp;&amp; (3)
+\end{aligned}
+$$</p>
+<p>(1) 由于L2 正则化的影响,W会shrink,假设此时W=0<br>(2) 假设g使用ReLU
+(3) 根据以上公式$a^{L+2}$可以很容易地得到与a^l相同的结果。（性能不变）。因此在一个深的NN上增加一个residual block，至少不会对性能有坏处。<br>运气好的话，a^{l+2}能得到比$a^l$好的结果。（性能提升）</p>
+<h1 id="其它"><a class="header" href="#其它">其它</a></h1>
+<p>因为$a^{l+2} = g(z^{l+2} + a^l)$使用残差块用的跳跃连接，要求使用same卷积。使$a^l$与z^{l+2}有相同的维度。<br>或者将$a^l$映射到$z^{l+2}$的大小：</p>
+<p>$$
+a^{l+2} = g(z^{l+2} + Wa^l)
+$$</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>Lin. et. al., 2013. Network in network</p>
+<h1 id="什么是11卷积"><a class="header" href="#什么是11卷积">什么是1*1卷积</a></h1>
+<p>单通道场景中，1 * 1卷积看上去没什么用，相当于所有像素值乘以一个实数。<br>多通道场景中，1 * 1卷积是有用的。相当于对一个像素在所有通道上的点做一次全连接的计算，即一个像素在所有通道上的点与kernal做点乘，得到一个值。<br><img src="/assets/15.png" alt=""><br>1 * 1卷积又叫network in network</p>
+<h1 id="应用"><a class="header" href="#应用">应用</a></h1>
+<p>（1）改变通道数</p>
+<p>在不改变图像大小的情况下改变通道数。
+例如：</p>
+<p>$$
+28\times 28\times 192 * 32\text{个} 1\times 1\times 192 \rightarrow 28\times 28\times 32
+$$</p>
+<p>通过减少通道数减少计算量</p>
+<p>（2）非线性变换</p>
+<p>即使不改变通道数，可以用这种1 * 1卷积。相当于对原始数据做了一次非线性变换，使得可以学习更复杂的特征。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>Szegedy. et. al., 2014. Going deeper with convolutions</p>
+<p>Inception网络代替人工来确定卷积层中的过滤类型。或是决定是否需要创建卷积层或池化层。</p>
+<h1 id="inception网络的原理"><a class="header" href="#inception网络的原理">Inception网络的原理</a></h1>
+<h2 id="多种参数的组合"><a class="header" href="#多种参数的组合">多种参数的组合</a></h2>
+<p><img src="/assets/16.png" alt=""><br>Inception网络不需要人为地决定使用哪个过滤器，或是否需要池化，而是由网络自行确定这些参数。<br>即：给网络添加这些参数的所有可能，然后把这些输出连结起来，让网络自己学习它需要怎样的参数，采用哪些过滤器的组合。</p>
+<h2 id="使用11卷积降低计算成本"><a class="header" href="#使用11卷积降低计算成本">使用1*1卷积降低计算成本</a></h2>
+<h3 id="未降低的计算成本"><a class="header" href="#未降低的计算成本">未降低的计算成本</a></h3>
+<p>例如： $28\times 28 \times 192$，使用相同卷积，f=5,c=32，得到$28\times 28\times 32$，计算量（不是参数个数）为：<br>output中的点的个数 = 28 * 28 * 32<br>每个点计算一次filter = 5 * 5 * 192<br>一共需要约120M次乘法</p>
+<h3 id="改进的计算成本"><a class="header" href="#改进的计算成本">改进的计算成本</a></h3>
+<p>$28\times 28 \times 192$，使用1*1卷积，c=16，得到$28\times 28\times 16$<br>$28\times 28 \times 16$，使用相同卷积，f=5,c=32，得到$28\times 28\times 32$<br>第一次卷积的计算量约为$28 \times 28 \times 16 \times 192 = 2.4M$，第二次卷积的计算量约为$28\times 28 \times 32 \times 5 \times 5 \times 16 = 10.0M$。<br>最后实现同的目标，这种方法只需要约12.4M次，为原来的十分之一。</p>
+<p>例子中的$28\times 28\times 16$称为瓶颈层。<br>只要合理构建瓶颈层，既可以显著缩小表示层规模，又不会降低网络性能，从而节省大量计算。</p>
+<h2 id="inception模块"><a class="header" href="#inception模块">Inception模块</a></h2>
+<p><img src="/assets/17.png" alt=""></p>
+<p>图中2、3、4行的1*1卷积是为了通过构建瓶颈层缩小网络规模。</p>
+<h1 id="inception网络"><a class="header" href="#inception网络">Inception网络</a></h1>
+<p><img src="/assets/18.png" alt=""><br>图中画红圈的都是Inception模块。<br>画绿圈的部分为基于隐藏层结果的输出。<br>多个输出是为了确保：隐藏层既用于特征计算，也用于预测结果。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="seq2seq"><a class="header" href="#seq2seq">Seq2Seq</a></h1>
+<p>Seq2Seq与Language Model都可以用于生成字符串，它们的区别是：LM是随机生成字符串，Seq2Seq是条件生成字符串。<br><img src="/assets/53.png" alt=""></p>
+<h2 id="neural-translation"><a class="header" href="#neural-translation">Neural Translation</a></h2>
+<p>Sutskever el. at., 2014. Sequence to sequence learning with neural networks<br>Cho et. al., 2014. Learning phrase representations using RNN encoder-decoder for statistical machine translation<br><img src="/assets/51.png" alt=""></p>
+<h2 id="image-captioning"><a class="header" href="#image-captioning">Image Captioning</a></h2>
+<p>Mao et. al., 2014 Deep Captioning with nultimodal returrent neural netowrks<br>Vinyals et al., 2014. Show and tell: Neural image caption generator<br>Kelvin Xu. al., 2015. Show, Attend and Tell: Neural Image Cpation Generation With Visual Attention</p>
+<p>根据图像生成描述：AlexNet + Decoder<br><img src="/assets/52.png" alt=""></p>
+<h1 id="翻译模型"><a class="header" href="#翻译模型">翻译模型</a></h1>
+<h2 id="同一句输入可能得到不同的输出怎么找到最好的输出"><a class="header" href="#同一句输入可能得到不同的输出怎么找到最好的输出">同一句输入可能得到不同的输出，怎么找到最好的输出？</a></h2>
+<p>已知$p(y) = P(y^t|x, y^1, y^2, \cdots, y^{t-1})$
+即怎么找到$y = (y^1, y^2, \cdots, y^{T_y})$，使得P(y|x)最大？</p>
+<h3 id="贪心搜索-greedy-search"><a class="header" href="#贪心搜索-greedy-search">贪心搜索 greedy search</a></h3>
+<p>每个时刻t都选择t时刻p(y)最大的y，直至输出 <code>&lt;EOS&gt;</code><br>缺点：每一步都选择概率最高的y，但最后句子的整体概率不一定是最高的。<br>例如：<br>Jane is visiting Africa in September.<br>Jane is going to visit Africa in September.<br>英语中going比visiting常见，因此P(Jane is visiting|x) &lt; P(Jane is going)，最后会得到第二句。<br>实际上整个句子来说，第一句比第二句好。</p>
+<h3 id="束搜索定义搜索-beam-search"><a class="header" href="#束搜索定义搜索-beam-search">束搜索/定义搜索 beam search</a></h3>
+<ol>
+<li>根据$P(y^1|x)$选择最好的B个y1<br><img src="/assets/images/Chapter10/54.png" alt=""></li>
+<li>对每个y1分别计算它与各种y2组合的概率。并找出其中概率最高的B组y1, y2<br><img src="/assets/images/Chapter10/55.png" alt=""></li>
+<li>对B个y1y2串，用同样的方法找出B个概率最高的y1y2y3。</li>
+<li>直至最后得到了 <code>&lt;EOS&gt;</code>。</li>
+</ol>
+<p>当B=1时，beam search = greedy search<br>B大，则生成的句子可能更好，但计算代价更大。B小则反之。<br>产品中经常使用B=10。<br>在比赛或论文中，可能出现B=1000，3000等值，以得到更好的成绩。</p>
+<p>BFS、DFS是精确搜索算法。<br>beam search是近似搜索算法/启发式搜索算法。</p>
+<h2 id="beam-search的问题与改进"><a class="header" href="#beam-search的问题与改进">beam search的问题与改进</a></h2>
+<ol>
+<li>公式出现的$p(y) = P(y^t|x, y^1, y^2, \cdots, y^{t-1})$、P(y|x)等都是概率值，且值很少，对它们做连乘容易出现下溢。<br>解决方法：P -&gt; log P</li>
+<li>句子概率 = 每个单词概率的乘积，并选择概率最大的句子。这样长句子肯定没优势，算法会倾向于选择较短的句子。<br>解决方法：log P -&gt; $\frac{1}{T_y}\log P$</li>
+</ol>
+<h2 id="beam-search的debug"><a class="header" href="#beam-search的debug">beam search的debug</a></h2>
+<p>例子：某一句的翻译<br>人工翻译：y = Jane visits Africa in September.<br>机器翻译：$\hat y$ = Jane visited Africa last September.
+机器翻译改变了愿意，认为翻译得很差。</p>
+<p>Debug:
+model由RNN(encoder + decoder)和beam search两部分组成</p>
+<p>分别计算$P(y|x)$和$P(\hat y|x)$<br>如果$P(y|x) &gt; P(\hat y|x)$，则认为beam search不对。<br>如果$P(y|x) &lt; P(\hat y|x)$，则认为RNN不对。</p>
+<h1 id="评价翻译结果---bleu"><a class="header" href="#评价翻译结果---bleu">评价翻译结果 - Bleu</a></h1>
+<p>Bleu = bilingual evaluation understudy = 双语评估替补<br>目的：当生成的字符串可以有多个答案时，评价生成字符串的好坏。</p>
+<p>例如评价一个翻译句子的好坏。</p>
+<p>Bleu Score用于各种文本生成的模型，但不用于语音识别。因为语音识别只有一个正确答案。</p>
+<h2 id="定义"><a class="header" href="#定义">定义</a></h2>
+<ol>
+<li>句子正确翻译为reference：<br>reference 1: The cat is on the mat.
+reference 2：There is a cat on the mat.</li>
+<li>定义机器翻译结果为MT output：<br>MT output: The cat the cat on the mat.</li>
+<li>定义n-gram为连续n个单词组成的一个短语。<br>Bleu算法不考虑大小写，因此在本例中，<br>1-gram有：the, cat, on, mat<br>2-gram有：the cat, cat the, cat on, on the, the mat</li>
+<li>定义Count(n-gram)为n-gram在MT output中出现的次数。CountClip(n-gram)为n-gram在所有reference中出现最多的次数。<br>在本例中Count(n-gram)和CountClip(n-gram)分别为：</li>
+</ol>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>n-gram</th><th>Count(n-gram)</th><th>CountClip(n-gram)</th></tr>
+</thead>
+<tbody>
+<tr><td>the</td><td>3</td><td>max(2, 1)=2</td></tr>
+<tr><td>cat</td><td>2</td><td>max(1,1)=1</td></tr>
+<tr><td>on</td><td>1</td><td>1</td></tr>
+<tr><td>mat</td><td>1</td><td>1</td></tr>
+<tr><td>the cat</td><td>2</td><td>1</td></tr>
+<tr><td>cat the</td><td>1</td><td>0</td></tr>
+<tr><td>cat on</td><td>1</td><td>1</td></tr>
+<tr><td>on the</td><td>1</td><td>1</td></tr>
+<tr><td>the mat</td><td>1</td><td>1</td></tr>
+</tbody>
+</table>
+</div>
+<ol start="5">
+<li>定义$P_n$为n-gram的precision<br>$$
+P_n = \frac{\sum_{\text{n-gram}\in \hat y}(\text{CountClip}(\text{n-gram}))}{\sum_{\text{n-gram}\in \hat y}(\text{Count}(\text{n-gram}))}
+$$</li>
+</ol>
+<p>例如在本例中，<br>$$
+\begin{aligned}
+P_1 = \frac{2+1+1+1}{3+2+1+1} = \frac{5}{7} \
+P_2 = \frac{1+0+1+1+1}{2+1+1+1+1} = \frac{4}{6}
+\end{aligned}
+$$</p>
+<ol start="6">
+<li>定义Bleu Score<br>以上求出来的各种n-gram的precision。需要用一个数值来代表所有的Pn。<br>$$
+P = \text{BP} * \exp(\frac{1}{n}\sum_n P_n)
+$$</li>
+</ol>
+<p>由于根据Pn公式，MT ouput短时更容易得高分。因此通过增加BP来调整。<br>BP = brevity penalty<br>$$
+BP =
+\begin{cases}
+1, &amp;&amp; \text{MT length} &lt; \text{reference length} \
+\exp(\frac{1 - \text{MT length}}{\text{reference length}}), &amp;&amp; \text{otherwise}
+\end{cases}
+$$</p>
+<p>BLEU是一个比较好的用单一实数来评价NMT的方法。加速了整个NMT领域的进程。也可以用于评价其它文件生成的结果。不用于语音，因为语音通常只有一个答案。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="seq2seq模型存在的问题"><a class="header" href="#seq2seq模型存在的问题">Seq2Seq模型存在的问题</a></h1>
+<p><img src="/assets/56.png" alt=""><br>先输入整个原文序列，再输出整个翻译序列。<br>事实上，如果原文序列很长，一次性记住全部内容是困难的。因此导致翻译结果不好。<br>改进方法：attention based模型，一次读入一部分，根据部分信息提供输出，然后再读入一些信息。</p>
+<p>Bahdanau et, al., 2014 Neural machine translation by jointly learning to align and translate</p>
+<h1 id="注意力模型的结构"><a class="header" href="#注意力模型的结构">注意力模型的结构</a></h1>
+<h2 id="encoder"><a class="header" href="#encoder">encoder</a></h2>
+<p>使用双向RNN来计算每个单词的特征。双向RNN的unit可以是GRU或LSTM或其它类型的Unit。<br>每个单词通过双向RNN会得到2个activition，分别定义为<code>\overrightarrow{a^t}</code>和<code>\overleftarrow{a^t}</code>。并用一个符号来表现这两个activation。</p>
+<pre><code>a^t = (\overrightarrow{a^t}, \overleftarrow{a^t})
+</code></pre>
+<p><img src="/assets/57.png" alt=""></p>
+<h2 id="decoder"><a class="header" href="#decoder">decoder</a></h2>
+<p>decoder部分的结构和翻译模型是基本上一样的。
+<img src="/assets/58.png" alt=""><br>decoder使用某个context作为输入，context用向量C表示，是一个与encoder中的activation有关的向量。</p>
+<h2 id="注意力权重"><a class="header" href="#注意力权重">注意力权重</a></h2>
+<p>关键在于怎样连接encoder与decoder。翻译模型使用顺序连接，先encoder，再decoder。<br>注意力模型使用注意力权重将encoder的activation和decoder的context联系到一起。<br><img src="/assets/59.png" alt=""><br>定义注意力权重$\alpha^{t1,t2}$为：<strong>当生成y的第t1个单词时，对原文第t2个词的注意力应该是多少？</strong><br>$$
+\begin{aligned}
+\sum_{t2}\alpha^{t1,t2} = 1   \
+C^{t1} = \sum_{t2}\alpha^{t1, t2} a^{t2}
+\end{aligned}
+$$</p>
+<h1 id="注意力模型的计算过程"><a class="header" href="#注意力模型的计算过程">注意力模型的计算过程</a></h1>
+<p><strong>注意$a$和$\alpha$的区别。</strong><br>由于输入序列和输出序列是两个不同的序列，分别用于t1、t2表示输出序列和输入序列的时间步。<br>整体计算过程为：<br>$$
+x \rightarrow a \rightarrow e \rightarrow \alpha \rightarrow C \rightarrow s \rightarrow y
+$$</p>
+<p><img src="/assets/60.png" alt=""></p>
+<h2 id="x-rightarrow-a"><a class="header" href="#x-rightarrow-a">$x \rightarrow a$</a></h2>
+<p>Encoder</p>
+<h2 id="a-rightarrow-e"><a class="header" href="#a-rightarrow-e">$a \rightarrow e$</a></h2>
+<p>根据t2时间步的Encoder输出和t1-1时间步的Decoder中间状态，计算出t1时间对t2时间的注意力。<br>可以看作是嵌入了一个简单的网络。</p>
+<h2 id="e-rightarrow-alpha"><a class="header" href="#e-rightarrow-alpha">$e \rightarrow \alpha$</a></h2>
+<p>以及t2为维度为e作为归一化，使得归一伦后$\sum_{t2}\alpha^{t1,t2} = 1 $<br>$$
+\alpha^{t1,t2} = \frac{\exp(e^{t1,t2})}{\sum_{t2}\exp(e^{t1,t2})}
+$$</p>
+<h2 id="alpha-rightarrow-c"><a class="header" href="#alpha-rightarrow-c">$\alpha \rightarrow C$</a></h2>
+<p>根据归一化后的注意力权重计算Decoder的输入。<br>$$
+\begin{aligned}
+C^{t1} = \sum_{t2}\alpha^{t1, t2} a^{t2}
+\end{aligned}
+$$</p>
+<h2 id="c-rightarrow-s"><a class="header" href="#c-rightarrow-s">$C \rightarrow s$</a></h2>
+<p>Decoder</p>
+<h2 id="s-rightarrow-y"><a class="header" href="#s-rightarrow-y">$s \rightarrow y$</a></h2>
+<p>输出</p>
+<h1 id="时间复杂度"><a class="header" href="#时间复杂度">时间复杂度</a></h1>
+<p>注意力模型的时间复杂度为$O(n^3)$，复杂度有点高。<br>由于机器翻译的输入、输出通常不是会太，因此$O(n^3)$也是可以接受的。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="任务描述"><a class="header" href="#任务描述">任务描述</a></h1>
+<p>根据Ducument和Query生成Answer<br>Answer是提前定义好的, 要从这些答案中选择一个正确答案.<br>这是一个多分类问题</p>
+<h1 id="模型"><a class="header" href="#模型">模型</a></h1>
+<p>Sainbayar ukhbaatar, 2015, End-to-End Momery Network</p>
+<p>利用attention机制, 用较少的参数,训练出较好的效果.</p>
+<p><img src="/assets/89.png" alt=""></p>
+<h1 id="过程"><a class="header" href="#过程">过程</a></h1>
+<ol>
+<li>把Document中的每个句子转成一个bag of word向量，N个句子得到N个高维向量</li>
+<li>降维，N个高维向量通过乘以一个矩阵得到N个低维向量x, 矩阵的内容是迭代学习得到的.</li>
+<li>将Query转成向量q</li>
+<li>计算q与x的match score，每个x对应一个score，定义为$\alpha$, match score为x与q的余弦相似度</li>
+<li>根据$\alpha$对x做加权求和$\sum_i\alpha_i x_i$</li>
+<li>5的结果和q一起进入一个DNN</li>
+<li>由DNN产生answer</li>
+</ol>
+<h1 id="attention-based-model进阶版"><a class="header" href="#attention-based-model进阶版">Attention-based Model进阶版</a></h1>
+<p>Sentence to vector can be jointly trained.<br><img src="/assets/90.png" alt=""></p>
+<h2 id="改进1"><a class="header" href="#改进1">改进1</a></h2>
+<p>Document产生2个向量，分别是x和h。<br>第4步使用x计算match score，用于决定从哪些向量抽取信息。<br>第5步使用h生成最终被抽取的信息。$\sum_i\alpha_i h_i$</p>
+<h2 id="改进2-hopping"><a class="header" href="#改进2-hopping">改进2 hopping</a></h2>
+<p>根据当前的结果生Extracted Information生成新的问题向量q<br>q = q + Extracted Information
+基于新的q再计算答案</p>
+<p>hopping可以做多次，hopping的次数可以是人为决定，也可以Machine自己决定ReasoNet。</p>
+<h2 id="改进3"><a class="header" href="#改进3">改进3</a></h2>
+<p>Answer只由Extracted Information决定，q不进入DNN</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="背景"><a class="header" href="#背景">背景</a></h1>
+<p>假设有这样一个闭包问题,要求输入所有的点,输出这组点的闭包点的顺时针序列.<br><img src="/assets/77.png" alt=""><br>这是一个Seq2Seq问题,但是用普通的Seq2Seq模型来做,存在这样一个问题.decoder部分是根据概率从一个集合中sample一个点作为输出.在这个问题中,集合就是输入的点集.但输入的点集是不是确定的,可能是50个点,也可能是100个点.因此无法训练decoder.</p>
+<h1 id="模型-1"><a class="header" href="#模型-1">模型</a></h1>
+<p>解决方法:<br>在attention上做一些改进,让network动态地决定输出的set有多大.<br>具体方法为:去掉decoder,直接基于attention的结果作为输出.<br><img src="/assets/78.png" alt=""><br><img src="/assets/79.png" alt=""></p>
+<h1 id="应用-1"><a class="header" href="#应用-1">应用</a></h1>
+<ol>
+<li>
+<p>Summarization，相当于取出原文中的重要的词<br>原文中有些没见过的人名, 地名,在普通的Seq2Seq模型中无法处理这些人名地名. PointerNetwork可以直接从原文中抽取重要的词组成句子.<br><img src="/assets/80.png" alt=""><br>在网络中同时存在Seq2Seq attention和Pointer Network.并增加一个结点Pgen,用于决定这两条路的weight. 基于weight结合这两条路的结果.</p>
+</li>
+<li>
+<p>翻译</p>
+</li>
+</ol>
+<p>有些人名、地名不需要翻译，使用pointer Network机制从原文中拿出单词直接贴到output中<br><img src="/assets/81.png" alt=""></p>
+<ol start="3">
+<li>Chat-Bot</li>
+</ol>
+<p>直接从input中copy关键词放到output中<br><img src="/assets/82.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="recursive-network的结构"><a class="header" href="#recursive-network的结构">Recursive Network的结构</a></h1>
+<h2 id="recurrent-network-vs-recursive-network"><a class="header" href="#recurrent-network-vs-recursive-network">Recurrent Network VS Recursive Network</a></h2>
+<p>以情绪分类任务为例来说明Recurrent Network和Recursive Network的区别:<br><img src="/assets/83.png" alt=""><br>从图上看,把它称为递归网络更合适.<br>Note: x和h的维度必须相同.</p>
+<h2 id="recursive-network中的f定义如下"><a class="header" href="#recursive-network中的f定义如下">Recursive Network中的f定义如下：</a></h2>
+<h3 id="定义一"><a class="header" href="#定义一">定义一:</a></h3>
+<p><img src="/assets/84.png" alt=""></p>
+<h3 id="定义二-matrix-vector-recursive-network"><a class="header" href="#定义二-matrix-vector-recursive-network">定义二: Matrix-Vector Recursive Network</a></h3>
+<p>结构复杂但效果不好<br>把向量分为2部分,前面代表单词本身的含义,后面代表对其它单词的影响.<br><img src="/assets/85.png" alt=""><br>过程解释:<br>a被B影响得到一个结果, b被A影响得到另一个结果.两个结果合在一起,代表新向量的内容.<br>A和B结合在一起,代表新向量的影响力.</p>
+<p>问: 设计f时,为什么认为向量的前面代表单词本身的含义,后面代表对其它单词的影响?<br>答: 不是因为向量有这样的含义所以这样设计网络.而是因为这样设计网络,训练的结构导致向量有这样的含义.</p>
+<h3 id="定义三-tree-lstm"><a class="header" href="#定义三-tree-lstm">定义三: Tree LSTM</a></h3>
+<p><img src="/assets/86.png" alt=""></p>
+<h1 id="recursive-network的应用"><a class="header" href="#recursive-network的应用">Recursive Network的应用</a></h1>
+<h2 id="sentence-relatedness"><a class="header" href="#sentence-relatedness">sentence relatedness</a></h2>
+<p><img src="/assets/87.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="rnn的其它应用"><a class="header" href="#rnn的其它应用">RNN的其它应用</a></h1>
+<p><img src="/assets/112.png" alt=""><br>(1)Many to Many问题，且Tx = Ty<br><img src="/assets/113.png" alt=""><br>(2)Many to One问题，文本分类<br><img src="/assets/114.png" alt=""><br>（3）One to Many问题，如Music生成<br><img src="/assets/115.png" alt=""><br>（4）Many to Many问题，且Tx &lt;&gt; Ty，例如机器翻译<br><img src="/assets/116.png" alt=""><br>总结：<br><img src="/assets/117.png" alt=""></p>
+<h2 id="many-to-one"><a class="header" href="#many-to-one">many to one</a></h2>
+<p>输入 vector sequence，输出：one vector<br>例如：<br>文件的情绪分析<br><img src="/assets/118.png" alt=""></p>
+<p>文本的关键词，30’00’’<br><img src="/assets/119.png" alt=""></p>
+<h2 id="many-to-manyoutput-is-shorter"><a class="header" href="#many-to-manyoutput-is-shorter">many to many，output is shorter</a></h2>
+<p>输入输出都是vector sequence，输出的sequence更短。<br>例如：语音辨识，输入声音信号，输出字符序列</p>
+<ol>
+<li>将声音信号切成小段，每段不超过0.01s</li>
+<li>把每一小段声音转成一个向量。</li>
+<li>根据每个向量输出一个字符。</li>
+<li>通常好个向量输出同一个字符，需要把重复的字符去掉。<br><img src="/assets/120.png" alt=""><br>由于输入和输出的长度不同，不管训练还是预测，都会遇到一个问题。<br>训练时，多个向量输出同一个字符，如果把多余的字符去掉，但不会误伤叠词。<br>解决方法：增加一个为空的字符，只把为空的字符去掉。<br>预测时，某个向量的输出是真实字符还是空字符？<br>解决方法：CTC training，即穷举所有正确的可能。
+<img src="/assets/121.png" alt=""></li>
+</ol>
+<h2 id="many-to-many-no-limitation"><a class="header" href="#many-to-many-no-limitation">many to many, no limitation</a></h2>
+<p>输入和输出都是序列，不知道序列的长短。<br>应用1：语言翻译<br>训练方法：</p>
+<ol>
+<li>每输入一个英文单词，输出一个中文字符。</li>
+<li>英文序列停止了，但中文序列继续输出。</li>
+<li>在中文字符中增加一个停止字符。</li>
+<li>当输出为停止字符时，停止输出。<br><img src="/assets/122.png" alt=""><br><img src="/assets/123.png" alt=""></li>
+</ol>
+<p>应用2：语言A的声音信号 -&gt; 语言B的文字<br>不需要经过A的文字作为中间转换。<br>用于语言A没有对应的文字的场景。</p>
+<h2 id="beyond-sequence"><a class="header" href="#beyond-sequence">Beyond Sequence</a></h2>
+<p>应用：句法分析树<br>输入：序列<br>输出：语言结构树<br>使用seq2seq，而不是struct learning<br><img src="/assets/124.png" alt=""></p>
+<h2 id="sequence-to-sequence-auto-encoder"><a class="header" href="#sequence-to-sequence-auto-encoder">sequence to sequence, Auto-encoder</a></h2>
+<ol>
+<li>
+<p>用在文字上<br>普通的encoder算法会忽略单词的顺序，因而影响句子的理解。<br>Auto-encoder算法会考虑单词的顺序。<br>单层模型：<br><img src="/assets/125.png" alt=""><br>多层模型：<br><img src="/assets/126.png" alt=""></p>
+</li>
+<li>
+<p>用在语音上<br>把长度不固定的语音片段转成长度固定的向量。<br>用处：语音搜索<br>问：怎样把语音变成向量？<br>答：encoder技术<br>问：怎样比较？<br>答：<br><img src="/assets/127.png" alt=""><br>通常把encoder和decoder一起训练<br><img src="/assets/128.png" alt=""></p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="gru-vs-highway-netword"><a class="header" href="#gru-vs-highway-netword">GRU VS Highway Netword</a></h1>
+<p>Highway Network基于GRU对Unit做了一些改进：</p>
+<ul>
+<li>
+<p>GRU<br><img src="/assets/129.png" alt=""></p>
+</li>
+<li>
+<p>Highway Network Unit<br><img src="/assets/130.png" alt=""></p>
+</li>
+</ul>
+<p>主要改进为：</p>
+<ol>
+<li>去掉 Input $x^t$和Output $y^t$，只有第一个Unit有Input，最后一个Unit有Output</li>
+<li>输入$h^t$换成$a^{t-1}$</li>
+<li>去掉reset gate，保证$a^{t-1}$一定能进入下一个step</li>
+</ol>
+<p>Highway Network Unit的计算过程：<br>$$
+\begin{aligned}
+h’ = \sigma(W a^{t-1})  \
+z = \sigma(W’ a^{t-1})  \
+a^t = z \odot a^{t-1} + (1-z)\odot h’
+\end{aligned}
+$$</p>
+<p>这相当于在layer方向增加gate，以达到使layer更深的目的。<br>如果只接将z设置成0.5，就成了<a href="https://windmissing.github.io/Bible-DeepLearning/Chapter9/ResNet.html">残差网络</a>。<br><img src="/assets/131.png" alt=""></p>
+<p>Highway Network可以看作是Network自动学到要有多少hidden layer。<br><img src="/assets/132.png" alt=""><br>根据data决定实际使用几层layer。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cv-基础"><a href="#cv-基础" class="header">CV 基础</a></h1>
+<p>Computer Vision Problems</p>
+<ul>
+<li>图像分类问题：Image Classification，判断图像是不是汽车</li>
+<li>图像定位分类问题：Image Classification With Localization，判断图像是不是一辆汽车，并标出洗车的位置</li>
+<li>物体检测问题：检测图像中是否存在车子。如果有车子，标出洗车的位置。如果有多个车子，标出每个车子的位置。</li>
+<li>风格迁移</li>
+<li>人脸验证问题：<br>输入：图像，name/ID，输出：图像和name/ID是否对应</li>
+<li>人脸识别问题：<br>输入：datasets， image<br>输出：image对应的name/ID</li>
+</ul>
+<p><img src="/assets/1.png" alt=""></p>
+<p>earlier layers：边缘检测<br>later layers<br>even later layers</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="问题描述"><a class="header" href="#问题描述">问题描述</a></h1>
+<p>每张图像中最多只有一个较大的对象，且位于相对中间的位置。<br>要识别的目标有三类：pedestrain、car、motorcycle，分别对应c1, c2, c3<br>定义图像的左上角坐标为（0，0），右下角坐标为（1，1）。目标的中心点为bx, by，目标的大小为bh, bw。<br><img src="/assets/19.png" alt=""></p>
+<h1 id="定义标签y"><a class="header" href="#定义标签y">定义标签y</a></h1>
+<p>定义一个训练集的label应该为1*8的向量，即：<br>$$
+y = [p_c, b_x, b_y, b_h, b_w, c_1, c_2, c_3]^\top
+$$</p>
+<p>pc：图像中是否存在对象。pc为1时后面的值才有意义。<br>bx, by, bw, bh：对象的位置。<br>c1, c2, c3：是什么对象，三个数值只能有一个是1。<br>例如：</p>
+<p>$$
+\begin{aligned}
+y = [1, b_x, b_y, b_h, b_w, 0, 1, 0]^\top  \
+y = [0, ?, ?, ?, ?, ?, ?, ?]^\top
+\end{aligned}
+$$</p>
+<p>?表示不care具体的值，不会在loss function中用到这些值。</p>
+<h1 id="定义损失函数"><a class="header" href="#定义损失函数">定义损失函数</a></h1>
+<p>定义一个样本上的损失函数为：</p>
+<p>$$
+l =
+\begin{cases}
+MSE(pc, bx, by, bw, bh) + CrossEntropy(c1, c2, c3)  &amp;&amp;  pc = 1 \
+MSE(pc) &amp;&amp; pc = 0
+\end{cases}
+$$</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="landmark-detection"><a href="#landmark-detection" class="header">Landmark Detection</a></h1>
+<p>landmark detection不是检测对象，而是检测某些特征点。<br>例如：<br><img src="/assets/3.png" alt=""></p>
+<p>landmarks detection可用于表情识别、AR</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="目标检测"><a class="header" href="#目标检测">目标检测</a></h1>
+<p>目标检测是计算机视觉中的重要任务，旨在定位并识别图像中的多个目标。</p>
+<p>本章包含以下内容：</p>
+<ul>
+<li><a href="#滑动窗口算法">滑动窗口算法</a></li>
+<li><a href="#bounding-box">YOLO 算法</a></li>
+<li><a href="#候选区域算法">候选区域算法</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="滑动窗口算法"><a href="#滑动窗口算法" class="header">滑动窗口算法</a></h1>
+<ol>
+<li>使用图像分类算法判断一张图像是不是车</li>
+<li>滑动窗口目标检测<br>以固定的步幅滑动窗口，遍历图像每个区域，相邻window会有overlap。<br>把这些剪裁后的小图像输入卷积网络。<br>对每个位置按0、1进行分类。</li>
+<li>换一个更大的窗口，重复以上动作。不同size的window都需要遍历。</li>
+</ol>
+<p>缺点：<br>(1)计算成本高<br>(2)如果减少window，可能会找不出目标<br>(3)如果分类器太简单，可能会使分类精度下降</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>Redom et. al., 2015. You Only Look Once: Unfied real-time object detection<br>这篇论文比较难。</p>
+<h1 id="bounding-box"><a class="header" href="#bounding-box">Bounding Box</a></h1>
+<p>把原图像切成18 * 18的格子，每一个格子输出一个与目标定位算法相同的1 * 8的label。如果某个格子检测到对象，就把对象分配到中心点所在的格子。<br>输入：n_H * n_W * n_C<br>输出：19 * 19 * 8<br>虽然每个格子的输出结果与目标定位算法的输出结果相同，都能检测对象并精确地输出对象的中心点和边界。但是，<strong>不是对每一个格子跑一遍目标定位算法</strong>，而是用卷积一遍完成。</p>
+<h2 id="在卷积层上使用滑动窗口算法"><a class="header" href="#在卷积层上使用滑动窗口算法">在卷积层上使用滑动窗口算法</a></h2>
+<ol>
+<li>把网络中的FC层转成1 * 1卷积层。例如：<br><img src="/assets/20.png" alt=""></li>
+<li>在卷积层上使用滑动窗口<br><img src="/assets/21.png" alt=""></li>
+</ol>
+<p>原理：<br>不需要把输入图像分割成4个子集分别执行前向传播，而是把它们作为一张图像输入给卷积层进行计算。<br>其中的公有区域可以共享很多计算。</p>
+<p>缺点：<br>边界框的位置可能不够准确。</p>
+<h2 id="如何编码bx-by-bw-bh"><a class="header" href="#如何编码bx-by-bw-bh">如何编码bx, by, bw, bh？</a></h2>
+<p>每个小格子的坐标都是左上角（0，0）右下角（1，1）。<br>格子内的坐标都是相对格子左上角（0，0）的。<br>bx， by的范围是[0, 1]，<strong>bw, bh有可能大于1</strong>。<br>以上是比较常规的参数形式。YOLO原文有更复杂、效果更好的参数方法。</p>
+<h1 id="对象检测算法的评价---交并比"><a class="header" href="#对象检测算法的评价---交并比">对象检测算法的评价 - 交并比</a></h1>
+<p>IoU — Intersection over Union<br>= (检测区域 交 真实区域) / (检测区域 并 真实区域)<br>correct if IoU &gt;= 0.5。</p>
+<h1 id="非最大值抑制-non-max-suppression"><a class="header" href="#非最大值抑制-non-max-suppression">非最大值抑制 Non-max suppression</a></h1>
+<p>用于保证每个对象只被检测一次。<br><img src="/assets/23.png" alt=""><br>例如这种情况，多个格子都检测到了目标。出现这样的结果：<br><img src="/assets/4.png" alt=""></p>
+<ol>
+<li>把所有p_c &lt;= 0.6的box扔掉。</li>
+<li>找到剩下的报告中，p_c最高的box，把这个box作为输出。</li>
+<li>其它box如果与这个box重叠，则按照IoU降低它的p_c。若降至0.5以下，则把box扔掉。</li>
+<li>如果还有剩下的box， go to 2.</li>
+</ol>
+<p>如果检测对象分多个类别，分别对每个类别做非最大值抑制。</p>
+<h1 id="anchor-boxes"><a class="header" href="#anchor-boxes">Anchor Boxes</a></h1>
+<p><img src="/assets/24.png" alt=""><br>如果两个不同对象的中心点落在同一个格子中。怎样才能把两个对象都表示到y中？<br>（实际上这种case不常见）。</p>
+<ol>
+<li>预先定义两个不同形状的anchor box<br><img src="/assets/25.png" alt=""></li>
+<li>对两种对象的检测会生成两个label，每个label都是1*8的向量（根据上文定义）。每个label关联一个anchor box。</li>
+<li>把两个label合并成一个大的label，大小为1 * 16.<br><img src="/assets/5.png" alt=""></li>
+</ol>
+<p>实际上两个对象中心点落在同一个格子的case不常见。<br>anchor box更多的是另一种作用：针对对象有明显特征的情况可以有针对性地识别。</p>
+<p>Anchor Box无法handle以下场景：</p>
+<ol>
+<li>1个grid中的对象数多于box数</li>
+<li>1个grid中的多个对象属于相同的box</li>
+</ol>
+<p>怎样选择anchor box?</p>
+<ol>
+<li>手工设计， 5-10个</li>
+<li>K-Means算法对形态进行聚类。</li>
+</ol>
+<h1 id="yolo算法"><a class="header" href="#yolo算法">YOLO算法</a></h1>
+<p>把以上的技术全部合起来。</p>
+<h2 id="训练"><a class="header" href="#训练">训练</a></h2>
+<p>标签维度为：19 * 19 * （2 * （1 + 4 + 3））<br>19: grid数<br>2：anchor box数<br>1: pc，用于指示是否存在对象<br>4：用于指出对象的位置和大小
+3：用于指出对象的种类</p>
+<h2 id="预测"><a class="header" href="#预测">预测</a></h2>
+<p>100 * 100 * 3 –(ConvNet)–&gt; 19 * 19 * 16<br>用non-max supressed分析输出，每个类别分别作non-max supressed.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="候选区域算法"><a href="#候选区域算法" class="header">候选区域算法</a></h1>
+<p>Girshik et. al., 2013. Rich feature hierachies for accurate object detection and semantic</p>
+<p>Region Proposals算法又称为R-CNN，不是对整个区域的every single sliding window都作一次检测，而是只是a few windows。</p>
+<ol>
+<li>使用图像分割算法，分割出色块</li>
+<li>基于色块运行卷积网络的分类定位算法<br><img src="/assets/6.png" alt=""></li>
+</ol>
+<p>缺点：太慢<br>一些改进：
+Fast R-CNN：用卷积实现滑动窗口<br>Faster R-CNN：使用卷积网络来推荐候选区域</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p><img src="/assets/27.png" alt=""></p>
+<h1 id="dl-network是怎么学习的"><a class="header" href="#dl-network是怎么学习的">DL Network是怎么学习的</a></h1>
+<p>Zeilier and Fergus., 2013. Visiualizing and understanding convolutional networks</p>
+<p>分析一个已经训练好的NN：</p>
+<ol>
+<li>选择layer 1的Unit，观察怎样的输入让这些unit最“兴奋”，得到这样9张图。</li>
+</ol>
+<p><img src="/assets/28.png" alt=""></p>
+<ol start="2">
+<li>用同样的方法观察其它layer，每个layer得到这样一些图：</li>
+</ol>
+<p><img src="/assets/29.png" alt=""><br><img src="/assets/30.png" alt=""><br><img src="/assets/31.png" alt=""><br><img src="/assets/32.png" alt=""></p>
+<p>结论：靠后的layer的unit would see a larger region of the image。</p>
+<h1 id="网络迁移的算法"><a class="header" href="#网络迁移的算法">网络迁移的算法</a></h1>
+<p>Gatvs. et. al., 2015. A newral algorithm of artistic style<br>这篇论文不难</p>
+<h2 id="定义-1"><a class="header" href="#定义-1">定义</a></h2>
+<p>原图像为Content，简称C<br>风格图像为Style，简称S<br>生成图像为Generated，简称G</p>
+<h2 id="过程-1"><a class="header" href="#过程-1">过程</a></h2>
+<ol>
+<li>随机初始化G</li>
+<li>定义代价函数J（G）</li>
+<li>使用梯度下降法最小化J（G）<br>$$
+G = G - \frac{\partial J(G)}{\partial G}
+$$</li>
+</ol>
+<p>直接更新图像G的像素值。</p>
+<h1 id="定义代价函数jg"><a class="header" href="#定义代价函数jg">定义代价函数J（G）</a></h1>
+<p>代价函数J（G）由两部分组成：G与C的相似度、G与S的相似度</p>
+<p>$$
+J(G) = J_C(C, G) + J_S(S, G)
+$$</p>
+<h2 id="j_c代价函数"><a class="header" href="#j_c代价函数">$J_C$代价函数</a></h2>
+<p>（1）使用某个pre-trained ConvNet，例如VCG</p>
+<p>（2）选择网络中的某一层hidden layer来计算content cost，假设使用第l层</p>
+<ul>
+<li>l太小，则生成图像太接近原图像</li>
+<li>l太大，则生成图像与原图像差太多<br>因此要合理地选择l，通常选择网络的中间层。</li>
+</ul>
+<p>（3）定义符号<br>$a^{<a href="CV/C">l</a>}$和$a^{<a href="CV/G">l</a>}$分别为C和G在第l层的激活值(a，也可写作h)<br>（4）定义代价函数<br>认为：如果$a^{<a href="CV/C">l</a>}$和$a^{<a href="CV/G">l</a>}$接近，则图像C和G接近<br>因此：<br>$$
+J_C(C, G) = \frac{1}{2}||a^{<a href="CV/C">l</a>} - a^{<a href="CV/G">l</a>}||^2
+$$</p>
+<h2 id="j_s代价函数"><a class="header" href="#j_s代价函数">$J_S$代价函数</a></h2>
+<h3 id="什么是图像的风格"><a class="header" href="#什么是图像的风格">什么是图像的风格</a></h3>
+<p>定义一个图像的style为:<strong>correlation between activationas accross channels</strong>，即某个Conv层不同channel之间的相关性。</p>
+<p>怎样评价两个通道的correlation？<br><img src="/assets/29.png" alt=""><br>例如这张图，假设图像在某一层上具有这样一些channel。大格子代表不同的channel，小格子代表同一channel关注的不同特征。当某个通道的filter关注某种样式时，另一通道一定关注另一种某个样式，则认为两个通道是high correlation的。相关度correlation表示两个channel同时出现的可能性。<br>如果一个通道filter关注的样式和另一个通道没有什么关系，则认为是low correlation的。<br>$J_\text{style}$定义如下：<br>已知S的每个channel的filter，评价G中how often出现同样的filter组合。</p>
+<h3 id="定义符号"><a class="header" href="#定义符号">定义符号</a></h3>
+<p>$a_{i,j,k}^{[l]}$：图像S中H=i, W=j, C=k的点处的a。<br>$G^{[l],(S)}$：图像S的第l层的gram matrix/style matrix，大小为$n^{[l]}_c \times n^{[l]}<em>c$<br>$G^{[l],(S)}</em>{k_1,k_2}$：图像S的第l层通道k1与通道k2的相关性。<br>gram matrix是线性代数中的术语。</p>
+<h3 id="定义代价函数"><a class="header" href="#定义代价函数">定义代价函数</a></h3>
+<p>$$
+\begin{aligned}
+G^{l,s}<em>{k_1k_2} &amp;=&amp; \sum_i\sum_j a</em>{ijk_1}^{ls} * a_{ijk_2}^{ls}  \
+G^{l,G}<em>{k_1k_2} &amp;=&amp; \sum_i\sum_j a</em>{ijk_1}^{lG} * a_{ijk_2}^{lG}  \
+J_\text{style}^l(S, G) &amp;=&amp; \frac{1}{2n_H^ln_W^ln_C^l}||G^{ls} - G^{lG}||^2_F   \
+&amp;=&amp; \frac{1}{(2n_H^ln_W^ln_C^l)}\sum_k\sum_{k’}(G^{l,s}<em>{k_1k_2} - G^{l,G}</em>{k_1k_2})  &amp;&amp; \text{分母用于Normalize}  \
+J_\text{style}(S, G) &amp;=&amp; \sum_l \lambda^l J_\text{style}^l(S, G) \
+J(G) &amp;=&amp; \alpha J_\text{content}(C, G) + \beta J_\text{style}(S, G)
+\end{aligned}
+$$</p>
+<p>$\lambda$是超参数。<br>内容代价函数只算一层，风格代价函数要遍历所有层。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="人脸验证的挑战"><a class="header" href="#人脸验证的挑战">人脸验证的挑战</a></h1>
+<p>(1) One-Shot Challenge：需要通过单一一张图片，就识别到这个人<br>当DL只有一个样本时，表现非常不好。<br>(2) 新来一个人时，要改softmax层，因此要重新训练</p>
+<h1 id="解决方法"><a class="header" href="#解决方法">解决方法：</a></h1>
+<p>不直接训练f(图像)=id。<br>而是训练f(图像1、图像2) = 相似度。<br>if f(img1, img2) &lt;= t ==&gt; 同一个人<br>if f(img1, img2) &gt; t  ==&gt; 不是同一个人</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>Taigman et. al., 2014. DeepFace closing the gap to human level performance</p>
+<h1 id="网络结构"><a class="header" href="#网络结构">网络结构</a></h1>
+<p><img src="/assets/7.png" alt=""><br>图像x1 –NN–&gt; 向量v1<br>图像x2 –NN–&gt; 向量v2<br>d(图像1，图像2) = $||v_1 - v_2||^2_2$</p>
+<h1 id="损失函数"><a class="header" href="#损失函数">损失函数</a></h1>
+<p>$$
+\hat y = \sigma(W(|v_1 - v_2|) + b)
+$$</p>
+<p>$\hat y = 1$ ==&gt; 同一个人<br>$\hat y = 0$ ==&gt; 不是同一个人<br>$|v_1 - v_2|$这一部分可以有其它变种。</p>
+<h1 id="一种加速计算的trick"><a class="header" href="#一种加速计算的trick">一种加速计算的trick</a></h1>
+<p>训练好的NN可以看作是一个特定的函数f。<br>可以提前把database中的图像对应的向量都提前算出来，代替原始的样本图像。</p>
+<h1 id="把人脸识别转成二分类问题"><a class="header" href="#把人脸识别转成二分类问题">把人脸识别转成二分类问题</a></h1>
+<p><img src="/assets/26.png" alt=""><br>每张图像生成一个向量，例如xi –&gt; f(xi)，xj –&gt; f(xj)<br>$$
+\hat y = \sigma\left(\sum_k w_i d(f(x_i), f(x_j)) + b \right)
+$$</p>
+<p>其中$d(f(x_i), f(x_j))$代表d(f(x_i), f(x_j))代表f(x_j)和f(x_j)的相似度。<br>例如X方相关度：<br>$$
+d(f(x_i), f(x_j)) = \frac{(f(x_i)-f(x_j))^2}{f(x_i)+f(x_j)}
+$$</p>
+<p>在预测时，database中图像的f(x)可以提前准备好（预训练）。<br>每次只需要重新计算要预测的图像的f(x)即可。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>Schroff et. al., 2015. FaceNet: A unified embedding for face recognition and clustering</p>
+<h1 id="triplet-loss"><a class="header" href="#triplet-loss">Triplet Loss</a></h1>
+<p>定义三种图像分别为Anchor(A)、Positive(P)、Negative(N)<br>定义一个三元组的损失函数为：<br>$$
+L(A, P, N) = \max(||f(A) - f(P)||^2 - ||f(A) - f(N)||^2 + \alpha, 0)
+$$</p>
+<p>其中：<br>f代表将图像通过神经网络转成向量。<br>公式原理为：“同一个人的两张图像的距离” 应比 “不同人的两张图像的距离” 小$\alpha$。<br>$\alpha$为间隔margine。</p>
+<p>整个训练集的损失函数为每个三元组的损失之和。</p>
+<p>Note：<br>训练时不是one-shot的，训练集中每个人至少要有2张照片（分别用做A和P），才能完成训练。<br>在预测时可以是one-shot的。</p>
+<h2 id="怎样根据训练集生成三元组"><a class="header" href="#怎样根据训练集生成三元组">怎样根据训练集生成三元组？</a></h2>
+<ol>
+<li>随机生成<br>缺点：不等式d(A, P) + a &lt;= d(A, N)太容易满足了，NN从中学不到东西。</li>
+<li>选择“hard to train”的三元组，即d(A, P)和d(A, N)接近的三元组。<br>优点：加速算法学习</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="domain-adversarial-training"><a href="#domain-adversarial-training" class="header">Domain-Adversarial Training</a></h1>
+<p>没听懂，截了两幅图<br><img src="/assets/91.png" alt=""><br><img src="/assets/92.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="人体姿态估计"><a class="header" href="#人体姿态估计">人体姿态估计</a></h1>
+<p>人体姿态估计，Human Pose Estimation， HPE</p>
+<p>要解决的问题：</p>
+<ul>
+<li>图像或视频中，人体关节（关键点）的定位问题。</li>
+<li>所有关节姿势组成的空间中搜索特定姿势。</li>
+</ul>
+<p>方法：</p>
+<ul>
+<li>基于部件组合的传统方法</li>
+<li>深度学习方法</li>
+</ul>
+<p>难点：</p>
+<ul>
+<li>关节小而灵活</li>
+<li>衣服遮挡</li>
+</ul>
+<p>分类：</p>
+<ul>
+<li>维度：2D姿势估计、3D姿势估计</li>
+<li>多人估计的解决思路：top-down(将多人姿势估计转化为单人姿势估计)、bottom-up(先找出图中所有关键点，再对关键点分组)</li>
+</ul>
+<h1 id="经典模型"><a class="header" href="#经典模型">经典模型</a></h1>
+<ol start="2">
+<li>DeepPose</li>
+<li>卷积摆位机CPM</li>
+<li>误差反馈</li>
+<li>堆叠式沙漏网络Hourglass</li>
+<li>高分辨率网络HRNet</li>
+<li>CPN, GlobalNet + RefineNet</li>
+<li>Simple Baseslines</li>
+<li>MSPN</li>
+<li>Openpose</li>
+<li>Hourglass + Associative Embedding</li>
+<li>HigherHRNet</li>
+</ol>
+<h1 id="损失函数-1"><a class="header" href="#损失函数-1">损失函数</a></h1>
+<ol>
+<li>直接对关键点的坐标进行回归</li>
+<li>为每个关键点预测一个headmap作为关键点的中间表示</li>
+</ol>
+<h1 id="数据集-1"><a class="header" href="#数据集-1">数据集</a></h1>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Name</th><th>Training Images</th><th>Test Images</th><th>Source</th><th>Style</th><th>Labeled Body Joints</th></tr>
+</thead>
+<tbody>
+<tr><td>Frames Labeled In Cinema(FLIC)</td><td>4000</td><td>1000</td><td>popular Hollywood movies</td><td>people in diverse poses and especially diverse clothing</td><td>10 uppep body joints</td></tr>
+<tr><td>Leeds Sports Dataset(LSD)</td><td>11000</td><td>1000</td><td>sports activities</td><td>quite challenging in terms of appearance and especially articulations</td><td>14 full body joints</td></tr>
+</tbody>
+</table>
+</div>
+<h1 id="估计指标"><a class="header" href="#估计指标">估计指标</a></h1>
+<ul>
+<li>
+<p>Percentage of Correct Parts(PCP)：正确部件的百分比<br>如果两个预测的关节位置与真实肢体关节位置之间的距离小于肢体长度的a，则认为肢体被检测到。a通常为0.5。<br>PCP越大越好。<br>缺点：由于较短的肢体具有较小的阈值，因此它会对较短的肢体惩罚。</p>
+</li>
+<li>
+<p>Percentage of Detected Joints(PDJ)</p>
+</li>
+<li>
+<p>PCK：正确关键点的百分比<br>如果预测关节与真实关节之间的距离在特定阈值内，则检测到的关节被认为是正确的。<br>阈值可以是头骨链接的百分比，或者躯干直径的百分比，或者某个数值。<br>这个方法不会对较短的肢体有惩罚。<br>PCK越大越好。</p>
+</li>
+</ul>
+<ol start="3">
+<li>OKS：对象关键点相似度</li>
+</ol>
+<h1 id="参考材料"><a class="header" href="#参考材料">参考材料</a></h1>
+<ol>
+<li><a href="https://blog.csdn.net/u010451780/article/details/106790471/">POSE estimation，肢体估计HPE</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/104917833">人体姿态估计(Human Pose Estimation)经典方法整理</a></li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="基本信息"><a class="header" href="#基本信息">基本信息</a></h1>
+<p>2014 CVPR
+地址：https://arxiv.org/abs/1411.4280<br>将离散热图引入损失函数。</p>
+<h1 id="模型-2"><a class="header" href="#模型-2">模型</a></h1>
+<h2 id="first-stage"><a class="header" href="#first-stage">First Stage</a></h2>
+<p><img src="/assets/150.png" alt=""></p>
+<h3 id="多分辨率部分"><a class="header" href="#多分辨率部分">多分辨率部分</a></h3>
+<p>X：不同的分辨率的full image</p>
+<h3 id="单分辨率部分"><a class="header" href="#单分辨率部分">单分辨率部分</a></h3>
+<p>X：图像的RGB信息<br>Y：关节的坐标信息<br>数据预处理：需要先识别出图像中的人，以及把人框住的box。X和Y分别相对于box做normalize。<br>输入层：完整的图像的normalize，即box<br>中间层：Alexnet(7层)<br>输出层：关节在box中的坐标<br>预期输出：ground truth的normalize<br>损失函数：输出与预期输出之间的L2 loss</p>
+<p><img src="/assets/149.png" alt=""></p>
+<p>优点：</p>
+<ol>
+<li>实验证明normalize之后效果更好</li>
+<li>每个关节都是基于full Image预测的，有holistic reasoning的效果</li>
+<li>省去了传统方法的大量规则的设计</li>
+<li>图像中有部分关节没有label的情况也能hold住。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>要求box的识别是可靠的</li>
+<li>只能做单人识别</li>
+<li>Sequence Stage有做data augment，为什么First Stage不这么做？</li>
+<li>相对于传统方法，需要大量训练数据</li>
+</ol>
+<h2 id="sequence-stage"><a class="header" href="#sequence-stage">Sequence Stage</a></h2>
+<p>X：图像的RGB信息<br>Y：关节的坐标信息<br>数据预处理：X和Y分别相对于box做normalize。和First Stage的区别是box的设定。此处的box不再是整个人。box是的中心点要refine的关节在上一个stage中的预测点。box的宽和高根据人的大小来设定。<br>输入层：完整的图像crop之后的box<br>中间层：Alexnet(7层)，同First Stage<br>输出层：关节在box中的坐标<br>预期输出：ground truth基于box的normalize，再增加一定量的noise<br>损失函数：输出与预期输出之间的L2 loss</p>
+<p>优点：</p>
+<ol>
+<li>每次都基于上一次的subimage做refine，结果会越来越准确</li>
+<li>对预期输出增加一定量的noise，有data augment的作用，提升泛化能力。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>由于每个关节的box是不同的，一次只能针对一个关节做Refine</li>
+<li>如果上一个stage预测结果与ground truth偏差比较大，会影响这个stage的准确性</li>
+<li>refine所使用的是原图像的crop，文中没有提到提升sub-image的分辨率，因此信息是变少了。但若有提升分辨率，那么数据量没有少，就没有解决文中所说的“the network has limited capacity to look at detail”的问题了</li>
+<li>如果box中有别人的关节干扰会怎样？会不会box被跑偏？</li>
+<li>相对于传统方法，需要大量训练数据</li>
+</ol>
+<h1 id="结果与分析"><a class="header" href="#结果与分析">结果与分析</a></h1>
+<ol>
+<li>
+<p>Table 1表明Deep Pose整体表现不错。<br>作者认为表现不错的原因是：Stage 1以整张图像作为输入，可以学到holistic reasoning。代价是更多的训练数据和更长的训练时间，但这个维度的比较在文中没有体现。</p>
+</li>
+<li>
+<p>Figure 3表明在FLIC数据集上，当阈值小的时候，各种方法相差不多。当阈值大时，Deep Pose表现出优势。</p>
+</li>
+<li>
+<p>Figure 4表明在LSP数据集上，当阈值小的时候，Deep Pose略差。当阈值大时，Deep Pose表现出优势。说明Deep Pose精度不够。</p>
+</li>
+<li>
+<p>Figure 5表明Sequence Stage对First Stage的结果有refine作用，且主要的提升在第2个Stage。<br>作者认为这是因为Stage 2用的是Stage的smaller sub-image，而且其它Stage用的image与前一个Stage大小相同，只是内容有偏移。</p>
+</li>
+<li>
+<p>Fiture 7表明，在不同数据集的泛化能力上，当阈值小的时候，Deep Pose略差。当阈值大时，Deep Pose表现出优势。</p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="实践-1"><a class="header" href="#实践-1">实践</a></h1>
+<p>本章节包含基于预训练模型的实际应用：</p>
+<ul>
+<li><a href="#读入-vgg16-预训练模型">读入 VGG16 预训练模型</a></li>
+<li><a href="#基于预训练模型的图像重构">基于预训练模型的图像重构</a></li>
+<li><a href="#基于预训练模型的风格重构">基于预训练模型的风格重构</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="读入-vgg16-预训练模型"><a href="#读入-vgg16-预训练模型" class="header">读入 VGG16 预训练模型</a></h1>
+<p>模型名：
+imagenet-vgg-verydeep-19.mat</p>
+<p>模型下载地址：<br>https://www.vlfeat.org/matconvnet/pretrained/</p>
+<p>模型介绍：
+https://windmissing.github.io/DeepLearningNotes/CaseStudy/ClassicNetwork.html</p>
+<p>模型结构：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>维度</th><th>含义</th><th>值</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td></td><td>‘layers’</td></tr>
+<tr><td>1</td><td></td><td>0</td></tr>
+<tr><td>2</td><td>层索引</td><td>[0, 42]</td></tr>
+<tr><td>3</td><td></td><td>0</td></tr>
+<tr><td>4</td><td></td><td>0</td></tr>
+<tr><td>5</td><td>信息分类</td><td>0：name 2：参数</td></tr>
+<tr><td>6</td><td></td><td>0</td></tr>
+<tr><td>7</td><td>参数</td><td>第5维是2时，0：W, 1:b。第5维是0时，这里是0</td></tr>
+</tbody>
+</table>
+</div>
+<pre><code class="language-python">W = vgg['layers'][0][layer][0][0][2][0][0]
+b = vgg['layers'][0][layer][0][0][2][0][1]
+layername = vgg['layers'][0][layer][0][0][0][0]
+</code></pre>
+<p>加载模型</p>
+<pre><code class="language-python">class ModelLoader():
+    def __init__(self, path):
+        vgg = scipy.io.loadmat(path)
+        self.vgg_layers = vgg['layers']
+        self.layerlist = self._create_layer_list()
+        tf.keras.backend.set_floatx('float64')
+    
+    def _weights(self, layer, expected_layer_name):
+        """
+        Return the weights and bias from the VGG model for a given layer.
+        """
+        wb = self.vgg_layers[0][layer][0][0][2]
+        W = wb[0][0]
+        b = wb[0][1]
+        layer_name = self.vgg_layers[0][layer][0][0][0][0]
+        assert layer_name == expected_layer_name
+        return W, b
+    
+    def _conv2d_relu(self, layer, layer_name, input_shape=None):
+        """
+        Return the Conv2D layer using the weights, biases from the VGG
+        model at 'layer'.
+        """
+        W, b = self._weights(layer, layer_name)
+        W = tf.cast(tf.constant(W),dtype=tf.float64)
+        b = tf.cast(tf.constant(np.reshape(b, (b.size))),dtype=tf.float64)
+        if input_shape:
+            return tf.keras.layers.Conv2D(filters=(W.shape[3]), kernel_size=(W.shape[0], W.shape[1]),
+                                          padding='SAME', kernel_initializer=ExampleRandomNormal(W),
+                                          bias_initializer=ExampleRandomNormal(b), activation='relu',
+                                          input_shape=input_shape)
+        else:
+            return tf.keras.layers.Conv2D(filters=(W.shape[3]), kernel_size=(W.shape[0], W.shape[1]),
+                                          padding='SAME', kernel_initializer=ExampleRandomNormal(W),
+                                          bias_initializer=ExampleRandomNormal(b),activation='relu')
+    def _avgpool(self):
+        """
+        Return the AveragePooling layer.
+        """
+        return tf.keras.layers.AveragePooling2D(padding='same')
+
+    def _create_layer_list(self):
+        return [self._conv2d_relu(0, 'conv1_1', input_shape=(CONFIG.IMAGE_HEIGHT, CONFIG.IMAGE_WIDTH, CONFIG.COLOR_CHANNELS)),
+        self._conv2d_relu(2, 'conv1_2'),
+        self._avgpool(),
+        self._conv2d_relu(5, 'conv2_1'),
+        self._conv2d_relu(7, 'conv2_2'),
+        self._avgpool(),
+        self._conv2d_relu(10, 'conv3_1'),
+        self._conv2d_relu(12, 'conv3_2'),
+        self._conv2d_relu(14, 'conv3_3'),
+        self._conv2d_relu(16, 'conv3_4'),
+        self._avgpool(),
+        self._conv2d_relu(19, 'conv4_1'),
+        self._conv2d_relu(21, 'conv4_2'),
+        self._conv2d_relu(23, 'conv4_3'),
+        self._conv2d_relu(25, 'conv4_4'),
+        self._avgpool(),
+        self._conv2d_relu(28, 'conv5_1'),
+        self._conv2d_relu(30, 'conv5_2'),
+        self._conv2d_relu(32, 'conv5_3'),
+        self._conv2d_relu(34, 'conv5_4'),
+        self._avgpool()]
+    
+    def _create_model_with_part_layer(self, num=-1):
+        model = tf.keras.Sequential(self.layerlist[:num])
+        return model
+
+def test_get_model_weight():
+    # W, b = load_vgg_model("pretrained-model/imagenet-vgg-verydeep-19.mat")._weights(0, 'conv1_1')
+    vgg = scipy.io.loadmat("../pretrained-model/imagenet-vgg-verydeep-19.mat")
+    assert 'layers' in vgg.keys()
+    assert len(vgg['layers']) == 1
+    assert len(vgg['layers'][0]) == 43
+    layer = 0
+    name = 'conv1_1'
+    type = 'conv'
+    assert len(vgg['layers'][0][layer]) == 1
+    assert len(vgg['layers'][0][layer][0]) == 1
+    assert len(vgg['layers'][0][layer][0][0]) == 9
+    assert vgg['layers'][0][layer][0][0][0][0] == name
+    assert vgg['layers'][0][layer][0][0][1][0] == type
+    W = vgg['layers'][0][layer][0][0][3][0]
+    assert len(vgg['layers'][0][layer][0][0][2]) == 1
+    assert len(vgg['layers'][0][layer][0][0][2][0]) == 2
+    assert (vgg['layers'][0][layer][0][0][2][0][0]).shape == tuple(W) # weights of filter
+    assert (vgg['layers'][0][layer][0][0][2][0][1]).shape == (W[3], 1) # bias
+    assert len(vgg['layers'][0][layer][0][0][4][0]) == 4 # stride
+
+def test_model_loader_weight():
+    loader = ModelLoader("../pretrained-model/imagenet-vgg-verydeep-19.mat")
+    W, b = loader._weights(0, "conv1_1")
+    assert W.shape == (3,3,3,64)
+    assert b.shape == (64, 1)
+
+def test_model_loader_layer():
+    loader = ModelLoader("../pretrained-model/imagenet-vgg-verydeep-19.mat")
+    layer = loader._conv2d_relu(0, "conv1_1")
+
+def test_model_loader_create_layers():
+    loader = ModelLoader("../pretrained-model/imagenet-vgg-verydeep-19.mat")
+    layerlist = loader._create_layer_list()
+    assert len(layerlist) == 21
+
+def test_create_model_with_part_layer():
+    loader = ModelLoader("../pretrained-model/imagenet-vgg-verydeep-19.mat")
+    model = loader._create_model_with_part_layer(5)
+
+    
+if __name__ == '__main__':
+    print ("model loader test begin")
+    test_get_model_weight()
+    test_model_loader_weight()
+    test_model_loader_layer()
+    test_model_loader_create_layers()
+    test_create_model_with_part_layer()
+    print ("model loader test passed")
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="基于预训练模型的图像重构"><a href="#基于预训练模型的图像重构" class="header">基于预训练模型的图像重构</a></h1>
+<ol>
+<li>
+<p>加载预预训练模型，以VGG19为例，见上一页。</p>
+</li>
+<li>
+<p>生成一张白噪声图像</p>
+</li>
+<li>
+<p>定义原图像为a，生成的图像为g，它们经过预训练模型后，第l层的输出为F(a, l)和F(g, l)。</p>
+</li>
+<li>
+<p>定义损失函数为：</p>
+</li>
+</ol>
+<p>$L = |F(a, l) - F(g, l)|_2$把模型参数作为常量，把图像像素作为变量，进行梯度下降的迭代</p>
+<ol start="5">
+<li>最后得到的g为基于预训练模型第l层得到的重构图像</li>
+</ol>
+<p>结论：<br>l层越低（靠近输入层），还原度越高，画面越精细。</p>
+<pre><code class="language-python">from utils import load_vgg_model
+import imageio
+import tensorflow as tf
+
+CONTENT_IMAGE = "images/content_wind_400300.jpg"
+INIT_GENERATE = CONTENT_IMAGE
+CONTENT_LAYER = 4
+
+def calculate_a_C(model, layer_id):
+    content_image = imageio.imread(CONTENT_IMAGE)
+    content_image = load_vgg_model.reshape_and_normalize_image(content_image)
+    a_C = model(content_image)
+    return a_C
+
+def read_init_generate(content = "copy"):
+    if content == "copy":
+        generated_image = imageio.imread(INIT_GENERATE)
+        generated_image = load_vgg_model.reshape_and_normalize_image(generated_image)
+    else:
+        image = imageio.imread(INIT_GENERATE)
+        generated_image = load_vgg_model.generate_noise_image(image)
+    generated_image = tf.Variable(initial_value=generated_image, dtype=tf.float64)
+    return generated_image
+
+def processing(input_image):
+    a_G = content_model(input_image)
+    # Compute the content cost
+    J = compute_content_cost(a_C, a_G)
+    print ("cost = ", J)
+    return J
+
+def compute_content_cost(a_C, a_G):
+    """
+    Computes the content cost
+
+    Arguments:
+    a_C -- tensor of dimension (1, n_H, n_W, n_C), hidden layer activations representing content of the image C
+    a_G -- tensor of dimension (1, n_H, n_W, n_C), hidden layer activations representing content of the image G
+
+    Returns:
+    J_content -- scalar that you compute using equation 1 above.
+    """
+
+    ### START CODE HERE ###
+    m, n_H, n_W, n_C = tf.shape(a_G)
+
+    # Reshape a_C and a_G (≈2 lines)
+    a_C_unrolled = tf.reshape(a_C, shape=[m, n_H * n_W, n_C])
+    a_G_unrolled = tf.reshape(a_G, shape=[m, n_H * n_W, n_C])
+
+    # compute the cost with tensorflow (≈1 line)
+    J_content = (tf.reduce_sum(tf.square(tf.subtract(a_C_unrolled, a_G_unrolled)))) / tf.cast((4 * n_H * n_W * n_C), tf.float32)
+    ### END CODE HERE ###
+
+    return J_content
+
+def model_nn(input_image, num_iterations=200):
+    for i in range(num_iterations):
+        print ('interation: %d', i)
+        with tf.GradientTape(watch_accessed_variables=False) as tape:
+            tape.watch(input_image)
+            J = processing(input_image)
+            # save last generated image
+        gradients = tape.gradient(J, input_image)
+        optimizer = tf.keras.optimizers.Adam(2.0)
+        optimizer.apply_gradients([(gradients, input_image)])
+        # load_vgg_model.save_image('output/generated_image_' + str(i) + '.jpg', input_image)
+    load_vgg_model.save_image('output/generated_image_' + str(i) + '.jpg', input_image)
+    return generated_image
+
+tf.enable_eager_execution()
+loader = load_vgg_model.ModelLoader("pretrained-model/imagenet-vgg-verydeep-19.mat")
+content_model = loader._create_model_with_part_layer(CONTENT_LAYER)
+a_C = calculate_a_C(content_model, layer_id=-1) # 'conv4_2' #浣犳兂瑕佽幏寰楄緭鍑虹殑鍘熷妯″瀷涓偅涓€灞傜殑鍚嶇О
+generated_image = read_init_generate(content="noise")
+model_nn(generated_image)
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="基于预训练模型的风格重构"><a href="#基于预训练模型的风格重构" class="header">基于预训练模型的风格重构</a></h1>
+<p>风格重构又称为纹理提取，过程与内容重构类似，区别只是损失函数的计算方法不同。</p>
+<ol>
+<li>
+<p>加载预预训练模型，以VGG19为例，见上一页。</p>
+</li>
+<li>
+<p>生成一张白噪声图像</p>
+</li>
+<li>
+<p>定义原图像为a，生成的图像为g，它们经过预训练模型后，第l层的输出为F(a, l)和F(g, l)。</p>
+</li>
+<li>
+<p>定义任意图像p的风格为gram矩阵</p>
+</li>
+</ol>
+<p>$G^l_{ij} = \text{correlation}(p^l_i, p^l_j)$</p>
+<ol start="5">
+<li>定义损失函数</li>
+</ol>
+<p>$L = |G(a, l) - G(g, l)|_2$把模型参数作为常量，把图像像素作为变量，进行梯度下降的迭代</p>
+<ol start="5">
+<li>最后得到的g为基于预训练模型第l层得到的重构图像</li>
+</ol>
+<p>结论：<br>l层越高（靠近输出层），像素越连续。</p>
+<pre><code class="language-python">import tensorflow as tf
+
+# GRADED FUNCTION: gram_matrix
+
+def gram_matrix(A):
+    """
+    Argument:
+    A -- matrix of shape (n_C, n_H*n_W)
+
+    Returns:
+    GA -- Gram matrix of A, of shape (n_C, n_C)
+    """
+
+    ### START CODE HERE ### (鈮? line)
+    GA = tf.matmul(A, tf.transpose(A))
+    ### END CODE HERE ###
+
+    return GA
+
+
+# GRADED FUNCTION: compute_layer_style_cost
+
+def compute_layer_style_cost(a_S, a_G):
+    """
+    Arguments:
+    a_S -- tensor of dimension (1, n_H, n_W, n_C), hidden layer activations representing style of the image S
+    a_G -- tensor of dimension (1, n_H, n_W, n_C), hidden layer activations representing style of the image G
+
+    Returns:
+    J_style_layer -- tensor representing a scalar value, style cost defined above by equation (2)
+    """
+
+    ### START CODE HERE ###
+    # Retrieve dimensions from a_G (鈮? line)
+    # m, n_H, n_W, n_C = a_G.get_shape().as_list()
+    m, n_H, n_W, n_C = tf.shape(a_G)
+
+    # Reshape the images to have them of shape (n_C, n_H*n_W) (鈮? lines)
+    a_S = tf.transpose(tf.reshape(a_S, shape=[n_H * n_W, n_C]))
+    a_G = tf.transpose(tf.reshape(a_G, shape=[n_H * n_W, n_C]))
+
+    # Computing gram_matrices for both images S and G (鈮? lines)
+    GS = gram_matrix(a_S)
+    GG = gram_matrix(a_G)
+
+    # Computing the loss (鈮? line)
+    J_style_layer = (tf.reduce_sum(tf.square(tf.subtract(GS, GG)))) / (tf.cast((4 * n_H * n_W * n_C), tf.float64) ** 2)
+
+    ### END CODE HERE ###
+
+    return J_style_layer
+
+
+def compute_style_cost(modellist, STYLE_LAYERS, a_S_Set, generated_image):
+    """
+    Computes the overall style cost from several chosen layers
+
+    Arguments:
+    model -- our tensorflow model
+    STYLE_LAYERS -- A python list containing:
+                        - the names of the layers we would like to extract style from
+                        - a coefficient for each of them
+
+    Returns:
+    J_style -- tensor representing a scalar value, style cost defined above by equation (2)
+    """
+
+    # initialize the overall style cost
+    J_style = 0
+    for layer_name, coeff, layer_id in STYLE_LAYERS:
+        a_G = modellist[layer_name](generated_image)
+        a_S = a_S_Set[layer_name]
+        J_style_layer = compute_layer_style_cost(a_S, a_G)
+        J_style += coeff * J_style_layer
+
+    return J_style
+
+def test_gram_matrix():
+    tf.compat.v1.reset_default_graph()
+
+    with tf.compat.v1.Session() as test:
+        tf.compat.v1.set_random_seed(1)
+        A = tf.compat.v1.random_normal([3, 2 * 1], mean=1, stddev=4)
+        GA = gram_matrix(A)
+
+        print("GA = \n" + str(GA.eval()))
+
+def test_compute_layer_style_cost():
+    tf.compat.v1.reset_default_graph()
+
+    with tf.compat.v1.Session() as test:
+        tf.compat.v1.set_random_seed(1)
+        a_S = tf.compat.v1.random_normal([1, 4, 4, 3], mean=1, stddev=4)
+        a_G = tf.compat.v1.random_normal([1, 4, 4, 3], mean=1, stddev=4)
+        J_style_layer = compute_layer_style_cost(a_S, a_G)
+
+        print("J_style_layer = " + str(J_style_layer.eval()))
+        # J_style_layer = 9.190278
+
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="什么是语言模型"><a class="header" href="#什么是语言模型">什么是语言模型</a></h1>
+<p>S1 = “The apple and pair salad”<br>S2 = “The apple and pear salad”<br>S1和S2语音相近，为什么选择S2而不是S1？<br>因为语言模型。在语言模型中，P(S2) &gt; P(S1)，因此选择S2。<br><strong>语言模型用于评估一个句子发生的可能性。</strong></p>
+<h1 id="怎样构建语言模型"><a class="header" href="#怎样构建语言模型">怎样构建语言模型</a></h1>
+<p>训练集：大量的语料库corpus</p>
+<h2 id="tokenize"><a class="header" href="#tokenize">tokenize</a></h2>
+<p>即把单词序列转成token序列，token是one-hot向量。<br>除了每个字符有对应的token以外，增加两个token：</p>
+<ul>
+<li><code>&lt;EOS&gt;</code>：表示序列结束的字符</li>
+<li><code>&lt;unk&gt;</code>：表示字符不在字典中<br>标点不用转成token</li>
+</ul>
+<h2 id="定义模型结构"><a class="header" href="#定义模型结构">定义模型结构</a></h2>
+<p><img src="/assets/35.png" alt=""></p>
+<h2 id="定义损失函数-1"><a class="header" href="#定义损失函数-1">定义损失函数</a></h2>
+<p>$$
+\begin{aligned}
+L(\hat y^t, y^t) &amp;=&amp; -\sum_i(y_i^t\log\hat y_i^t)  \
+L &amp;=&amp; \sum_t L(\hat y_t, y_t)
+\end{aligned}
+$$</p>
+<p>图像中第t个unit用于计算给出t-1个单词的情况下，第t个单词是某个单词的概率。<br>把前t个unit的结果相乘表示t个单词组成一句话的概率。</p>
+<h1 id="新序列采样"><a class="header" href="#新序列采样">新序列采样</a></h1>
+<p>目的：训练了一个语言模型之后，想了解模型学到了什么</p>
+<h2 id="softmax采样"><a class="header" href="#softmax采样">softmax采样</a></h2>
+<p>由softmat生成每个单词的概率分布。<br>用np.random.choice基于概率分布进行采样。<br><img src="/assets/36.png" alt=""><br>这里和训练的主要区别是：使用$\hat y$还是y作为下一个t的输入。</p>
+<h1 id="字符级别的rnn"><a class="header" href="#字符级别的rnn">字符级别的RNN</a></h1>
+<p>上面都是单词级别的RNN。<br>也可以训练一个字符级别的RNN。<br>优点：不用担心出现未知的token<br>缺点：<br>生成的序列比较长。序列太长，前面对后面的影响就会小。<br>训练成本高。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="词汇表征"><a class="header" href="#词汇表征">词汇表征</a></h1>
+<p>词汇表征是自然语言处理中的基础任务，旨在将单词转换为计算机可处理的向量表示。</p>
+<p>本章包含以下内容：</p>
+<ul>
+<li><a href="#one-hot表示法">One-hot Embedding</a></li>
+<li><a href="#特征化表示-word-embedding">Word Embedding</a></li>
+<li><a href="#类比推理">类比推理</a></li>
+<li><a href="#用语言模型学习embedding-matrix">用语言模型学习 Embedding Matrix</a></li>
+<li><a href="#word2vec-算法">Word2Vec 算法</a></li>
+<li><a href="#skip-gram-model">skip-grams 算法</a></li>
+<li><a href="#算法过程">负采样算法</a></li>
+<li><a href="#词向量算法">词向量算法</a></li>
+<li><a href="NLP/Debiasing.html">词嵌入除偏</a></li>
+<li><a href="#count-based算法">Embedding</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="one-hot表示法"><a class="header" href="#one-hot表示法">One-Hot表示法</a></h1>
+<p>例如单词表为：lexicon = {apple, ball, cat}
+那么这三个单词的向量依次为：<br>apple = [1 0 0 0]<br>ball = [0 1 0 0]<br>cat = [0 0 1 0]
+其它单词 = [0 0 0 1]</p>
+<p>缺点：<br>把每个词孤立起来（任意两个向量的内积为0），这使得模型对词的泛化能力不强。<br>例如，从“I want a glass of orange juice”泛化到“I want a glass of apple juice.”</p>
+<h1 id="word-hashing"><a class="header" href="#word-hashing">word hashing：</a></h1>
+<p><img src="/assets/39.png" alt=""></p>
+<h1 id="缺点"><a class="header" href="#缺点">缺点</a></h1>
+<p>it treats each word as a thing only to itself.<br>例如：<br>I want a glass of orange ______.<br>I want a glass of apple ______.<br>对于以上两种表征方式，orange和apple没有内在的联系，和其它单词是一样的，因此无法将第一句的知识泛化到第二句。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="特征化表示-word-embedding"><a class="header" href="#特征化表示-word-embedding">特征化表示： word embedding</a></h1>
+<p>Word Embedding是基于特征的representation。<br><img src="/assets/40.png" alt=""><br>这只是一个人为构造的例子。实际上这个矩阵中每一行的含义以及矩阵中的数值都是DL学习出来的，每个维度的含义不一定能被 人理解。</p>
+<h2 id="可视化embedding"><a class="header" href="#可视化embedding">可视化embedding</a></h2>
+<p>van der Maaten and Hinton., 2008. Visualizing data using t-SNE</p>
+<p>使用t-SNE把n维的embedding转换到二维的空间。<br><img src="/assets/41.png" alt=""></p>
+<h2 id="word-embedding的优点"><a class="header" href="#word-embedding的优点">word embedding的优点</a></h2>
+<ol>
+<li>word embedding通过非常大量的语料库（1-100B）生成。<br>使用者可以预先训练好或者直接下载开源的word embedding，然后把它迁移到自己的模型中并微调。</li>
+<li>即使自己的模型只有很小的训练集（100K），也能有比较好的效果。</li>
+<li>embedding向量比one-hot向量小。</li>
+</ol>
+<p>word embedding广泛应用于NLP问题中，这是一种迁移学习。</p>
+<h1 id="word-embedding-vs-face-encoding"><a class="header" href="#word-embedding-vs-face-encoding">Word Embedding VS Face Encoding</a></h1>
+<p>word embedding和<a href="https://windmissing.github.io/DeepLearningNotes/CV/Face/Siamese.html">face encoding</a>的原理类似，区别是使用时：<br>face encoding输入的可能是没有见过的图像。<br>word embedding输入的是字典中的单词。</p>
+<h1 id="embedding-matrix"><a class="header" href="#embedding-matrix">Embedding Matrix</a></h1>
+<p>假设单词表的大小为10000，embedding后每个单词的维度是300，则Embedding矩阵E的维度是300 * 10000<br>例如单词ID是6527，它的One-hot Embedding记为$O_{6527}$，维度是10000 * 1，它的Word Embedding记为$e_{6527}$，维度是300 * 1，则：</p>
+<p>$$
+e_{6527} = E \cdot O_{6527}
+$$</p>
+<p>实际上不会使用这种矩阵乘法来计算Word Embedding，而是使用专用的列查找算法。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>Mikolov et. al., 2013. Linguistic regualrities in continuous space word representations</p>
+<h1 id="类比推理"><a class="header" href="#类比推理">类比推理</a></h1>
+<p>man -&gt; woman， king -&gt; ?</p>
+<h1 id="向量相减"><a class="header" href="#向量相减">向量相减</a></h1>
+<p>$$
+e_{\text{man}} - e_{\text{woman}} \approx e_{\text{king}} - e_{w}
+$$</p>
+<p>找到一个w使式子成立：<br>$$
+w = \arg\max_w \text{sim}(e_{w}, e_{\text{king}} - e_{\text{man}} + e_{\text{woman}})
+$$</p>
+<p>公式中的sim代表相似度计算公式，有“余弦相似度”和“平方相似度”。余弦相似度更常用。</p>
+<ul>
+<li>余弦相似度：<br>$$
+\text{sim}(u, v) = \frac{u^\top v}{||u||_2||v||_2}
+$$</li>
+</ul>
+<p>公式中的$u^\top v$计算u、v夹角的余弦值，因此称为余弦相似度。</p>
+<ul>
+<li>平方相似度：<br>$$
+\text{sim}(u, v) = - ||u-v||^2
+$$</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="用语言模型学习embedding-matrix"><a class="header" href="#用语言模型学习embedding-matrix">用语言模型学习Embedding Matrix</a></h1>
+<p>Bengio et. al., 2003. A neura; probabilistic language model</p>
+<p>I want a  glass of orange ______.<br>语言模型的目标是预测下一个单词。</p>
+<ol>
+<li>提取target的前K个单词。</li>
+<li>one shot向量经过embedding matrix得到embedding向量</li>
+<li>embedding向量通过RNN神经网络进行训练</li>
+<li>softmax作为NN的输出Unit，来计算w是每个单词的概率。<br><img src="/assets/42.png" alt=""></li>
+</ol>
+<p>这个模型中有softmax的参数和E的参数，都可以通过GD迭代得到。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="word2vec-算法"><a href="#word2vec-算法" class="header">Word2Vec 算法</a></h1>
+<p>Mikolov et. al., 2013. Efficient estimation of word representations in vector space</p>
+<h2 id="构造监督学习问题"><a class="header" href="#构造监督学习问题">构造监督学习问题</a></h2>
+<p>学习Word Embedding本是一个非监督学习的问题，可以先把它转换成等价的监督学习问题，然后GD迭代求出模型的参数。</p>
+<p>通过抽取上下文context和目标target词配对，来构造监督学习问题。</p>
+<p>定义：<br>One-hot Vector: Oc<br>Embedding Matrix: E<br>Embedding Vector: Ec<br>有：<br>Ec = E * Oc</p>
+<p>Word2Vec与NLP语言模型主要区别在于选取context和target的方式不同。<br>Word2Vec选择context前后的k范围内的词作为target，与context构造一对。<br>context是特征，target是标签。<br><img src="/assets/43.png" alt=""></p>
+<p>一个特征对应多标签，这样构造出来的监督问题不是为了预测标签，而是为了学习Embedding。</p>
+<h2 id="模型结构"><a class="header" href="#模型结构">模型结构</a></h2>
+<p>Word2Vec与NLP语言模型使用的网络结构类似 ，通过NN建立context到target的映射。<br><img src="/assets/44.png" alt=""><br>由softmax生成的概率模型为：<br>$$
+p(t|c) = \frac{\exp{\theta^\top_t e_c}}{\sum_t \exp{\theta^\top_t e_c}}
+$$</p>
+<p>公式中$\theta^\top_t$是与输出t有关的参数。</p>
+<p>定义损失函数为：<br>$$
+L(\hat y, y) = -\sum y_i \log \hat y_i
+$$</p>
+<p>通过迭代可以学到E的参数和softmax的参数。softmax参数就是$\theta_t$，E的参数就是embedding matrix。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="skip-gram-model"><a class="header" href="#skip-gram-model">Skip-Gram Model</a></h1>
+<p>Skip-grams与Word2Vec算法相似，只是选择context和target的方法不同。</p>
+<p>skip-context的目标是：给一个context，输出从context skip一些单词之后的单词。</p>
+<p>基于NLP语言模型的改进。<br>在NLP语言模型中，使用target的前K个单词作为context.<br>如果目标不是生成语言模型，而是用于训练类比推理，可以使用其它类型的context.</p>
+<h1 id="遗留问题"><a class="header" href="#遗留问题">遗留问题</a></h1>
+<h2 id="问题1-公式ptc的分母计算非常慢"><a class="header" href="#问题1-公式ptc的分母计算非常慢">问题1： 公式p(t|c)的分母计算非常慢</a></h2>
+<p>$$
+p(t|c) = \frac{\exp{\theta^\top_t e_c}}{\sum_t \exp{\theta^\top_t e_c}}
+$$</p>
+<p>解决方法：分组的softmax<br><img src="/assets/45.png" alt=""></p>
+<h2 id="问题2怎么采样生成context"><a class="header" href="#问题2怎么采样生成context">问题2：怎么采样生成context？</a></h2>
+<ul>
+<li>均匀随机采样：  the, of, a等词频繁出现和更新，orange, apple, durian较少出现和更新</li>
+<li>启发算法：用于平衡常见词和不常见词</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>Mikolov et. al., 2013. Distributed representation of words and phrases and their compositionality</p>
+<p>负采样 negative sample，可以解决Word2Vec和skip-grams中p(t|c)计算太慢的问题。</p>
+<h1 id="算法过程"><a class="header" href="#算法过程">算法过程</a></h1>
+<ol>
+<li>从句中选择一个context</li>
+<li>从context的范围内生成一对word（同Word2Vec），(context, word)构成一个正样本，定义其label为1</li>
+<li>从单词表中随机选择一个word，(context, word)构成一个负样本，定义这k个负样本的label为0。</li>
+<li>重复第3步k次，得到k个负样本。</li>
+<li>用正/负样本对及其对应的label训练模型（监督学习）<br>$$
+P(y=1|c, t) = \sigma(\theta^\top_t e_c)
+$$</li>
+</ol>
+<h1 id="优点"><a class="header" href="#优点">优点</a></h1>
+<p>相当于把大小为1000个类别的多分类问题转换成1000个二分类问题。<br>但并不是每次都把1000个二分类问题都算了，而是只更新k+1个二分类的结果。</p>
+<h1 id="遗留问题-1"><a class="header" href="#遗留问题-1">遗留问题</a></h1>
+<h2 id="问题1如何决定k"><a class="header" href="#问题1如何决定k">问题1：如何决定k？</a></h2>
+<p>for larger corpus, [5, 20]<br>for smaller corpus, [2, 5]<br>数据集大则k小，数据集小则k大。</p>
+<h2 id="问题2如何选择负样本的context"><a class="header" href="#问题2如何选择负样本的context">问题2：如何选择负样本的context?</a></h2>
+<ul>
+<li>根据词出现的频率进行采样：the, of, and…问题</li>
+<li>均匀随机抽取：样本没有代表性</li>
+<li>启发算法<br>$$
+P(w_i) = \frac{f(w_i)^{\frac{3}{4}}}{\sum f(w_i)^{\frac{3}{4}}}
+$$</li>
+</ul>
+<p>公式中$f(w_i)$代表词频。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="词向量算法"><a href="#词向量算法" class="header">词向量算法</a></h1>
+<p>Pennington et. al., 2014. Glove: Global vectors for word representation</p>
+<p>GloVe = Global Vector = 词向量<br>特点：简便</p>
+<ol>
+<li>
+<p>定义：<br>$X_{ij}$为target i出现在context c中的次数<br>遍历corpus统计$X_{ij}$。<br>$X_{ij}$是否对称与如何定义context有关。</p>
+</li>
+<li>
+<p>优化</p>
+</li>
+</ol>
+<p>$$
+\sum_i\sum_j f(X_{ij})(\theta^\top_i e_j + b_i + b_j’ - \log X_{ij})^2
+$$</p>
+<p>关于$f(X_{ij})$</p>
+<ol>
+<li>公式中$f(X_{ij})$为权重：</li>
+<li>当$X_{ij} = 0$时，$f(X_{ij})$必须定义为0。否则上面这个公式没有意义。</li>
+<li>$X_{ij}$可能差别很大，$f(X_{ij})$应保留$X_{ij}$的大小关系（单调），但不能让它们的差别过于悬殊。</li>
+</ol>
+<p>关于$e$和$\theta$：<br>$e$和$\theta$是对称的，因此将$e$和$\theta$初始化为相同的值，迭代之后：<br>$$
+e_w^{final} = \frac{e_w + \theta_w}{2}
+$$</p>
+<p>这是因为在这个算法里，$e$和$\theta$的意义是相同的，而之前的算法中$e$和$\theta$不同。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="词嵌入除偏-debiasing"><a class="header" href="#词嵌入除偏-debiasing">词嵌入除偏 Debiasing</a></h1>
+<p>Bolukbasi et. al., 2016 Man is to computer programmer as woman is to homemaker?</p>
+<p>word embedding中的bias反映了corpus中的bias。</p>
+<p>用于消除种族歧视、性别歧视等。<br>例如：<br>Man:Woman -&gt; King:Queen<br>Man：程序员 -&gt; Woman：家庭主妇</p>
+<ol>
+<li>识别bias的方向，以及中轴<br><img src="/assets/48.png" alt=""></li>
+<li>中和步 neutralization step<br>有明确的性别分别的词，例如：boy, girl, he, she<br>没有性别区分的词，例如doctor, nurse, programmer, homemaker<br>将第二类词中和，即消除它们到中轴的距离。<br><img src="/assets/49.png" alt=""></li>
+<li>平衡步 equalize<br>目标：使第一类词对到中轴的距离相等<br><img src="/assets/50.png" alt=""></li>
+</ol>
+<p>问题：怎样判断一个词是第一类词还是第二类词？<br>答：训练一个NN来判断。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>目标：通过word的context来理解word的关系。<br>难点：怎样挖掘word的context?</p>
+<h1 id="count-based算法"><a class="header" href="#count-based算法">Count based算法</a></h1>
+<p>原理：Wi和Wj经常co-occor，则V(Wi)和V(Wj)接近。</p>
+<h2 id="glove-vector"><a class="header" href="#glove-vector">Glove Vector</a></h2>
+<p>Ag也有讲这个算法<a href="https://windmissing.github.io/Bible-DeepLearning/Chapter10/ReasonableAnalogies.html">link</a></p>
+<h1 id="predition-based算法"><a class="header" href="#predition-based算法">Predition Based算法</a></h1>
+<h2 id="基本算法"><a class="header" href="#基本算法">基本算法</a></h2>
+<ol>
+<li>训练一个NN，输入$w_{i-1}$，预测$w_i$是每个单词的概率。<br><img src="/assets/images/Chapter10/64.png" alt=""></li>
+<li>把NN中的第1个hidden layer拿出来，即z</li>
+<li>用z代表单词wi</li>
+</ol>
+<p>原文中NN部分只有1个hidden layer。因此1个hidden layer的计算量，因此可以跑大量的Data。</p>
+<h2 id="算法拓展"><a class="header" href="#算法拓展">算法拓展</a></h2>
+<p>基于$w_{i-1}$  拓展为  基于wi的几N个单词，<br>同时结合参数共享的思想。<br><img src="/assets/images/Chapter10/65.png" alt=""><br>参数共享的原理：同一个单词放在wi之前的不同位置，效果应该相同。</p>
+<h2 id="算法变形"><a class="header" href="#算法变形">算法变形</a></h2>
+<p>（1）基于wi前后的单词预测wi<br>（2）基于wi预测wi前后的单词<br><img src="/assets/images/Chapter10/66.png" alt=""></p>
+<h1 id="embedding算法的应用"><a class="header" href="#embedding算法的应用">Embedding算法的应用</a></h1>
+<h2 id="word-embedding"><a class="header" href="#word-embedding">Word Embedding</a></h2>
+<ol>
+<li>相同关系的两个词的向量的相对位置类似<br><img src="/assets/images/Chapter10/67.png" alt=""><br>图中左边为国家与首都的向量关系，右边为动词三次的向量关系。</li>
+<li>相同关系的两个词的向量相减，结果落在同一区域。<br><img src="/assets/images/Chapter10/68.png" alt=""></li>
+</ol>
+<h2 id="多语言-embedding"><a class="header" href="#多语言-embedding">多语言 Embedding</a></h2>
+<p><img src="/assets/images/Chapter10/69.png" alt=""></p>
+<ol>
+<li>对两种语言分别做embedding，此时两种embedding没有任何关系。</li>
+<li>基于一些确定的中英词对，将两种embedding映射到同一空间。图如图中绿底中文和绿框英文。</li>
+<li>此时出现新的中文embedding与英文embedding，经过相同的映射后，会出现在附近的位置。例如图中绿底中文和黄底英文。</li>
+</ol>
+<h2 id="多领域-embedding"><a class="header" href="#多领域-embedding">多领域 Embedding</a></h2>
+<ol>
+<li>同一类别的图像出现在Embedding空间的同一位置</li>
+<li>一张新图，通过Embedding向量周边向量的类别来确定这张新图的类别。<br>参考上文提到的Zero-Shot问题。<br><img src="/assets/images/Chapter10/70.png" alt=""></li>
+</ol>
+<h2 id="文件embedding"><a class="header" href="#文件embedding">文件Embedding</a></h2>
+<p>不同长度的文件 –&gt; 相同长度的vector<br>静态Embedding法<br><img src="/assets/images/Chapter10/71.png" alt=""><br>缺点：Bag of word没有考虑到内容中单词的顺序<br>改进：没讲</p>
+<h2 id="领域-neighbor-embedding"><a class="header" href="#领域-neighbor-embedding">领域 Neighbor Embedding</a></h2>
+<p>Manifold Learning，相当于非线性的降维<br>经典例子：地球表面<br>引入原因：由于低维空间的点在高维空间扭曲，导致原本的“距离”可能没有意义。<br>解决方法：把点在低维空间拉平<br><img src="/assets/images/Chapter10/72.png" alt=""></p>
+<h3 id="方法一lle"><a class="header" href="#方法一lle">方法一：LLE</a></h3>
+<ol>
+<li>
+<p>任意选择一个点xi</p>
+</li>
+<li>
+<p>任意选择点xi的Neighbour，即点xj</p>
+</li>
+<li>
+<p>定义xi与xj的关系为$W_{i,j}$</p>
+</li>
+<li>
+<p>最小化以下公式：<br>$$
+\sum_i||x^i - \sum_j W_{i,j}x^j||_2
+$$</p>
+</li>
+<li>
+<p>降维，把xi, xj转成zi,zj，降维后$W_{i,j}$不变。<br>$$
+\sum_i||z^i - \sum_j W_{i,j}z^j||_2
+$$</p>
+</li>
+</ol>
+<p>优点：<br>不需要知道原xi, xj，只要知道$W_{i,j}$，就可以求出降维后的zi, zj。</p>
+<h3 id="方法二laplacian-eigenmaps"><a class="header" href="#方法二laplacian-eigenmaps">方法二：Laplacian Eigenmaps</a></h3>
+<p>两个点的距离不是欧氏距离，而是两个点间的<a href="https://windmissing.github.io/Bible-DeepLearning/Chapter7/6SemiSupervised.html#%E7%AE%97%E6%B3%95%E4%BA%8C%EF%BC%9Agraph-based-approach">high density path</a></p>
+<p><img src="/assets/images/Chapter10/73.png" alt=""></p>
+<p>$$
+S = \frac{1}{2}\sum_{i,j}W_{i,j}(z^i - z^j)^2
+$$</p>
+<p>$\sum_{i,j}$代表遍历所有的数据对，但只有$W_{i,j}$大的情况下，才会考虑对(z^i - z^j)^2影响。<br>$W_{i,j}$大的情况下，(x^i - x^j)^2肯定小，按照以上公式，这种情况$(z^i - z^j)^2$也必须小。<br>另外，为了防止训练结果为所有的z都为0，还需要再加一个要求：<br>$$
+Span(z1, z2, \cdots, zm) = R^m
+$$</p>
+<h3 id="方法三t-sne"><a class="header" href="#方法三t-sne">方法三：t-SNE</a></h3>
+<p>T-distributed Stochastic Neighbour Embedding<br>https://blog.csdn.net/scott198510/article/details/76099700</p>
+<p>方法一、二存在的问题：<br>只要求相似的点靠近，没有要求不同的点分开，所以最后所有的点都挤到一起。<br><img src="/assets/images/Chapter10/74.png" alt=""><br>T-SNE可以解决这样的问题。</p>
+<p>训练步骤：</p>
+<ol>
+<li>
+<p>计算所有点对的相似度： S(xi, xj)，两个点之间距离越近，相似度越大。</p>
+</li>
+<li>
+<p>Normalization<br>$$
+P(x^j|x^i) = \frac{S(x^i, x^j)}{\sum_{k\neq i}S(x^i, x^k)}
+$$</p>
+</li>
+<li>
+<p>在低维空间随机生成同样多的点z，假设zi, zj就是xi, xj对应的转换结果，计算S’(zi, zj)</p>
+</li>
+<li>
+<p>Normalization<br>$$
+Q(z^j|z^i) = \frac{S’(z^i, z^j)}{\sum_{k\neq i}S(z^i, z^k)}
+$$
+<img src="/assets/images/Chapter10/97.png" alt=""><br>假设上图中左图为高维空间的点x1计算出来的归一化之后的相似度。右图是低维空间点z1计算出来的归一化之后的相似度。<br>每一组相似度都可以看作是一个Multinomial分布。</p>
+</li>
+<li>
+<p>计算分布P与分布Q的相似度，使用的指示是KL divergence(KL散度)<br>对每个点“在高维空间的相似度分布P”和“低维空间的相似度分布Q”之间的相似度（KL散度）。<br>所有点计算出的KL散度之和就是这个模型的Loss Function。<br>$$
+\begin{aligned}
+L &amp;=&amp; \sum_i KL\left(P(<em>|x^i)||Q(</em>|z^i)\right)  \
+&amp;=&amp; \sum_i \sum_j P(x^j|x^i)\log \frac{P(x^j|x^i)}{Q(x^j|x^i)}
+\end{aligned}
+$$</p>
+</li>
+<li>
+<p>通过不断迭代调整z的位置降低Loss。</p>
+</li>
+</ol>
+<p>缺点：
+（1）计算量大<br>解决方法：先使用PCA降维，例如：50维 –PCA–&gt; 10维 –t-SNE–&gt; 2维<br>（2）如果来一个新的x，要求x对应的z，需要把算法重新跑一遍。<br>解决方法：该算法不用于训练模型，而是主要用于数据的可视化</p>
+<p>t-SNE的一个关键的创新点：<br>x的相似度计算公式S和z的相似度计算公式S’不同。<br>$$
+\begin{aligned}
+S(x^i, x^j) = \exp(-||x^i-x^j||_2)  \
+S’(z^i, z^j) = 1/1 + ||z^i-z^j||_2
+\end{aligned}
+$$</p>
+<p>S与S’的关系如图所示：<br><img src="/assets/images/Chapter10/75.png" alt=""><br>图中蓝线是高维空间数据的S公式。绿线为低维空间数据的S’公式。<br>当xi与xj接近时，zi与zj之间的距离更近。<br>当xi与xj比较远时，zi与zj的间隔更远（强化gap）。<br>效果：<br><img src="/assets/images/Chapter10/76.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>情绪分类的主要挑战： 没有那么多有标记的训练集<br>解决方法： Word Embedding</p>
+<h1 id="简单的情绪分类"><a class="header" href="#简单的情绪分类">简单的情绪分类</a></h1>
+<p><img src="/assets/46.png" alt=""></p>
+<ol>
+<li>把one shot向量转成word embedding向量</li>
+<li>句子中的所有向量做Average操作。</li>
+<li>基于softmax生成分类结果</li>
+</ol>
+<p>优点：适用于任意长度的文本<br>缺点：缺少词序，例如：<br>Completely lacking in good taste, good service and good ambience.
+这句很可能会误分类。</p>
+<h1 id="rnn的many-to-one结构"><a class="header" href="#rnn的many-to-one结构">RNN的Many to One结构</a></h1>
+<p><img src="/assets/47.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="nmt"><a href="#nmt" class="header">NMT</a></h1>
+<hr>
+<h2 id="layout-post-title-nlp-nmt综述-category-machine-learning-tags-"><a class="header" href="#layout-post-title-nlp-nmt综述-category-machine-learning-tags-">layout: post
+title: “NLP NMT综述”
+category: [Machine Learning]
+tags: []</a></h2>
+<p>NMT = neural machine translation</p>
+<h1 id="分类"><a class="header" href="#分类">分类</a></h1>
+<ol>
+<li>多语言/领域NMT  &amp;   单语言/领域NMT</li>
+<li>自回归NMT/非自回归NMT</li>
+<li>word/character level NMT</li>
+<li>实时翻译/全句翻译</li>
+</ol>
+<h1 id="单语言nmt"><a class="header" href="#单语言nmt">单语言NMT</a></h1>
+<p>经典模型是transformer：<br><img src="/images/2020/12.png" alt=""></p>
+<p>特点是：</p>
+<ol>
+<li>每个NX代表一个完整的一层</li>
+<li>Encoder每层有2个sublayer，分别是ATT和FNN</li>
+<li>Decoder每层比Encoder多一层masked-ATT</li>
+<li>每个sublayer之后都有Add&amp;Norm</li>
+<li>Sublayer之间是残差网络</li>
+</ol>
+<p>transformer的改进：</p>
+<ol>
+<li>新的attention function，使用scaled dot-product作为alignment score。</li>
+<li>a multi-head attention modlule，使得NMT模型可以jointly attend to information from different representations at different positions。</li>
+</ol>
+<h1 id="多语言nmt"><a class="header" href="#多语言nmt">多语言NMT</a></h1>
+<p>多语言NMT是指在一个模型中完成多对语言之间的翻译，具体可以分为一对多、多对一、多对多。</p>
+<p>多语言NMT要解决的问题有：</p>
+<ol>
+<li>单个语言的翻译性能不如单语言模型</li>
+<li>zero-shot问题。多语言NMT使得zero-shot翻译成为可能，但它的zero-shot翻译质量并不好。</li>
+</ol>
+<h2 id="提升语言翻译性能的方法"><a class="header" href="#提升语言翻译性能的方法">提升语言翻译性能的方法</a></h2>
+<ol>
+<li>每个语言都有对应的encoder/decoder</li>
+</ol>
+<p>例如：<br>一对多翻译，共享encoder<br>多对多翻译，多个语言共享attention mechanism</p>
+<p>缺点：scalability受到限制。</p>
+<ol start="2">
+<li>把不同语言映射到同一个表示空间</li>
+</ol>
+<p>例如：<br>with a target language symbol guiding the translation direction</p>
+<p>缺点：<br>忽略了不同语言的linguistic diversity</p>
+<ol start="3">
+<li>在2的基础上，加入“语言的linguistic diversity”的考虑</li>
+</ol>
+<p>例如：<br>reorganizing parameter sharing<br>designing language-specific parameter generator<br>decoupling multilingual word encoding</p>
+<h2 id="解决zero-shot问题的方法"><a class="header" href="#解决zero-shot问题的方法">解决zero-shot问题的方法</a></h2>
+<p>多语言NMT处理zero-shot数据时（相对于pivot-based模型）会出现“off-target translation问题”，即翻译成一个错误的语言。</p>
+<p>出现问题的原因：</p>
+<ol>
+<li>missing ingredient problem</li>
+<li>spurious correlation issue</li>
+</ol>
+<p>解决方法：</p>
+<ol>
+<li>跨语言正则化</li>
+<li>generating artificial parallel data with backtranslation</li>
+</ol>
+<h1 id="字符级nmt"><a class="header" href="#字符级nmt">字符级NMT</a></h1>
+<p>Encoder：CNN层 + max pooling层 + highway层 + attention<br>Decoder：每次生成一个Character</p>
+<p>在多语言场景中，字符级NMT非常有用，表现在：</p>
+<ul>
+<li>两种语言有几乎相同的字符表，例如French和Spanish</li>
+<li>两个差别较大的语言映射到一个共同的字符表，例如latinzing Russian和Chinese</li>
+</ul>
+<p>transformor + 字符级 效果也不错。</p>
+<h1 id="自回归模型"><a class="header" href="#自回归模型">自回归模型</a></h1>
+<p>target sentence的每个output token都与之前的output token有关，因此token是一个一个产生的。</p>
+<p>生成长度为n的output需要经过n次迭代。</p>
+<h1 id="非自回归模型nat"><a class="header" href="#非自回归模型nat">非自回归模型（NAT）</a></h1>
+<p>NAT，Non-Autogressive Machine Translation</p>
+<p>不考虑sequential condition dependency，并行生成输出<br>时间复杂度：O(n) -&gt; O(k)<br>优点：速度大幅提升<br>缺点：性能下降<br>原理：knowledge distillation，用于sequence-level distilled outputs<br>主要研究方向：缩小NAT与AT之间的性能差距</p>
+<p>一些提升NAT性能的方法：</p>
+<ol>
+<li>takes a copy of the encoder input x as the decoder input, and trains a fertility predictor to guide the copy procedure</li>
+<li>generate the target sentence by interatively refining the current translation</li>
+<li>extra loss function</li>
+<li>change the generation order：左-&gt;右 ==》 tree-based</li>
+<li>multi-iteration refinements</li>
+<li>rescoring with 自回归模型</li>
+<li>aligned cross entropy/latent alignment mode(SOTA)</li>
+</ol>
+<h2 id="masked-语言模型bert"><a class="header" href="#masked-语言模型bert">Masked 语言模型（BERT）</a></h2>
+<p>把输入序列的subset tokens用MASK代替，通过residual tokens推断missing tokens<br>[?] Maksed LM与transformer encoder是什么关系？</p>
+<h2 id="energy-based-model"><a class="header" href="#energy-based-model">Energy-based model：</a></h2>
+<p>训练一个actor网络来控制AT的hidden state<br>[?] 这个模型没看懂，ACL.2020.251</p>
+<h1 id="实时翻译"><a class="header" href="#实时翻译">实时翻译</a></h1>
+<p>基本模型：prefix-to-prefix framework<br>基于部分源句做预测<br>policy: wait k policy</p>
+<!-- more -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="音频预处理"><a href="#音频预处理" class="header">音频预处理</a></h1>
+<p>通常使用librosa做音频的预处理。</p>
+<p>（1） 读入音频文件</p>
+<pre><code class="language-python">sig, rate = librosa.load(path, sr=32000, offset=None)
+</code></pre>
+<p>path:  文件路径<br>sr：采样率<br>sig：此时的数据为一维的序列。</p>
+<p>（2）用FFT变换，将序列转换为声谱图</p>
+<pre><code class="language-python"># Compute the spectrogram and apply the mel scale
+mel_spec = librosa.feature.melspectrogram(y=y, 
+                                        sr=32000, 
+                                        n_fft=1024, 
+                                        hop_length=HOP_LENGTH, 
+                                        n_mels=NUM_MELS, 
+                                        fmin=FMIN, 
+                                        fmax=FMAX)
+</code></pre>
+<p>mel_spec：二维声谱图像<br>输出长度= （秒）*（采样率）/（hop_length）
+输出高度= n_mels</p>
+<p>（3）归一化：</p>
+<pre><code class="language-python">mel_spec_db = librosa.power_to_db(mel_spec, ref=np.max)
+</code></pre>
+<p>或</p>
+<pre><code class="language-python">mel_spec_db -= mel_spec_db.min()
+mel_spec_db /= mel_spec_db.max()
+</code></pre>
+<p>（4）升维</p>
+<pre><code class="language-python">mel_spec_db = mel_spec_db[np.newaxis,:,:,np.newaxis]
+</code></pre>
+<p>转换为二维单通道的图像，用图像方式来处理</p>
+<hr>
+<pre><code class="language-python">def get_segment_spec(path, second):
+    sig, rate = librosa.load(path, sr=32000, offset=None)
+    s_start = (second - 5) * 32000
+    s_end = second * 32000
+    y = sig[s_start:s_end]
+    if y.shape[0] &lt; 1:
+        return None
+    # Compute the spectrogram and apply the mel scale
+    mel_spec = librosa.feature.melspectrogram(y=y, 
+                                          sr=32000, 
+                                          n_fft=1024, 
+                                          hop_length=HOP_LENGTH, 
+                                          n_mels=NUM_MELS, 
+                                          fmin=FMIN, 
+                                          fmax=FMAX)
+
+    
+    mel_spec_db = np.array(mel_spec_db)
+    mel_spec_db = librosa.power_to_db(mel_spec, ref=np.max)
+    #mel_spec_db -= mel_spec_db.min()
+    #mel_spec_db /= mel_spec_db.max()
+    mel_spec_db = mel_spec_db[np.newaxis,:,:,np.newaxis]
+    # print ("mel_spec_db.shape", mel_spec_db.shape)
+    return mel_spec_db
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="预处理"><a class="header" href="#预处理">预处理</a></h1>
+<p>音频数据的常见预处理步骤：</p>
+<ol>
+<li>生成声谱图</li>
+<li>伪空白输出</li>
+</ol>
+<h1 id="音位-phonemes"><a class="header" href="#音位-phonemes">音位 phonemes</a></h1>
+<p>音位是语言学家定义的发音的基本单位。<br>在以前语音识别模型中：<br>音频片段 –&gt; 音位 –&gt; transcript<br>在现在的语音识别模型（end-to-end）中：<br>音频片段 –&gt; transcript</p>
+<h1 id="注意力模型做语音识别"><a class="header" href="#注意力模型做语音识别">注意力模型做语音识别</a></h1>
+<p><img src="/assets/61.png" alt=""></p>
+<h1 id="ctc-cost做语音识别"><a class="header" href="#ctc-cost做语音识别">CTC cost做语音识别</a></h1>
+<p>CTC = Connectionist Temporal Classification<br>basic rule: 将空白符之间的重复字符折叠起来。</p>
+<p>用于计算语音识别的cost</p>
+<p>[Graves et. al., 2006 Connectionist Temporal Classification: Labelling unsegmented sequence data with recurrent neural networks]</p>
+<ol>
+<li>输入音频“the quick fox”</li>
+<li>构造一个双向LSTM/GRU，Tx=Ty且非常大</li>
+<li>生成的输出可能是这样的：</li>
+</ol>
+<pre><code>ttt_h_eee___ ___qqq__
+</code></pre>
+<p>其中<code>_</code>代表空白，<code> </code>代表空格</p>
+<ol start="4">
+<li>将空白<code>_</code>之间的重叠字符折叠起来</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="触发字检测"><a href="#触发字检测" class="header">触发字检测</a></h1>
+<p>触发字 = trigger word = 唤醒词</p>
+<p><img src="/assets/62.png" alt=""><br>当检测到唤醒词时输出1，其它时间输出0</p>
+<p>缺点：构建了一个很不平衡的训练集<br>解决方法：<br><img src="/assets/63.png" alt=""><br>当检测到唤醒词时多输出几个1.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>Zero Shot问题是指：<br>有一组大量labelled data，定义为$(x^s, y^s)$<br>有一组少量unlabelled data，定义为$(x^t)$<br>通过$(x^s, y^s)$和$(x^t)$来预测$(y^t)$，但$(x^t)$没有出现在$(x^s)$中。</p>
+<h1 id="方法一以另一种方式分class"><a class="header" href="#方法一以另一种方式分class">方法一：以另一种方式分class</a></h1>
+<p>在<strong>语音识别</strong>任务中，每个单词可以看作是一个class。有可能要识别的单词没有出现在训练集中。<br>解决方法：以单词为class -&gt; 以音位phonemes为class<br>phonemes是可以穷举的。</p>
+<ol>
+<li>通过NN把语音转成phonemes。</li>
+<li>通过预先定义好的table，把phonemes转成单词。</li>
+</ol>
+<p>在<strong>语音识别</strong>任务中，训练集是猫、狗，测试集出现草泥马：<br><img src="/assets/93.png" alt=""><br>解决方法：以名字作为class -&gt; 以特征作为class</p>
+<ol>
+<li>分析图像中的动物的特征，例如毛、腿、尾等。</li>
+<li>通过预先定义好的table，根据特征推测动物的名字。</li>
+</ol>
+<h1 id="方法二attribute-embedding"><a class="header" href="#方法二attribute-embedding">方法二：attribute embedding</a></h1>
+<p><img src="/assets/94.png" alt=""><br>f(<em>)将图像转成向量。<br>g(</em>)将特征转成向量。<br>f和g都通过NN训练得到，训练的目标是$f(x^n)$和$g(y^n)$越接近越好。<br>也可以用动物的名字代替特征（attribute embedding + word embedding）：<br><img src="/assets/95.png" alt=""></p>
+<p>定义loss function如下：<br>$$
+\begin{aligned}
+L = \sum_n max\left(0, k-f(x^n)g(y^n) + max_{m\neq n}f(x^n)g(y^n) \right)  &amp;&amp; (1)\
+f*, g* = \arg\min_{f,g} L &amp;&amp; (2)
+\end{aligned}
+$$</p>
+<p>目标是要最小化L。当max{}的第二项小0时，L取到最小值0。即：<br>$$
+\begin{aligned}
+f(x^n)g(y^n) - max_{m\neq n}f(x^n)g(y^n) &gt; k  &amp;&amp; (3)
+\end{aligned}
+$$</p>
+<p>公式(3)左边第一项代表：$f(x^n)$和$g(y^n)$应尽量接近<br>公式（3）左边第二项代表：$f(x^n)$和$g(y^m)$应尽量远离</p>
+<h1 id="方法三convex-combination-of-sematic-embedding"><a class="header" href="#方法三convex-combination-of-sematic-embedding">方法三：Convex Combination of Sematic Embedding</a></h1>
+<p>假设有一张图像，NN的分类结果为：P(lion) = 0.5, P(tiger) = 0.5</p>
+<ol>
+<li>找到向量$V_{tiger}$和$V_{lion}$</li>
+<li>计算向量$v = P(lion)V_{lion} + P(tiger)V_{tiger}$</li>
+<li>找到离v最近的标签，因此得到liger</li>
+<li>图像分类为liger<br><img src="/assets/96.png" alt=""></li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="background"><a class="header" href="#background">background</a></h1>
+<p>用PCA的降维-升维的过程来类比auto-encoder的编码-解码过程。<br><img src="/assets/97.png" alt=""><br>PCA降维：高维特征的图像 * $W$ = 低维特征的图像<br>PCA升维：低特征的图像 * $W^\top$ = 高维特征的图像<br>auto-encoder的编码：高维特征图像 经过encoder –&gt; 向量c<br>auto-encoder的解码：向量c 经过decoder –&gt; 高维特征图像<br>把编码和解码通常放在一起训练，中间的向量c可以看作是一个hidden layer的activation。c又称为bottleneck.<br>deep NN版的auto-encoder
+<img src="/assets/98.png" alt=""><br>auto-encoder中的编码器和解码器都是deep NN，那么就称为深度自编码器（deep auto-encoder）。</p>
+<h1 id="deep-auto-encoder编码器的应用"><a class="header" href="#deep-auto-encoder编码器的应用">deep auto-encoder编码器的应用</a></h1>
+<h2 id="用于图像压缩与解压"><a class="header" href="#用于图像压缩与解压">用于图像压缩与解压</a></h2>
+<p><img src="/assets/99.png" alt=""><br>图中上面是用PCA算法把28 * 28的图像压缩成2维以及还原成28 * 28的效果。<br>图中下面是用深度自编码器把把28 * 28的图像压缩成2维以及还原成28 * 28的效果。<br>从结果上看，深度自编码器的效果更好。</p>
+<h2 id="用于text检索"><a class="header" href="#用于text检索">用于text检索</a></h2>
+<ol>
+<li>把原文压缩成一个向量</li>
+<li>把问题也压缩成一个向量</li>
+<li>找到与问题最接近的原文向量</li>
+</ol>
+<p><img src="/assets/100.png" alt=""></p>
+<h2 id="用于图像检索"><a class="header" href="#用于图像检索">用于图像检索</a></h2>
+<ol>
+<li>把图像编码成c</li>
+<li>基于c作检索</li>
+</ol>
+<h2 id="用于pre-training-dnn---greedy-layer-wise-pre-training"><a class="header" href="#用于pre-training-dnn---greedy-layer-wise-pre-training">用于pre-training DNN  — Greedy Layer-wise Pre-training</a></h2>
+<p>Greedy Layer-wise Pre-training：用于有大量unlabelled data和少量labelled data的场景。</p>
+<p>如果目标是训练这样一个网络：<br><img src="/assets/101.png" alt=""><br>那么预训练过程如下：</p>
+<ol>
+<li>训练一个auto-encoder：<br>$x$是输出，$\tilde x$是输出。目标是$x$与$\tilde x$尽量接近。hidden layer第1层的activation为code。<br><img src="/assets/102.png" alt=""><br>**Tips:**如果hidden layer的unit数比上一层要多，则需要在这一层加上一个很强的正则化，以防这一层“什么都不做”。</li>
+<li>训练完去掉decoder部分，fix住encoder部分的weights为W1<br><img src="/assets/103.png" alt=""></li>
+<li>再训练一个auto-encoder:<br>输出第一个auto-encoder得到的c，命令为向量$a^1$。输出是$\tilde a^1$。目标是$a^1$和$\tilde a^1$尽量接近。hidden layer第1层的参数不更新。hidden layer第2层的activation为code。<br><img src="/assets/104.png" alt=""></li>
+<li>训练完去掉decoder部分，fix住encoder部分的weights为W2<br><img src="/assets/105.png" alt=""></li>
+<li>现在已经有两个参数fix的hidden layer，用同样的方法pre-training第三个hidden layer，并fix住参数为W3。<br><img src="/assets/106.png" alt=""></li>
+<li>至此为止pre-training结束，把真实的输出接在hidden layer 3后面。W1、W2、W3用之前fix住的值，W4随机初始化。然后正常训练。<br><img src="/assets/107.png" alt=""></li>
+</ol>
+<h1 id="提升auto-encoder的效果"><a class="header" href="#提升auto-encoder的效果">提升auto-encoder的效果</a></h1>
+<p><img src="/assets/108.png" alt=""></p>
+<h1 id="deep-auto-encoder解码器的应用"><a class="header" href="#deep-auto-encoder解码器的应用">deep auto-encoder解码器的应用</a></h1>
+<h2 id="用于cnn生成图像"><a class="header" href="#用于cnn生成图像">用于CNN生成图像</a></h2>
+<p><img src="/assets/109.png" alt=""></p>
+<h3 id="怎样做unpooling操作"><a class="header" href="#怎样做unpooling操作">怎样做unpooling操作？</a></h3>
+<p>方法一：<br>pooling时记录数据来自原图哪个位置<br>unpooling时恢复原图大小，把值也恢复到记录的位置。其它位置置0。<br>方法二：
+pooling时不需要记录位置。<br>unpooling时都恢复成相同的值。</p>
+<h3 id="怎样做deconvolution"><a class="header" href="#怎样做deconvolution">怎样做Deconvolution?</a></h3>
+<p>Deconvolution就是Convolution.</p>
+<p><img src="/assets/110.png" alt=""></p>
+<h3 id="怎样生成图像"><a class="header" href="#怎样生成图像">怎样生成图像？</a></h3>
+<p><img src="/assets/111.png" alt=""></p>
+<p>在c的向量空间选择一些点，经过decoder生成图像。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="deep-learing-vs-structured-learning"><a class="header" href="#deep-learing-vs-structured-learning">Deep Learing VS Structured Learning</a></h1>
+<p>Deep Learning是指RNN、LSTM、DNN等技术<br>Structured Learning是指HMM、CRF、SVM、感知机等技术</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Deep Learning</th><th>Structured Learning</th></tr>
+</thead>
+<tbody>
+<tr><td>无向的RNN不考虑整个序列</td><td>使用viterbi[?]，需要考虑整个序列</td></tr>
+<tr><td>难以考虑label dependency</td><td>可以结合label dependency</td></tr>
+<tr><td>cost不能反映error</td><td>cost能反应error</td></tr>
+<tr><td>Deep</td><td>Linear</td></tr>
+</tbody>
+</table>
+</div>
+<p>DL效果更好，但SL也很重要，常常将两者结合，能得到比较好的效果。</p>
+<p>DL与SL结合的例子：</p>
+<ol>
+<li>语音识别：CNN/LSTM/DNN + HMM<br>HMM公式：<br>$$
+P(x, y) = P(y_1|start)\prod_{l=1}^{L-1}P(y|l+1|y_l)P(end|y_L)\prod_{l=1}^LP(x_l|y_l)
+$$</li>
+</ol>
+<p>将HMM应用于语音识别，那么x代表声音信号，y代表语音辨识的结果。<br>公式中第一个连乘代表transition部分。这一部分由HMM训练。<br>第二个连乘代表initial部分。这一部分由DL提供。<br>$$
+P(x_l|y_l) = \frac{P(y_l|x_l)P(x_l)}{P(y_l)}
+$$</p>
+<p>公式中，$P(y_l|x_l)$由DL训练，P(x_l)可以忽略，因为$x_l$代表输入,$P(y_l)$通过统计可得。<br>2. semantic tagging：双向LSTM + CRF/Structured SVM
+先用RNN找出feature<br>由这些feature定义$\phi(x, y)$<br>$\phi(x, y)$用于CRF/SVM</p>
+<h1 id="is-structured-learning-practical"><a class="header" href="#is-structured-learning-practical">is structured learning practical</a></h1>
+<p>1:22’12’’，这部分没听懂</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="方法一pixel-rnn"><a class="header" href="#方法一pixel-rnn">方法一：Pixel RNN</a></h1>
+<p>每次使用RNN生成一个像素，直至最后生成一整张图。<br>一个像素用一个向量表示。<br><img src="/assets/images/Chapter7/56.png" alt=""><br>优点：无监督学习，训练时只需要输入图像，不需要annotation。<br>这种方法也可以用于语音合成或视频生成。</p>
+<p><strong>Tip:</strong><br>想要生成的图像颜色鲜明，像素的RGB三个值要差别够大。如果三个值差不多大，生成的图像是灰色的。<br>如果使用向量$[R, G, B]^\top$来代表一个像素，向量的值由sigmoid生成。sigmoid倾向于落在0.5附近，使得RBG值都差不多，生成出的图像是“水墨风”。<br>改进方法：<br>用1 of N encoding方法表示像素的颜色<br><img src="/assets/images/Chapter7/57.png" alt=""></p>
+<h1 id="方法二vae"><a class="header" href="#方法二vae">方法二：VAE</a></h1>
+<h2 id="模型结构-1"><a class="header" href="#模型结构-1">模型结构</a></h2>
+<p>VAE = Viational auto encoder
+对比<a href="#方法一pixel-rnn">Auto Encoder</a>的模型：<br><img src="/assets/images/Chapter7/58.png" alt=""><br>VAE的模型为：<br><img src="/assets/images/Chapter7/59.png" alt=""></p>
+<ol>
+<li>NN encoder生成2个向量，分别是$m$和$\sigma$</li>
+<li>基于标准正态分布生成随机向量e</li>
+<li>$C_i = \exp(\sigma_i) \times e_i + m_i$</li>
+<li>目标增加一项，最小化<br>$$
+\sum_i(1+\sigma_i - (m_i)^2 - \exp(\sigma_i))
+$$</li>
+</ol>
+<h2 id="vae的应用"><a class="header" href="#vae的应用">VAE的应用</a></h2>
+<h3 id="可以控制要画的image"><a class="header" href="#可以控制要画的image">可以控制要画的image</a></h3>
+<p>假如中间生成的c是10维的，</p>
+<ol>
+<li>输入一张图像，得到10维的向量c</li>
+<li>固定其中8维</li>
+<li>在剩下的2维空间中均匀取点，每个点结合第2步中的8维都可以生成一张图像。</li>
+<li>观察每个维度的变化对生成图像的意义。<br>缺点：生成的结果不太清晰</li>
+</ol>
+<h3 id="用于语音可以生成文本"><a class="header" href="#用于语音可以生成文本">用于语音可以生成文本</a></h3>
+<p>使用上图的模型，但输入和输出都是同一个句子的向量。</p>
+<ol>
+<li>任意找两个句子，把它们映射到code空间，得到两个点</li>
+<li>将两点相连，中间等间隔取点</li>
+<li>把中间的点用decoder还原，生成新的句子</li>
+</ol>
+<h2 id="vae的原理"><a class="header" href="#vae的原理">VAE的原理</a></h2>
+<h3 id="直观解释"><a class="header" href="#直观解释">直观解释</a></h3>
+<p><img src="/assets/images/Chapter7/60.png" alt=""><br>对普通auto-encoder，一个输入对应一个code，通过code能生成与输入相同的输出。如果两个输入分别得到两个code，很难约束两个code的中间向量应该输出什么。<br>在VAE算法中:</p>
+<ul>
+<li>encoder阶段：一个输入计算出它的真实code以后，会在这个code上加一点noise，作为它最终的code。</li>
+<li>decoder阶段：期望code加上noise之后的向量（一个范围内的向量）都能decode出原始图像。</li>
+</ul>
+<p>由于noise的随机性，code + noise代表一个范围内的所有向量。<br>这样，两张原图得到的code范围可以有交叠，交叠部分的向量decode出来的图像应该同时像两张图，即两张图的中间结果。</p>
+<p>模型中的目标函数$\sum_{i=1}^3(1+\sigma_i - (m_i)^2  - \exp(\sigma_i))$：<br>m: 图像生成的code<br>c: m加上noise之后的code<br>$\sigma$：noise的方差，exp是为了保证方差一定是正的。<br>$(m_i)^2$代表L2正则化<br>$\exp(\sigma_i) - (1-\sigma_i)$：画图可以看出这个函数的效果。 目标是让noise的方差不要太小。</p>
+<h3 id="公式解释"><a class="header" href="#公式解释">公式解释</a></h3>
+<p>假设每张图像都是高维空间中的X<br>目标是评估P(x)分布，然后根据P(x)分布sample出一张图<br>假设P(x)符合<a href="https://windmissing.github.io/mathematics_basic_for_ML/Probability/mixture_distribution.html#%E9%AB%98%E6%96%AF%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B-gaussian-misture-model">高斯混合模型</a>，即<br>$$
+P(x) = \sum_m P(m)P(x|m)
+$$</p>
+<p>其中，每个m代表一个高斯分布，P(m)代表第m个高斯分布出现的概率。p(x|m)代表第m个高斯分布中sample出x的概率。<br>这里的m符合<a href="https://windmissing.github.io/mathematics_basic_for_ML/Probability/distribution.html#multinoulli-%E5%88%86%E5%B8%83">Multinoulli 分布</a>。但在VAE中，M本身也是一种连续型的分布z。
+$$
+\begin{aligned}
+P(z) \sim N(0, 1)  \
+P(x|z) \sim N(\mu(z), \sigma(z))
+\end{aligned}
+$$</p>
+<p>这个模型可以看作是有无数个高斯模型的混合。而$\mu(z), \sigma(z)$由encoder训练得出。实际上P(x|z)也可以是其它模型。因为NN可以拟合出任意模型。<br>$$
+P(x) = \int_z P(z)P(x|z)dz
+$$</p>
+<p>目标是最大化已经观察到的x的概率：<br>$$
+L = \sum_x\log P(x)
+$$</p>
+<p>公式推导过程略，最后结果是：最小化以下公式<br>$$
+-KL(q(z|x)||p(z)) + \int_z a(z|x)\log p(x|z)dz
+$$</p>
+<p>公式的第一项代表最大化分布q(z|x)和分布p(z)的<a href="https://windmissing.github.io/mathematics_basic_for_ML/Information/KL.html#kl%E6%95%A3%E5%BA%A6-kl-divergence">KL散度</a>，化简出来就是前面提到的$\sum_{i=1}^3(1+\sigma_i - (m_i)^2  - \exp(\sigma_i))$。<br>公式第二项代表encoder与decoder的交叉熵，即输入和输出越接近越好。</p>
+<h2 id="vae的缺点"><a class="header" href="#vae的缺点">VAE的缺点</a></h2>
+<p>只能产生一张与database一样的image，或者把database中的image融合到一起。  — 模仿<br>不能产生一张全部的image。 — 创造</p>
+<h1 id="方法三-gan-generative-adversarial-network"><a class="header" href="#方法三-gan-generative-adversarial-network">方法三： GAN Generative Adversarial Network</a></h1>
+<h2 id="原理"><a class="header" href="#原理">原理</a></h2>
+<p><img src="/assets/images/Chapter7/61.png" alt=""><br>上面的蝴蝶代表Generative模型，用于生成结果。<br>下面的鸟代表Descriminator模型，用于鉴别结果是真实的还是由G模型生成的。<br>G模型和D模型势均力敌，互相促进，最终都得到了进化。</p>
+<h2 id="训练步骤"><a class="header" href="#训练步骤">训练步骤</a></h2>
+<ol>
+<li>G0随机生成一些图像</li>
+<li>D使用真实图像和G0生成的图像来更新参数，得到一个能鉴别G0的D0。</li>
+<li>G0更新参数，目标是得到能在D0上得到高分（骗过D）的G1。</li>
+<li>D再根据真实图像和G1训练出D1。</li>
+<li>如此反复，直至G能产生高质量的图像。</li>
+</ol>
+<p>在这个过程中，只有D见过database的图像，G没有见过。G只是不断是尝试骗过D。所以G能创建图像。</p>
+<h2 id="gam的难点"><a class="header" href="#gam的难点">GAM的难点</a></h2>
+<ol>
+<li>难以优化</li>
+<li>难以判断G的好坏。如果D不能识别G，不一定是因为G太强，也有可能是因为D太弱了。</li>
+<li>平衡G和D的关系，保持势均力敌。</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="根据text生成image"><a class="header" href="#根据text生成image">根据Text生成Image</a></h1>
+<h2 id="传统的监督学习方法"><a class="header" href="#传统的监督学习方法">传统的监督学习方法</a></h2>
+<p><img src="/assets/images/GAN/1.png" alt=""></p>
+<p>存在的问题：<br>同一个输入在database中可能同时对应多种输出。<br>训练的结果会输入各种可能的平均。所致结果很糊而不伦不类。</p>
+<h2 id="conditional-gan的学习方法"><a class="header" href="#conditional-gan的学习方法">Conditional GAN的学习方法</a></h2>
+<p>生成网络G和鉴别网络D：<br><img src="/assets/images/GAN/2.png" alt=""></p>
+<p>存在的问题：<br>G只要产生出足够高质量的图像，就可以骗过D。但这个高质量的图像很可能入输入的条件无关。<br>高质量但与输入无关的图像也应该是false的图像。现在D无法鉴别这种情况。<br>最后G会生成高质量但无视输入的图像。</p>
+<h2 id="改进的conditional-gan"><a class="header" href="#改进的conditional-gan">改进的Conditional GAN</a></h2>
+<p>改进方法：<br>网络D的输入同时考虑G的输入c和G的输出x。<br>D的判断G输出是否合理的标准有：<br>（1）x是否高质量<br>（2）c和x是否match</p>
+<p>定义一个样本为{c, x}对，其中c是输入的条件，这里就是文本，x是生成的目标，这里就是指图像。</p>
+<ul>
+<li>part 1 训练D</li>
+</ul>
+<ol>
+<li>从database中sample出m个positive样本。</li>
+<li>随机生成m个noise图像，配上step1中positive样本的文字，得到的是m个负样本。</li>
+<li>在从database中再sample出m个真实图像，配上step1中positive样本的文字，又得到的是m个负样本。</li>
+<li>更新D的参数以最大化：<br>V = 第1组样本的平均分 + （1-第2组样本的平均分） + （1-第3组样本的平均分）</li>
+</ol>
+<ul>
+<li>part 2 训练G</li>
+</ul>
+<ol start="5">
+<li>生成m个随机图像z</li>
+<li>从database中随机sample出m个文本c</li>
+<li>更新G的参数，只(c, z)在D中的分数越高越好</li>
+</ol>
+<p>网络D的两种结构：<br><img src="/assets/images/GAN/3.png" alt=""></p>
+<h2 id="stack-gan"><a class="header" href="#stack-gan">Stack GAN</a></h2>
+<p>先生成小张图，再根据小张图生成大张图</p>
+<h1 id="根据image生成image"><a class="header" href="#根据image生成image">根据Image生成Image</a></h1>
+<p>例子：<br><img src="/assets/images/GAN/4.png" alt=""></p>
+<h2 id="传统的监督学习方法-1"><a class="header" href="#传统的监督学习方法-1">传统的监督学习方法</a></h2>
+<p>同text to Image</p>
+<h2 id="条件gan"><a class="header" href="#条件gan">条件GAN</a></h2>
+<p>同text to Image</p>
+<h2 id="patch-gan"><a class="header" href="#patch-gan">patch GAN</a></h2>
+<p>当要生成的image很大时，让D每次只检查image的一小块。</p>
+<h1 id="其它应用"><a class="header" href="#其它应用">其它应用</a></h1>
+<p>用于语音增强<br>用于vedio生成</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>应用：风格转换</p>
+<p>这种类型的Task没有原风格与生成风格的数据对，只能用无监督学习。</p>
+<h1 id="direct-transformation"><a class="header" href="#direct-transformation">Direct Transformation</a></h1>
+<p><img src="/assets/images/GAN/5.png" alt=""></p>
+<p>这种方法只能做小的改动，例如文字、颜色等</p>
+<h1 id="projection-to-common-space"><a class="header" href="#projection-to-common-space">Projection to Common Space</a></h1>
+<p><img src="/assets/images/GAN/6.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>假设要生成的x是高维空间中的一个点<br>在高维的Image Space中，只有一小部分点example出来是合理的。<br>即：要产生的x符合一个固定的distribution。目标是找出这个distribution。</p>
+<p>定义目标distribution为$P_{\text{data}}(x)$</p>
+<h1 id="在gan之前使用最大似然估计来找p_textdatax"><a class="header" href="#在gan之前使用最大似然估计来找p_textdatax">在GAN之前，使用最大似然估计来找$P_{\text{data}}(x)$</a></h1>
+<p><img src="/assets/images/GAN/7.png" alt=""></p>
+<ol>
+<li>定义一个distribution $P_G(X;\theta)$</li>
+<li>调整$\theta$，使$P_G$与$P_{\text{data}}(x)$越接近越好。</li>
+</ol>
+<ul>
+<li>2.1 从$P_{\text{data}}(x)$中sample出m个点$x_i$</li>
+<li>2.2 计算$P_G(x_i; \theta)$</li>
+<li>2.3 定义最大似然估计公式$L = \prod_{i=1}^mP_G(x_i;\theta)$</li>
+<li>2.4 找出最大化L的参数$\theta^*$</li>
+</ul>
+<h1 id="最大似然估计--最小kl散度"><a class="header" href="#最大似然估计--最小kl散度">最大似然估计 = 最小KL散度</a></h1>
+<p>$$
+\begin{aligned}
+\theta^* &amp;=&amp; \arg\min_{\theta} \prod_{i=1}^mP_G(x_i;\theta)   \
+&amp;=&amp; \arg\min_{\theta} KL(P_{\text{data}}||P_G)
+\end{aligned}
+$$</p>
+<h1 id="后面的我也不知道在讲什么只是把讲的内容记下来"><a class="header" href="#后面的我也不知道在讲什么只是把讲的内容记下来">后面的我也不知道在讲什么，只是把讲的内容记下来</a></h1>
+<p>$$
+\begin{aligned}
+G* = \arg\min_G \text{Div}(P_G, P{\text{data}})
+\end{aligned}
+$$</p>
+<p>公式中的$P_G$未知，所以无法直接比较这两个分布的KL散度</p>
+<p>从$P_G$和$P{\text{data}}$各sample出一些data<br>$$
+V(G, D) = E_{X\sim P{\text{data}}}[\log D(x)] + E_{X\sim P{\text{G}}}[\log (1-D(x))]<br>$$</p>
+<p>在计算公式过程中：<br>D(x)可以是任意function，通常是由NN训练得到。<br>分布$P_G$是固定不变的。<br>解以上公式得：<br>$$
+\begin{aligned}
+D^* &amp;=&amp; \arg\max_D V(D, G)  \
+&amp;=&amp; \arg\max_D P{\text{data}}(x) \log D(x) + P_G(x) \log(1-D(x))  \
+&amp;=&amp; \arg\max_D a \log D + b \log (1-D)
+\end{aligned}
+$$</p>
+<p>说明：上面公式中，为了简化计算，人为定义出：<br>$$
+\begin{aligned}
+a &amp;=&amp; P{\text{data}}(x) \
+b &amp;=&amp; P_G(x) \
+D &amp;=&amp; D(x)   \
+f(D) &amp;=&amp; a \log D + b \log (1-D)
+\end{aligned}
+$$</p>
+<p>直接寻找f(D)偏导为0的点：<br>令$\frac{df(D)}{dD} = 0$，得：$D^* = \frac{a}{a+b}$<br>把$D^<em>$代入V(G,D)得：<br>$$
+\begin{aligned}
+V(G, D^</em>) &amp;=&amp; -2\log 2 &amp;+&amp; KL(P{\text{data}}||\frac{P{\text{data}}+P_G}{2}) + KL(P{\text{G}}||\frac{P{\text{data}}+P_G}{2})  \
+&amp;=&amp; -2\log 2 &amp;+&amp; 2JSD(P{\text{data}}||P_G)
+\end{aligned}
+$$</p>
+<p>公式中，JSD代表<a href="https://windmissing.github.io/mathematics_basic_for_ML/Information/KL.html">Jesen-Shannon Divergence</a></p>
+<p>上面提到公式G<em>的计算：
+$$
+\begin{aligned}
+G^</em> = \arg\min_G \text{Div}(P_G, P{\text{data}})
+\end{aligned}
+$$</p>
+<p>G<em>无法直接计算，根据上面的推导得到：<br>$$
+\begin{aligned}
+G^</em> = \arg\min_G\max_D V(G, D)   \
+D^* = \arg\max_D V(G, D)
+\end{aligned}
+$$</p>
+<p><strong>怎么理解上面这两个公式：</strong><br><img src="/assets/images/GAN/8.png" alt=""><br>图中红点代表能使V(D, G)最大的$D^<em>$<br>G3是这三个中最优的G</em>。</p>
+<p><strong>训练步骤：</strong></p>
+<ol>
+<li>初始化G和D</li>
+<li>迭代</li>
+</ol>
+<ul>
+<li>2.1 固定住G，更新D</li>
+<li>2.2 固定住D，更新G</li>
+</ul>
+<p>由于计算$G^* = \arg\min_G\max_D V(G, D)$这一步要求固定住D，因此定义loss function为：<br>$$
+L(G) = \max_D(V, G)
+$$</p>
+<p>问：带max的分段函数怎么求导？<br>答：以下图为例：<br><img src="/assets/images/GAN/9.png" alt=""><br>$$
+\frac{df(x)}{dx} = \frac{df_i(x)}{dx}
+$$</p>
+<p>if $f_i(x)$ is the max one。</p>
+<p>求G*的迭代过程没看懂，直接上图：<br><img src="/assets/images/GAN/10.png" alt=""><br>后面就放弃了</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>通用框架 = fGAN = framework of GAN</p>
+<p>这是一种数学很NB但实际效果不怎么样的一种技术。</p>
+<h1 id="f-divergence"><a class="header" href="#f-divergence">f-divergence</a></h1>
+<p>https://windmissing.github.io/mathematics_basic_for_ML/Information/Divergence.html#f-divergence</p>
+<p>$$
+\begin{aligned}
+D_f(P||Q) = \int_x q(x) f\left(\frac{p(x)}{q(x)}\right)   &amp;&amp; (1)
+\end{aligned}
+$$</p>
+<p>f(x) is convex &amp;&amp; f(1) = 0</p>
+<h1 id="fenchel-gonjugate"><a class="header" href="#fenchel-gonjugate">Fenchel Gonjugate</a></h1>
+<p>https://windmissing.github.io/mathematics_basic_for_ML/Mathematics/function.html</p>
+<p>$$
+\begin{cases}
+f^<em>(t) = \max_{x\in dom(f)}{xt - f(x)}   &amp;&amp; (2)\
+f(x) = \max_{x\in dom(f^</em>)}{xt - f^*(t)}  &amp;&amp; (3)
+\end{cases}
+$$</p>
+<h1 id="gan"><a class="header" href="#gan">GAN</a></h1>
+<p>由于公式（1）中的f函数是convex的，所以可以用f(x)的conjugate function来表示它。即把公式（3）代入公式（1），得：<br>$$
+D_f(P||Q) = \int_x q(x)\left(\max{\frac{p(x)}{q(x)}t - f^*(t)}\right)dx
+$$</p>
+<p><strong>t是什么？</strong></p>
+<p>GAN的目标是希望网络D的输入是x，输出是t，所以可以用D(x)代替t，得：</p>
+<p>$$
+\begin{aligned}
+D_f(P||Q) &amp;\ge&amp; \int_x q(x)\left(\max{\frac{p(x)}{q(x)}D(x) - f^<em>(D(x))}\right)dx  \
+&amp;\approx&amp; \max_D \int_x p(x)D(x)dx - \int_x q(x) f^</em>(D(x))dx  \
+&amp;=&amp; \max_D {E_{x\sim P}\left[D(x)\right] - E_{x\sim Q}\left[f^*\left(D(x)\right)\right]}    &amp;&amp; (4)
+\end{aligned}
+$$</p>
+<p>以上公式中，</p>
+<ul>
+<li>分布P代表GAN中的$P_{\text{data}}$</li>
+<li>分布Q代表GAN中的$P_{\text{G}}$</li>
+<li>f* 可以取不同的divergence，当$f^*(t) = \exp(t-1)$时，对应的是KL divergence。</li>
+</ul>
+<p>网络G的目标是：最小化$D_f(P_{\text{data}}||P_{\text{G}})$，即<br>$$
+\begin{aligned}
+G^* = \arg\min_G D_f(P_{\text{data}}||P_{\text{G}})    &amp;&amp; (5)
+\end{aligned}
+$$</p>
+<p>可以将公式（4）代入公式（5）来求G*<br>使用不同的$f*$将得到不同的$G*$和$D*$</p>
+<h1 id="为什么要使用不同的divergence"><a class="header" href="#为什么要使用不同的divergence">为什么要使用不同的divergence？</a></h1>
+<h2 id="传统的gan存在两个问题"><a class="header" href="#传统的gan存在两个问题">传统的GAN存在两个问题</a></h2>
+<ul>
+<li>Mode Collapse：</li>
+</ul>
+<p>指generated data分布越来越集中。<br><img src="/assets/images/GAN/11.png" alt=""><br>表现为：随机迭代次数的增加，某个特定的generated data开始蔓延</p>
+<ul>
+<li>Mode Dropping：</li>
+</ul>
+<p>指Pdata有两群，generated data只能学到其中一群。<br><img src="/assets/images/GAN/12.png" alt=""><br>例如生成人脸每次只能生成一种肤色：<br><img src="/assets/images/GAN/13.png" alt=""></p>
+<h2 id="以上问题的原因猜测divergence选得不好"><a class="header" href="#以上问题的原因猜测divergence选得不好">以上问题的原因（猜测）：Divergence选得不好</a></h2>
+<p>观察先不同Divergence对PG拟合Pdata的效果影响。</p>
+<ul>
+<li>KL Divergence</li>
+</ul>
+<p><img src="/assets/images/GAN/14.png" alt=""></p>
+<p>假设Pdata的分布与图中蓝线的分布相同。使用KL divergence拟合的PG为图中绿线的效果。<br>表现为G很糊，不伦不类。<br>传统的生成算法使用最大似然估计，就会出现这种现象。</p>
+<ul>
+<li>reverse KL Divergence</li>
+</ul>
+<p><img src="/assets/images/GAN/15.png" alt=""></p>
+<p>PG只能指使Pdata中的部分分布，导致某一些特定的x的PG特别高，而令一些x的PG特别低。<br>本文前几面介绍的GAN使用的divergence类似这种。因此会出现Mode Collapse和Mode Dropping的情况。<br>Mode Collapse可以看作是Mode Dropping的一种极端情况。</p>
+<h2 id="解决方法-1"><a class="header" href="#解决方法-1">解决方法</a></h2>
+<p>理论上更换divergence可以解决以上问题。<br>事实上这种方法不太有用。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>LSGAN = Least Square GAN</p>
+<h1 id="pg和pdata这两个分布没有重叠"><a class="header" href="#pg和pdata这两个分布没有重叠">PG和Pdata这两个分布没有重叠</a></h1>
+<p>解释一：<br>因为Img是高维在低维上的manifold，因此即使两个Img在低维上重叠，它们在高维上也是可以分开的。</p>
+<p>解释二：
+PG和Pdata的分布本身可能是重叠的，它们实际在公式中使用的是PG和Pdata的sample，它们是不重叠的。<br><img src="/assets/images/GAN/16.png" alt=""></p>
+<h1 id="pg和pdata不重叠会有什么问题"><a class="header" href="#pg和pdata不重叠会有什么问题">PG和Pdata不重叠会有什么问题</a></h1>
+<p>对于两个不重叠的分布，应该使用分布之间的距离来衡量它们之间的相似度。<br><img src="/assets/images/GAN/17.png" alt=""></p>
+<p>当前GAN公式中使用的是JS Divergence<a href="https://windmissing.github.io/Bible-DeepLearning/GAN/Thoery.html">link</a><br>对于JS Divergence，两个不重叠的分布的JSD永远是log2。如上图三种情况，图1和图2没有重叠，JSD是log2，图三完全重叠，JSD是0。<br>这带来的问题时，当PG和Pdata为图1的关系时，它不知道要如果改进。也不知道图2是比图1更好的结果。</p>
+<h1 id="解决方法-2"><a class="header" href="#解决方法-2">解决方法</a></h1>
+<p>linear代替sigmoid，将分类问题变成了回归问题。<br><img src="/assets/images/GAN/18.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>WGAN = Wasserstein GAN</p>
+<h1 id="wgan的主要改进"><a class="header" href="#wgan的主要改进">WGAN的主要改进</a></h1>
+<ol>
+<li>
+<p>更新G的参数过程中，用Earth Mover’s Divergence代表JS Divergence
+WGAN可以解决不overlap情况下Divergence不变的问题。</p>
+</li>
+<li>
+<p>更新D的参数过程中，增加1-Lipschitz限制，得到PG到Pdata可以平滑过渡</p>
+</li>
+</ol>
+<h2 id="earth-movers-divergence"><a class="header" href="#earth-movers-divergence">Earth Mover’s Divergence</a></h2>
+<h3 id="case-1"><a class="header" href="#case-1">case 1</a></h3>
+<p><img src="/assets/images/GAN/19.png" alt=""></p>
+<p>W(P, Q) = d</p>
+<h3 id="case-2"><a class="header" href="#case-2">case 2</a></h3>
+<p><img src="/assets/images/GAN/20.png" alt=""></p>
+<p>分布如图P、Q所有，可以构造不同的move plan把P变成Q，不同的move plan会得到不同的距离，例如：<br><img src="/assets/images/GAN/21.png" alt=""><br>因此需要穷举所有的move plan找到最小的move plan。<br>定义某个move plan为$\gamma$，$B(\gamma)$为对应的距离：<br>$$
+\begin{aligned}
+B(\gamma) = \sum_{x_p, x_q}\gamma(x_p, x_q)||x_p-x_q||   \
+W(P, Q) = \min B(\gamma)
+\end{aligned}
+$$</p>
+<p>例如这里个case中最好的move plan是这样的：<br><img src="/assets/images/GAN/22.png" alt=""></p>
+<p>W可以解决JS在不overlap情况下距离不变的问题。</p>
+<h2 id="1-lipschitz限制"><a class="header" href="#1-lipschitz限制">1-Lipschitz限制</a></h2>
+<h3 id="为什么限制"><a class="header" href="#为什么限制">为什么限制</a></h3>
+<p>D的目标增加Pdata的D(x)，减小PG的D(x)。<br><img src="/assets/images/GAN/23.png" alt=""><br>但只是这样的目标，可能永远无法收敛，因为左边可以无限下降而右边可以无限上升。<br>到最后左边跟右边之间差距非常大而形式悬崖，悬崖导致难以从左边优化到右边。<br>因此增加D的形状限制，要求D是平滑的。1-Lipschitz就是一种平滑限制。<br>Lipschitz平滑定义为：<br>$$
+||f(x_1)-f(x_2)|| \le K||x_1-x_2||
+$$</p>
+<p>当K为1时，称为1-Lipschitz平滑。</p>
+<h3 id="怎么限制"><a class="header" href="#怎么限制">怎么限制</a></h3>
+<p>论文作者没有很的方案，只是建议weight clipping。<br>这种方法不一定能真的实现1-Lipschitz限制。</p>
+<h1 id="wgan-gp的主要改进"><a class="header" href="#wgan-gp的主要改进">WGAN-GP的主要改进</a></h1>
+<h2 id="改进一"><a class="header" href="#改进一">改进一</a></h2>
+<p>在WGAN的基础上，提供了一种实现1-Lipschitz限制的方法。</p>
+<p>原理：<br>$D \in$1-Lipschitz等价于$||\nabla_x D(x)||\le 1$for all x<br>for all x意味着要遍历所有的可能，即：<br>$$
+V(G, D) = \max\left(V(G, D), \lambda\int_x \max(0, ||\nabla_xD(x)||-1)dx\right)
+$$</p>
+<p>公式中\int_x即代表遍历所有的可能，但这是不可行的，因此公式改为：<br>$$
+V(G, D) = \max\left(V(G, D), \lambda E_{x\in P_{\text{penalty}}}\left[\max(0, ||\nabla_xD(x)||-1)\right]\right)
+$$</p>
+<p>什么是$x\in P_{\text{penalty}}$?<br><img src="/assets/images/GAN/24.png" alt=""></p>
+<ol>
+<li>在PG和Pdata中各任意取2个点。</li>
+<li>两个点分别连线</li>
+<li>连线上随机sample的点就是penalty</li>
+</ol>
+<h2 id="改进二"><a class="header" href="#改进二">改进二</a></h2>
+<p>WGAN中为了让D平滑，只惩罚了梯度&gt;1的情况，而不care梯度&lt;的情况。<br>实验结果表明，梯度越接近1效果越好。因为V(G,D)公式改为：<br>$$
+V(G, D) = \max\left(V(G, D), \lambda E_{x\in P_{\text{penalty}}}\left[(||\nabla_xD(x)||-1)^2\right]\right)
+$$</p>
+<h1 id="spectrum-norm"><a class="header" href="#spectrum-norm">Spectrum Norm</a></h1>
+<p>Keep gradient norm smaller than 1 everywhere</p>
+<h1 id="怎么把gan改成wgan"><a class="header" href="#怎么把gan改成wgan">怎么把GAN改成WGAN</a></h1>
+<p><img src="/assets/images/GAN/25.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ebgan"><a class="header" href="#ebgan">EBGAN</a></h1>
+<p>EBGAN = Energy-based GAN</p>
+<p>使用auto-encoder作为D<br><img src="/assets/images/GAN/26.png" alt=""></p>
+<p>原理：<br>一张图如果越成recontruct，则说明它的质量越高。<br>优点：可以pre-train D。这样G在一开始就很强，使的G在初期提升很快。</p>
+<h1 id="gan-lsgan"><a class="header" href="#gan-lsgan">GAN-LSGAN</a></h1>
+<p>loss-sensitive GAN
+<img src="/assets/images/GAN/27.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="info-gan"><a href="#info-gan" class="header">Info GAN</a></h1>
+<ol>
+<li>把input vector分成两个向量：c和z’</li>
+<li>增加一个组件classifier<br>classifier根据G生成的x来预测输入的c<br>Generator + Classifier类似一个相反的auto-encoder</li>
+<li>Discriminator用于检测G的结果好不好<br><img src="/assets/images/GAN/28.png" alt=""><br>C和D只有最后一部分不同，前面部分共享参数。</li>
+</ol>
+<p>加入Classifier的好处：<br>C必须对x有clear的influence。<br>z’代表纯随机的无法解释的部分。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p><img src="/assets/images/GAN/29.png" alt=""></p>
+<p>从VAE的角度看，加上D使用decoder的图像质量更高。<br>从GAN的角度看，加上encoder，可以使学习有个目标，学习效果更稳定。</p>
+<p>Encoder的目标：</p>
+<ol>
+<li>最小化reconstructure error</li>
+<li>z to normal<br>Decoder的目标:</li>
+<li>最小化reconstructure error</li>
+<li>难过D<br>D的目标：<br>区分是生成的Img还是reconstructed Img。</li>
+</ol>
+<h1 id="训练步骤-1"><a class="header" href="#训练步骤-1">训练步骤</a></h1>
+<ol>
+<li>初始化En， De, Dis</li>
+<li>从database sample出M张图像，计做x</li>
+<li>$\tilde z = En(x)$</li>
+<li>$\tilde x = De(\tilde z)$</li>
+<li>从某个分布（例如正态分布）中sample出M个code向量，记做z</li>
+<li>$\hat x = De(z)$，此时有三种Img，分别是（2）database sample出来的（4）x经过auto-encoder重新生成的（6）decoder随机生成的</li>
+<li>更新En的参数，目标：$||\tilde x -x ||\downarrow$，KL$(P(z|x)||P(z))\downarrow$</li>
+<li>更新De的参数，目标：$||\tilde x -x ||\downarrow$，Dis$(\tilde x)\uparrow$，Dis$(\hat x)\uparrow$</li>
+<li>更新Dis的参数，目标：：$||\tilde x -x ||\uparrow$，Dis$(\tilde x)\uparrow$，Dis$(\hat x)\downarrow$</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<p><img src="/assets/images/GAN/30.png" alt=""></p>
+<p>把Encoder和Decoder分开，不是串联，而是并联。</p>
+<p>Encoder：输入sample的真实图像x，输出生成的code z<br>Decoder：输入某分布sample出的code z，输出生成的图像x<br>Discriminator：输入一对(x, z)，D辨别这一结数据来自Encoder还是Decoder</p>
+<h1 id="训练过程"><a class="header" href="#训练过程">训练过程</a></h1>
+<ol>
+<li>从database sample出M张图像，记为x</li>
+<li>$\tilde z = En(x)$</li>
+<li>从某分布sample出M个code，记为$z$</li>
+<li>$\tilde x = De(z)$</li>
+<li>更新Dis的参数，目标：Dis$(x, \tilde z)\uparrow$，Dis$(\tilde x, z)\downarrow$</li>
+<li>更新En和De的参数，目标：Dis$(x, \tilde z)\downarrow$，Dis$(\tilde x, z)\uparrow$<br>En和De联手骗过Dis</li>
+</ol>
+<h1 id="bigan的原理"><a class="header" href="#bigan的原理">BiGAN的原理</a></h1>
+<p>设联合分布$(x, \tilde z)$为P，$(\tilde x, z)$为Q<br>希望通过Dis的引导，让P和Q越接近越好。</p>
+<p>普通auto-encoder得到的图像：不清晰，且跟原图很像<br>BiGAN得到的图像：清晰，且跟原图不像</p>
+<h1 id="triple-gan"><a class="header" href="#triple-gan">Triple GAN</a></h1>
+<p><img src="/assets/images/GAN/31.png" alt=""><br>用于半监督学习</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="用于图像"><a class="header" href="#用于图像">用于图像</a></h1>
+<p>训练集与测试集不match的场景：<br><img src="/assets/images/GAN/32.png" alt=""></p>
+<p>解决方法：<br>用Generator从Image中抽feature<br>feature满足同样的分布，它们是match的。<br>网络结构：<br><img src="/assets/images/GAN/33.png" alt=""><br>其中Domain Classifier相当于一个Discriminator</p>
+<h1 id="用于语音"><a class="header" href="#用于语音">用于语音</a></h1>
+<p>以语音seq2seq为例：<br><img src="/assets/images/GAN/34.png" alt=""><br>一段音频包含了许多信息，例如发音信息，环境信息，语者信息。<br>把不同的信息提取出来可以有不同的应用：<br>发音信息 — 语音识别，语者信息 — 声纹比对<br>提取方法：<br><img src="/assets/images/GAN/35.png" alt=""><br><img src="/assets/images/GAN/36.png" alt=""><br>原理类似于DAT</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="照片编辑应用"><a href="#照片编辑应用" class="header">照片编辑应用</a></h1>
+<p>已知有一个G，可以根据G的向量z生成图像x。<br>那么怎么找到z?<br>解决方法：<br><img src="/assets/images/GAN/37.png" alt=""><br>利用G训练一个encoder，利用D初始化encoder</p>
+<hr>
+<p>对于一张输入图像Image:</p>
+<ol>
+<li>用以上方法反推出它的vector</li>
+<li>以调头发长短为例，把所有短发Imge的vector取平均，得到v1，把所有长发Imge的vector取平均，得到v2</li>
+<li>v2 - v1 = 修改头发长短的向量，$z_{long} = \frac{1}{N_1}\sum_{long}En(x) -  \frac{1}{N_2}\sum_{short}En(x)$</li>
+<li>短发 x -&gt; En(x) + z_long -&gt; z’ -&gt; G(z’)长发</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>条件序列生成，例如：文字转语音、翻译、Chatbot
+可以用传统的seq2seq解决，也可以用GAN解决。<br>以Chatbot为例，seq2seq的做法是：<br><img src="/assets/images/GAN/38.png" alt=""><br>这种方法存在的问题：<br><img src="/assets/images/GAN/39.png" alt=""><br>对于How are you这样的提问，通常的回归是I’m fine。如果回答Not bad也是可以的。但使用最大似然方法，机器会认为I’m John比Not bad更合适。</p>
+<h1 id="条件序列生成的技术"><a class="header" href="#条件序列生成的技术">条件序列生成的技术</a></h1>
+<h2 id="技术一reinforcement-learning"><a class="header" href="#技术一reinforcement-learning">技术一：Reinforcement Learning</a></h2>
+<h3 id="复习一下policy-gradient"><a class="header" href="#复习一下policy-gradient">复习一下<a href="https://windmissing.github.io/Bible-DeepLearning/Chapter7/Reinforce.html">policy Gradient</a></a></h3>
+<p><img src="/assets/images/GAN/40.png" alt=""><br>$$
+\bar R_\theta = \sum_c P(c)\sum_x R(c, x)P_\theta(x|c)
+$$</p>
+<p>公式中的符号定义如下：<br>$\theta$：参数，在这些为固定值<br>$\bar R_\theta$：reward的期望<br>$\sum_c$： 遍历所有可能的condition<br>P(c)：某个condition出现的几率<br>$\sum_x$：遍历所有可能的action<br>R(c, x)：condition条件下某个action的reward<br>$P_\theta(x|c)$：given $\theta$和c时回应为x的几率<br>目标：调$\theta^*$，让$\bar R_\theta$最大:<br>$$
+\begin{aligned}
+\bar R_\theta = E_{c\in P(c), x \in P(\theta|c)}[R(c,x)]   &amp;&amp; (1)
+\end{aligned}
+$$</p>
+<p>公式（1）中的$c\in P(c), x \in P(\theta|c)$无法穷举所有的以(c, x)，因此用sample的(c1, x1), …, (cm, xm)代替：<br>$$
+\begin{aligned}
+\bar R_\theta \approx \frac{1}{N}\sum_i R(c^i,x^i)   &amp;&amp; (2)
+\end{aligned}
+$$</p>
+<p>公式（2）中已经没有了参数$\theta$，$\theta$完全体现在了sample的数据中了。<br>下一步工作是计算$\bar R_\theta$对$\theta$偏导，这种情况就没法做偏导了。<br>解决方法：<br>先对公式（1）求偏导，然后再代入sample：<br>$$
+\begin{aligned}
+\bar R_\theta = E_{c\in P(c), x \in P(\theta|c)}[R(c,x)\nabla\log P_\theta(x|c)]   &amp;&amp; (3)
+\end{aligned}
+$$</p>
+<p>sample代入公式（3）得：<br>$$
+\begin{aligned}
+\bar R_\theta \approx \frac{1}{N}\sum_iR(c^i,x^i)\nabla\log P_\theta(x^i|c^i)   &amp;&amp; (4)
+\end{aligned}
+$$</p>
+<p>更新效果：<br>$$
+\theta \leftarrow \theta  + \eta\nabla\bar R_\theta
+$$</p>
+<p>如果$R(c^i,x^i) &gt; 0$，则$P_\theta(x^i|c^i) \uparrow$<br>如果$R(c^i,x^i) &lt; 0$，则$P_\theta(x^i|c^i) \downarrow$</p>
+<p><strong>每次更新过$\theta$后要重新sample data</strong></p>
+<h3 id="最大似然法-vs-增强学习法"><a class="header" href="#最大似然法-vs-增强学习法">最大似然法 VS 增强学习法</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th></th><th>Maximum Likelihood</th><th>Reinforement Learning</th></tr>
+</thead>
+<tbody>
+<tr><td>目标函数<br>Objective Function</td><td>$\frac{1}{N}\sum_i\log P_\theta(x^i\mid c^i)$</td><td>$\frac{1}{N}\sum_i R(c^i, x^i)\log P_\theta(x^i\mid c^i)$</td></tr>
+<tr><td>Gradient</td><td>$\frac{1}{N}\sum_i\nabla\log P_\theta(x^i\mid c^i)$</td><td>$\frac{1}{N}\sum_i R(c^i, x^i)\nabla\log P_\theta(x^i\mid c^i)$</td></tr>
+<tr><td>Training Data</td><td>已有的标记数据</td><td>每次迭代之后sample的数据</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="技术二gan"><a class="header" href="#技术二gan">技术二：GAN</a></h2>
+<p>RL是由人给feedback，GAN则是由D给feedback<br><img src="/assets/images/GAN/41.png" alt=""><br>D的output就是reward。</p>
+<p>训练数据集：正确的(c, x)</p>
+<p>训练步骤：</p>
+<ol>
+<li>初始化G（chatbot）和D</li>
+<li>从database sample出正确的(c, x)</li>
+<li>从database sample出c’，计算$\tilde x = G(c’)$</li>
+<li>更新D，使得$(c, x)\uparrow$，$(c’, \tilde x)\downarrow$</li>
+<li>更新G（chatbot），使得$(c’, \tilde x)\uparrow$<br>其中G是一个seq2seq：<br><img src="/assets/images/GAN/42.png" alt=""><br>这里会有一个问题：此过程包含sampling，无法微分<br>解决方法：</li>
+<li>Gunbel-softmax，一个数学trick</li>
+<li>Continuous Input for Doscriminator，避开sampling，把distribution交给D。此方法需要结合WGAN。<br><img src="/assets/images/GAN/43.png" alt=""></li>
+<li>Reinforcement Learning，把R换成D<br><img src="/assets/images/GAN/44.png" alt=""><br>$$
+\begin{aligned}
+nabla \bar R_\theta \approx \frac{1}{N}D(c^i, x^i)\nabla \log P_\theta(x^i|c^i)  &amp;&amp;  (5)\
+\log P_{\theta}(c^i, x^i) = \log P(x_1^i|c^i) + \log P(x_2^i|c^i, x_1^i) + \log P(x_3^i|c^i, x_1^i, x_2^i)   &amp;&amp; (6)
+\end{aligned}
+$$</li>
+</ol>
+<p>假如提问：ci = What’s your name?<br>回答：xi = I don’t known.<br>这个回答不合适，给了negative的reward，因此公式（6）中的每一项中的概率都要下降。<br>但其实第一项$P(x_1^i=I|c^i)$不应该下降，这个句子回答可以以I开关。<br>理论上，这不是一个问题，因为只要sample的次数足够多，会出现“I am John”这样的case把$P(x_1^i=I|c^i)$拉起来。<br>但实际上，这是一个问题，因为sample的次数永远都不会足够多。<br>解决方法：<br>$$
+\nabla \bar R_\theta \approx \frac{1}{N}\sum_i\sum_t(Q(c^i, x_{1:t}^i)-b)\nabla \log P_\theta(x_t^i|c^i, x_{1:t}^i)
+$$</p>
+<p>其中$Q(c^i, x_{1:t}^i)-b$为对每个timestep做evaluation。</p>
+<h3 id="mle-vs-gan"><a class="header" href="#mle-vs-gan">MLE VS GAN</a></h3>
+<p>MLE：喜欢回答I’m sorry或I’ don’t known这样通用的句子。这种回答对应于MLE图像生成算法中的模糊影像。<br>GAN：会生成更长更复杂的句子。但不一定更好。</p>
+<h1 id="条件序列生成的应用"><a class="header" href="#条件序列生成的应用">条件序列生成的应用</a></h1>
+<h2 id="应用一text-style-transfer"><a class="header" href="#应用一text-style-transfer">应用一：Text Style Transfer</a></h2>
+<p>例如：<br>音频：男声转女声<br>文本：positive转negative</p>
+<h3 id="方法一直接transfer"><a class="header" href="#方法一直接transfer">方法一：直接transfer</a></h3>
+<p><img src="/assets/images/GAN/45.png" alt=""></p>
+<h3 id="方法二-projection-to-common-space"><a class="header" href="#方法二-projection-to-common-space">方法二： projection to common space</a></h3>
+<p><img src="/assets/images/GAN/46.png" alt=""></p>
+<h2 id="应用二摘要提取"><a class="header" href="#应用二摘要提取">应用二：摘要提取</a></h2>
+<h3 id="方法一"><a class="header" href="#方法一">方法一</a></h3>
+<p>输入一篇文章，判断每个句子的重要性。<br>把重要的句子连起来就是这篇文章的摘要。<br>缺点：句子拼凑起来的摘要不好，要自己产生句子。</p>
+<h3 id="方法二seq2seq"><a class="header" href="#方法二seq2seq">方法二：seq2seq</a></h3>
+<p>输入大量的（文章，摘要）对，训练一个seq2seq<br>缺点：需要大量的labelled data，百万级别</p>
+<h3 id="方法三风格迁移"><a class="header" href="#方法三风格迁移">方法三：风格迁移</a></h3>
+<p>把文章和摘要看成是两种风格(domain)的文本。<br>只需要准备一堆文章和一堆摘要，而不需要文章和摘要有什么关系。<br><img src="/assets/images/GAN/47.png" alt=""><br>D用于保证生成出来的东西是摘要。<br>R用于保证生成出来的东西与输入有关。</p>
+<p>Note：<br>先用非监督学习训练，再用labelled data做fine tune。<br>只需要少量的labelled data就可以得到与监督学习一样的效果。</p>
+<h2 id="应用三机器翻译"><a class="header" href="#应用三机器翻译">应用三：机器翻译</a></h2>
+<p>把不同的语音视为不同的domain<br>也可以用于语音识别，把语音和文字视为不同的domain</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="方法一用likelihood来衡量"><a class="header" href="#方法一用likelihood来衡量">方法一：用likelihood来衡量</a></h1>
+<p>$$
+L = \frac{1}{N}\sum_i\log P_G(x_i)
+$$</p>
+<p>其中：<br>$x_i$为从真实样本中sample出的data<br>$P_G(x_i)$为G产生数据xi的概率。实际上这个概率根本没法算<br>解决方法：用Kernal Density Estimation来估计$P_G(x_i)$</p>
+<ol>
+<li>用PG产生大量data — 到底是多少data?</li>
+<li>用高斯混合模型逼近这些data — 到底是多少个高斯模型？</li>
+<li>用高斯混合模型估测$P_G(x_i)$<br>这个方法存在一些问题，除了上面提到的问题以外，还有一个关键问题：likelehood不一定能衡量PG的好坏。</li>
+</ol>
+<h1 id="方法二objective-evaluation"><a class="header" href="#方法二objective-evaluation">方法二：Objective Evaluation</a></h1>
+<p>用一个off-the-shell的classifier来判断oject的好坏。</p>
+<h2 id="评分标准"><a class="header" href="#评分标准">评分标准</a></h2>
+<ol>
+<li>单张图像够清晰</li>
+</ol>
+<p>用classifier对一张图像做分类，得到属于各个类的概率组成的分布。<br>分布越集中，图像越清晰</p>
+<ol start="2">
+<li>整体够diverse</li>
+</ol>
+<p>用G生成一组图像，分别对其中的每个图像做分类。<br>每个图像得到一个分布，把所有的分布都加起来，得到综合的分布。<br>综合分布越平均，整体越diverse。</p>
+<h2 id="把评分标准数字化"><a class="header" href="#把评分标准数字化">把评分标准数字化</a></h2>
+<p>Inception score =<br>$$
+\sum_x\sum_y P(y|x)\log P(y|x) - \sum_y P(y) \log P(y)
+$$</p>
+<p>公式第1项代表1的得分，第2项代表2的得分。</p>
+<h2 id="未解决的问题"><a class="header" href="#未解决的问题">未解决的问题</a></h2>
+<p>如果GAN只是记住了database里的某些图像，而不是创造新图像，用这种方式识别不出来。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="background-1"><a class="header" href="#background-1">background</a></h1>
+<h2 id="深度学习一次迭代的三个步骤"><a class="header" href="#深度学习一次迭代的三个步骤">深度学习一次迭代的三个步骤</a></h2>
+<ol>
+<li>环境 -&gt; 机器：state</li>
+<li>机器 -&gt; 环境：action</li>
+<li>环境 -&gt; 机器：reward</li>
+</ol>
+<p>定义：
+一轮迭代 = state -&gt; action -&gt; reward。  如果没有反馈，reward = 0。<br>一episode = 一局游戏，有赢/输结果的。<br>目标：maximize the expected cumulative reward per spisode。</p>
+<h2 id="监督学习-vs-强化学习"><a class="header" href="#监督学习-vs-强化学习">监督学习 VS 强化学习</a></h2>
+<p>监督学习：从数据(State, Action)学习，学习的好坏取决于数据(State, Action)的好坏，因此需要大量数据。<br>强化学习：根据自己的(State, Action)经验学习，因此需要大量的经验。</p>
+<h2 id="强化学习的难点"><a class="header" href="#强化学习的难点">强化学习的难点</a></h2>
+<ol>
+<li>reward delay</li>
+<li>有些Action没有reward，甚至可能有牺牲。但它对帮助得到reward有重要贡献。</li>
+<li>需要Machine探索未尝试过的行为。</li>
+</ol>
+<h2 id="算法分类"><a class="header" href="#算法分类">算法分类</a></h2>
+<ol>
+<li>policy based算法 — 学actor</li>
+<li>value based算法 — 学critic</li>
+<li>policy + value 算法 — A3C算法</li>
+</ol>
+<p>Alpha GO = polocy based + value based + model based<br>model based算法主要用于棋类游戏</p>
+<h1 id="应用-2"><a class="header" href="#应用-2">应用</a></h1>
+<h2 id="应用于下棋"><a class="header" href="#应用于下棋">应用于下棋</a></h2>
+<p>生成两个agent，互相对弈，以胜负作为reward。</p>
+<h2 id="应用于chat-bot"><a class="header" href="#应用于chat-bot">应用于Chat-Bot</a></h2>
+<p>生成两个agent，互相对话。<br>另外训练一个NN用于判断talk的好坏，并给予reward。</p>
+<h2 id="应用于电子游戏"><a class="header" href="#应用于电子游戏">应用于电子游戏</a></h2>
+<p>Gym：https://gym.openai.com/<br>Universe：https://openai.com/blog/universe/</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="policy-based-方法"><a class="header" href="#policy-based-方法">Policy Based 方法</a></h1>
+<p>Policy Based 方法直接学习策略函数$\pi$，用于选择动作。</p>
+<ul>
+<li><a href="RL/Policy1.html">Basic Version</a></li>
+<li><a href="RL/Policy2.html">公式改进</a></li>
+<li><a href="RL/Policy3.html">off-policy</a></li>
+<li><a href="RL/Policy4.html">近端优化策略</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="basic-version"><a class="header" href="#basic-version">Basic Version</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="公式改进"><a class="header" href="#公式改进">公式改进</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="off-policy"><a class="header" href="#off-policy">off-policy</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="近端优化策略"><a class="header" href="#近端优化策略">近端优化策略</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="value-based-方法"><a class="header" href="#value-based-方法">Value Based 方法</a></h1>
+<p>Value Based 方法学习价值函数（如 Q 函数），通过价值评估来间接学习策略。</p>
+<ul>
+<li><a href="RL/Value1.html">value function</a></li>
+<li><a href="RL/Value2.html">Q-Learning</a></li>
+<li><a href="RL/Value3.html">Q-Learning 的改进算法</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="value-function"><a class="header" href="#value-function">value function</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="q-learning"><a class="header" href="#q-learning">Q-Learning</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="q-learning-的改进算法"><a class="header" href="#q-learning-的改进算法">Q-Learning 的改进算法</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="q-learning-vs-policy-based"><a class="header" href="#q-learning-vs-policy-based">Q-Learning Vs Policy Based</a></h1>
+<p>Q-Learning比policy gradient好train，因为：<br>只要学到Q function，就能得到一个比较好的policy。</p>
+<p>Q-Learning的缺点是：难以处理action是continuous的情况。</p>
+<h2 id="什么时候action是连续的"><a class="header" href="#什么时候action是连续的">什么时候action是连续的？</a></h2>
+<p>答：例如开车，action可以是方向盘转多少度。</p>
+<h2 id="continuous-action对q-learning有什么问题"><a class="header" href="#continuous-action对q-learning有什么问题">continuous action对Q-Learning有什么问题?</a></h2>
+<p>答：Q-Learning的一个步骤是求解：<br>$$
+a = \arg\max_a Q(s, a)
+$$</p>
+<p>但a无法穷举</p>
+<h2 id="解决方法-3"><a class="header" href="#解决方法-3">解决方法</a></h2>
+<ol>
+<li>sample一组action<br>缺点：这样得到的Action不会太精确</li>
+<li>用gradient ascend来解a的最优化问题<br>缺点：这样运算量大，且会遇到local minima的问题。</li>
+<li>对$Q^\pi$这个NN做特别的设计，使得容易计算最优化问题<br><img src="/assets/images/Chapter7/74.png" alt=""><br>$$
+\begin{aligned}
+Q(s, a) = -(a-\mu(s))^\top\sum(s)(a-\mu(s)) + V(s)  \
+\mu(s) = \arg\max_a Q(s,a)
+\end{aligned}
+$$</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a3c-算法"><a class="header" href="#a3c-算法">A3C 算法</a></h1>
+<p>A3C (Asynchronous Advantage Actor-Critic) 是结合了 Policy Based 和 Value Based 的算法。</p>
+<ul>
+<li><a href="RL/A3C1.html">复习</a></li>
+<li><a href="RL/A3C2.html">A3C</a></li>
+<li><a href="RL/A3C3.html">Pathwise Derivative Policy Gradient</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="复习"><a class="header" href="#复习">复习</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a3c"><a class="header" href="#a3c">A3C</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="pathwise-derivative-policy-gradient"><a class="header" href="#pathwise-derivative-policy-gradient">Pathwise Derivative Policy Gradient</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>稀疏奖励 Sparse Reward<br>指大多数情况action没有reward的游戏。</p>
+<h1 id="reward-shaping"><a class="header" href="#reward-shaping">Reward Shaping</a></h1>
+<p>developer自己设计一些reward来引导agnet<br>这些reward不是来自环境真正的reward。</p>
+<h2 id="根据游戏设计"><a class="header" href="#根据游戏设计">根据游戏设计</a></h2>
+<p>缺点：需要domain knowledge</p>
+<h2 id="curiosity-reward"><a class="header" href="#curiosity-reward">Curiosity Reward</a></h2>
+<p><img src="/assets/images/RL/5.png" alt=""></p>
+<p>ICM = intrinsic curiosity module</p>
+<p>ICM根据(s1, a1, s2)计算出$r1^i$<br>$$
+R(\tau) = \sum(r_t + r_t^i)
+$$</p>
+<h3 id="icm的设计"><a class="header" href="#icm的设计">ICM的设计</a></h3>
+<p><img src="/assets/images/RL/6.png" alt=""></p>
+<ol>
+<li>Network1根据at和st预测$\hat s_{t+1}$</li>
+<li>比较$\hat s_{t+1}$和$s_{t+1}$</li>
+<li>diff越大，$r_t^i$越高<br>即：<br>action越无法预测，action的reward越大。（鼓励冒险）<br>存在的问题：<br>some states is hard to predict, but not important。<br>例如：风吹草动。<br>机器不能什么都不做只是站着看风吹草动。</li>
+</ol>
+<h3 id="icm改进版"><a class="header" href="#icm改进版">ICM改进版</a></h3>
+<p>增加feature extraction</p>
+<p><img src="/assets/images/RL/7.png" alt=""><br>feature extraction通过Network2实现，用于把state中没有意义的东西去掉。<br>N2的训练方法为：根据$\hat s_{t+1}$和$s_{t+1}$预测$\hat a_t$</p>
+<h1 id="curriculum-learning"><a class="header" href="#curriculum-learning">Curriculum Learning</a></h1>
+<p>给机器的学习做规划，labelled data由简单到难</p>
+<h1 id="hierarchial-reinforcement-learning"><a class="header" href="#hierarchial-reinforcement-learning">Hierarchial Reinforcement Learning</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>模仿学习 Imitation Learning</p>
+<p>使用场景：<br>机器无法从环境中得到reward，只能看expert的demonstration<br>例如chatbot，难以决定聊得好不好，但可以收集很多人的真实对话。</p>
+<h1 id="behavior-cloning"><a class="header" href="#behavior-cloning">Behavior Cloning</a></h1>
+<p>基于expert收集labelled data，把它当作监督学习来做.<br>存在的问题：</p>
+<ol>
+<li>Experts only samples limited observation<br><img src="/assets/images/RL/8.png" alt=""><br>例如开车，expert不会把车开始左上角，所以永远sample不到处于左上角的data。<br>解决方法：data aggregation</li>
+<li>agent会学习expert的一些与action不相关的个人习惯</li>
+<li>Training data和Testing data不match</li>
+</ol>
+<h1 id="innverse-reinforcement-learning--irl"><a class="header" href="#innverse-reinforcement-learning--irl">Innverse Reinforcement Learning — IRL</a></h1>
+<p>RL:<br><img src="/assets/images/RL/9.png" alt=""><br>根据Env和Reward选择Optimal Action<br>IRL:<br><img src="/assets/images/RL/10.png" alt=""><br>先根据expert和Env反推reward，再根据reward和Env选择Optimal Action。<br>为什么要反推reward function?<br>答：Modeling reward可能很简单。简单的reward function可以导出复杂的policy。</p>
+<h2 id="framework-of-irl"><a class="header" href="#framework-of-irl">framework of IRL:</a></h2>
+<ol>
+<li>
+<p>expert $\hat \pi$与游戏互动得到的N个sample $\hat \tau$</p>
+</li>
+<li>
+<p>Actor $\pi$与游戏互动得到的N个sample $\tau$</p>
+</li>
+<li>
+<p>先验假设：$\hat \tau$是最棒的，$\hat \tau$的分数一定高于$\tau$</p>
+</li>
+<li>
+<p>学习一个reward function使得：<br>$$
+\sum R(\hat \tau_n) &gt; \sum R(\tau_n)
+$$</p>
+</li>
+<li>
+<p>用reward function + RL找actor $\pi’$<br><img src="/assets/images/RL/11.png" alt=""></p>
+</li>
+<li>
+<p>用$\pi’$代替$\pi$，进入下一个迭代</p>
+</li>
+</ol>
+<h2 id="ran-vs-irl"><a class="header" href="#ran-vs-irl">RAN Vs. IRL</a></h2>
+<p><img src="/assets/images/RL/12.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="什么是异常侦测"><a class="header" href="#什么是异常侦测">什么是异常侦测</a></h1>
+<p>训练数据：</p>
+<ul>
+<li>normal data： ${x^1, x^2, …, x^N}$</li>
+<li>anomaly data：${\tilde x^1, \tilde x^2, …, \tilde x^N}$</li>
+</ul>
+<p>输入:x<br>输出：x与训练集是否相似 normal/anomaly</p>
+<h1 id="应用-3"><a class="header" href="#应用-3">应用</a></h1>
+<p>欺诈侦测（盗刷卡）、网络入侵侦测、癌细胞侦测</p>
+<h1 id="训练方法"><a class="header" href="#训练方法">训练方法</a></h1>
+<p>是否能当成是二分类问题来训练？<br>答：不能，因为</p>
+<ol>
+<li>除了normal都是anomaly，不能把各种anomaly归成一类，也很难穷举其类别</li>
+<li>很多情况下，不容易收集anomaly的资料</li>
+</ol>
+<p>应该怎样学习？根据data分为三种情况：</p>
+<ol>
+<li>labelled data   — open-set recognition</li>
+<li>unlabelled data &amp;&amp; all data normal</li>
+<li>unlabelled data &amp;&amp; 有少量anomaly data，但不知道是哪些</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>假设数据都是labelled data。<br>label包含data是normal还是anomaly。<br>如果是normal，具体又是normal中的哪一类。</p>
+<h1 id="训练-1"><a class="header" href="#训练-1">训练</a></h1>
+<p><img src="/assets/images/1209400866/1.png" alt=""></p>
+<ul>
+<li>
+<p>训练集：全部都是normal data，$\hat y$是normal类别的分类<br>把normal data当作多分类问题来训练，同时输出类别和对分类的置信度。</p>
+</li>
+<li>
+<p>验证集：样本有normal和anomaly的data，并有label来区别是normal还是anomaly。<br>根据performance来决定$\lambda$以及其它超参数。<br>$$
+x =
+\begin{cases}
+\text{normal} &amp;&amp; , c(x) &gt; \lambda   \
+\text{anomaly} &amp;&amp; , c(x) \le \lambda
+\end{cases}
+$$</p>
+</li>
+<li>
+<p>测试集：输入样本，根据公式判断normal/anomaly</p>
+</li>
+</ul>
+<h1 id="evaluation"><a class="header" href="#evaluation">Evaluation</a></h1>
+<p>如何根据performance判断模型的好坏？是否能用准确率？<br>答：不能。<br>异常侦测问题中，异常数据可能非常少，属于极度偏斜的数据。这种情况下不适合使用正确率。</p>
+<p>将数据制作成<a href="https://windmising.gitbook.io/liu-yu-bo-play-with-machine-learning/10-1/10-1">confusion matrix</a>，例如：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th></th><th>Anomaly</th><th>Normal</th></tr>
+</thead>
+<tbody>
+<tr><td>Detected</td><td>1</td><td>1</td></tr>
+<tr><td>Not Detected</td><td>4</td><td>99</td></tr>
+</tbody>
+</table>
+</div>
+<p>左下角的数据为“异常data被判断为正常”的错误，又叫“missing”<br>右上角的数据为“正常data被判断为异常”的错误 ，又叫“false alarm”<br>$\lambda$取不同的值会得到不同的confusion matrix，哪种模型更好取决于对不同错误的cost的定义。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>data中大部分是normal，有少量的anomaly。但都是unlabelled，不哪个是anomaly。<br>为什么跳过Case 2？因为实际场景都case 3，即使你认为是data都是clear的，但也有可能其实是polluted，只是你不知道而已。</p>
+<h1 id="方法一概率统计"><a class="header" href="#方法一概率统计">方法一：概率统计</a></h1>
+<ol>
+<li>
+<p>定义<a href="https://windmissing.github.io/mathematics_basic_for_ML/Probability/probability_distribution.html">概率密度函数</a>为$f_\theta(x)$<br>这个函数由参数$\theta$决定f(x)的形状。<br>$\theta$可以是一个值或一个向量，是向量代表有多个参数。<br>$\theta$未知，要根据x求出$\theta$，从而决定了f(x)的形状。<br>$f_\theta(x)$通常使用<a href="https://windmissing.github.io/mathematics_basic_for_ML/Probability/distribution.html">多维高斯分布</a>。</p>
+</li>
+<li>
+<p>定义对数似然函数<br>$$
+L(\theta) = \log \left[ f_\theta(x^1)f_\theta(x^2)\cdots f_\theta(x^N)   \right]
+$$</p>
+</li>
+<li>
+<p>求得到最大对数似然的$\theta$<br>$$
+\theta^* = \arg\max_\theta L(\theta)
+$$</p>
+</li>
+</ol>
+<h1 id="方法二auto-encoder"><a class="header" href="#方法二auto-encoder">方法二：auto-encoder</a></h1>
+<p><a href="https://windmissing.github.io/Bible-DeepLearning/Chapter7/AutoEncoder.html">auto-encoder</a></p>
+<p>把x转成code再还原成$\hat x$<br>x与$\hat x$越接近，说明x越正常</p>
+<h1 id="其它方法"><a class="header" href="#其它方法">其它方法</a></h1>
+<p>one-class SVM, isolated forest</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="对抗模型"><a class="header" href="#对抗模型">对抗模型</a></h1>
+<p>对抗模型研究如何攻击和防御机器学习模型。</p>
+<ul>
+<li><a href="#什么是攻击">攻击</a></li>
+<li><a href="#passive-defense-被动防御">防御</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>对抗模型，要对抗的是：</p>
+<ul>
+<li>噪音</li>
+<li>human制造出来的有恶意的攻击</li>
+</ul>
+<h1 id="什么是攻击"><a class="header" href="#什么是攻击">什么是攻击</a></h1>
+<p>输入正常的x0，NN会得到正确的结果<br>但通过经心设计$\Delta x$，使得NN会在$x+\Delta x$上犯错，而人类无法分辨$x+\Delta x$和x。</p>
+<h1 id="怎样攻击"><a class="header" href="#怎样攻击">怎样攻击</a></h1>
+<ul>
+<li>正常训练</li>
+</ul>
+<p><img src="/assets/images/1209400866/2.png" alt=""></p>
+<p>$$
+L(\theta) = C(y^0, y^{\text{true}})
+$$</p>
+<p>x是固定的，调整$\theta$</p>
+<ul>
+<li>无目标攻击</li>
+</ul>
+<p><img src="/assets/images/1209400866/3.png" alt=""></p>
+<p>$$
+L(x’) = - C(y’, y^{\text{true}})
+$$</p>
+<p>$\theta$是固定的，调整x</p>
+<ul>
+<li>有目标攻击</li>
+</ul>
+<p><img src="/assets/images/1209400866/4.png" alt=""></p>
+<p>$$
+L(x’) = - C(y’, y^{\text{true}}) + C(y’, y^{\text{false}})
+$$</p>
+<ul>
+<li>额外限制</li>
+</ul>
+<p>$$
+d(x^0, x’) \le \epsilon
+$$</p>
+<p>不要被发现</p>
+<h2 id="d是怎么定义的"><a class="header" href="#d是怎么定义的">d是怎么定义的？</a></h2>
+<p><a href="https://windmissing.github.io/mathematics_basic_for_ML/LinearAlgebra/norm.html">L2-norm、L-infinity</a></p>
+<p>图像应用上，L-infinity比L2-norm更合适</p>
+<h2 id="怎样求解x"><a class="header" href="#怎样求解x">怎样求解x</a></h2>
+<h3 id="方法一梯度下降法"><a class="header" href="#方法一梯度下降法">方法一：梯度下降法</a></h3>
+<p>$$
+\begin{aligned}
+x^* = \arg\min_{d(x^0, x’) \le \epsilon} L(x’)
+\end{aligned}
+$$</p>
+<p>这是一个带限制的最优化问题</p>
+<ol>
+<li>
+<p>将x’初始化为x0</p>
+</li>
+<li>
+<p>用梯度下降法更新xt<br>$$
+x^t = x^{t-1} - \eta \nabla L(x^{t-1})
+$$</p>
+</li>
+<li>
+<p>增加限制<br>如果{d(x^0, x’) &gt; \epsilon}，则xt = fix(xt)
+<img src="/assets/images/1209400866/5.png" alt=""></p>
+</li>
+</ol>
+<h3 id="方法二fgsm"><a class="header" href="#方法二fgsm">方法二：FGSM</a></h3>
+<p>Fast Gradient Sign Method</p>
+<p>$$
+\begin{aligned}
+x^* = x^0 - \epsilon \Delta x  \
+\Delta x = \text{sign} (\frac{\partial L}{\partial x’})
+\end{aligned}
+$$</p>
+<p><img src="/assets/images/1209400866/6.png" alt=""></p>
+<p>直观解释：<br>FGSM不在意$\Delta x$的值，只在意它的方向<br>例如$\Delta x$指向左右任意一个方向，x*都会走到右上角<br>可以看任是一个LR巨大的一次GD<br><img src="/assets/images/1209400866/7.png" alt=""></p>
+<h1 id="white-box-vs-black-box"><a class="header" href="#white-box-vs-black-box">White Box VS Black Box</a></h1>
+<h2 id="白盒攻击---知道nn的参数"><a class="header" href="#白盒攻击---知道nn的参数">白盒攻击 - 知道NN的参数</a></h2>
+<p>以上方法都是白盒攻击</p>
+<h2 id="黑盒攻击---不知道nn的参数有nn的训练集"><a class="header" href="#黑盒攻击---不知道nn的参数有nn的训练集">黑盒攻击 - 不知道NN的参数，有NN的训练集</a></h2>
+<ol>
+<li>用training data训练一个NN proxy</li>
+<li>用白盒攻击方法找到能攻击NN proxy的图像</li>
+<li>用这张图像去攻击NN</li>
+</ol>
+<h2 id="黑盒攻击---不知道nn的参数没有nn的训练集"><a class="header" href="#黑盒攻击---不知道nn的参数没有nn的训练集">黑盒攻击 - 不知道NN的参数，没有NN的训练集</a></h2>
+<ol>
+<li>用自己的training data喂NN，得到output</li>
+<li>用自己的training data + NN的output得到labelled data</li>
+<li>用labelled data训练NN proxy</li>
+<li>用白盒攻击方法找到能攻击NN proxy的图像</li>
+<li>用这张图像去攻击NN</li>
+</ol>
+<h1 id="其它攻击方法"><a class="header" href="#其它攻击方法">其它攻击方法</a></h1>
+<h2 id="universal-adversal-attack"><a class="header" href="#universal-adversal-attack">Universal Adversal Attack</a></h2>
+<p>不是针对某个样本制作攻击<br>制作一张通过的$\Delta x$图像<br>这张图像叠加到任意图像上都有攻击作用<br>可以用于white或者black</p>
+<h2 id="adversarial-reprogramming"><a class="header" href="#adversarial-reprogramming">Adversarial Reprogramming</a></h2>
+<p>通过攻击改变一个NN的功能</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="passive-defense-被动防御"><a class="header" href="#passive-defense-被动防御">passive defense 被动防御</a></h1>
+<p>不改变model，增加一个Anomaly Detection</p>
+<h2 id="增加一个filter例如smoothing"><a class="header" href="#增加一个filter例如smoothing">增加一个filter，例如smoothing</a></h2>
+<p><img src="/assets/images/1209400866/8.png" alt=""></p>
+<h2 id="feature-squeeze"><a class="header" href="#feature-squeeze">Feature Squeeze</a></h2>
+<p><img src="/assets/images/1209400866/9.png" alt=""></p>
+<h2 id="randomization-at-inference-phase"><a class="header" href="#randomization-at-inference-phase">Randomization at Inference Phase</a></h2>
+<p><img src="/assets/images/1209400866/10.png" alt=""></p>
+<h2 id="缺点-1"><a class="header" href="#缺点-1">缺点</a></h2>
+<p>如果防御机制泄漏，攻击仍会生效</p>
+<h1 id="proactive-defence-主动防御"><a class="header" href="#proactive-defence-主动防御">Proactive Defence 主动防御</a></h1>
+<p>Training a model that is robust to adversarial attack</p>
+<h2 id="找出漏洞补起来"><a class="header" href="#找出漏洞补起来">找出漏洞，补起来</a></h2>
+<p>根据图像攻击算法，找到攻击图像，把攻击图像当作训练样本来训练</p>
+<h2 id="缺点-1-1"><a class="header" href="#缺点-1-1">缺点</a></h2>
+<p>训练时只能列举有限的攻击算法，换用算法攻击，仍然能攻破</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>例如ML将一张图分类为猫，同时要回答：</p>
+<ul>
+<li>为什么你认为这是一只猫？ — Local Explanation</li>
+<li>你认为一只猫是怎样的？ — Global Expanation</li>
+</ul>
+<h1 id="local-explanation"><a class="header" href="#local-explanation">Local Explanation</a></h1>
+<h2 id="方法一-1"><a class="header" href="#方法一-1">方法一：</a></h2>
+<p>将Object x分解成Component (x1, x2, …, xN)<br>移除一个compenent之后，对decision的影响越大，说明这个component越重要。<br>一个component可以是一个pixel、segment、方块、单词，或是自己定义的一个单位。</p>
+<p>component的大小必须很小心地设计，太大或太小都得不到好的结果</p>
+<h2 id="方法二saliency-map"><a class="header" href="#方法二saliency-map">方法二：Saliency Map</a></h2>
+<p>对输入向量x的一个分量增加一个小小的扰动$\Delta x$，得到：<br>$$
+(x_1, x_2, \cdots, x_n, \cdots, x_N) \rightarrow (x_1, x_2, \cdots, x_n+\Delta x, \cdots, x_N)
+$$</p>
+<p>x的一个分量通常是一个像素。<br>由于x的改变，y也会相应地改变：<br>$$
+y \rightarrow y + \Delta y
+$$</p>
+<p>计算$|\frac{\Delta y}{\Delta x}|$，值越大，说明x的这个分量越重要。<br>缺点：Gradient Sturation<br>$$
+|\frac{\Delta y}{\Delta x}| = |\frac{\partial y}{\partial x}|
+$$</p>
+<p>但在某个位置梯度小不代表它不重要。<br><img src="/assets/images/1209400866/11.png" alt=""></p>
+<h2 id="方法三用一个model解释另一个model--lime"><a class="header" href="#方法三用一个model解释另一个model--lime">方法三：用一个model解释另一个model  LIME</a></h2>
+<p>LIME = Local Interpretable Agnostic Explanations</p>
+<p>basic Idea：<br>用一个有解释能力的model（例如Linear）去模仿另一个没有解释能力的model（例如NN）<br><img src="/assets/images/1209400866/13.png" alt=""><br>但是，Linear Model不可能真的能模拟出NN，只能模拟出NN的一个local region<br><img src="/assets/images/1209400866/14.png" alt=""><br>问：怎样fit with linear model?<br>答：提取图像的m个特征，定义linear model为：<br>$$
+y = w_1x_1 + w_2x_2 + \cdots + w_mx_m + b
+$$</p>
+<p>问：怎么基于linear model解释？<br>$w_m \approx 0 \Rightarrow x_m$与结果无关<br>$w_m &gt; 0 \Rightarrow x_m$对结果起积极作用
+$w_m &lt; 0 \Rightarrow x_m$对结果起消极作用</p>
+<h1 id="global-explanation"><a class="header" href="#global-explanation">Global Explanation</a></h1>
+<h2 id="activation-maximization"><a class="header" href="#activation-maximization">Activation Maximization</a></h2>
+<p>$$
+x^* = \arg\max_x y_i
+$$</p>
+<p>其中yi为期望的结果的confidence</p>
+<p>这种方法还需要增加一些额外的限制，否则结果不好</p>
+<h2 id="image-geneator"><a class="header" href="#image-geneator">Image Geneator</a></h2>
+<p>例如 GAN、VAE<br><img src="/assets/images/1209400866/12.png" alt=""><br>$$
+x^* = \arg\max_x y_i \Rightarrow z = \arg\max_z yi, x = G(z)
+$$</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>用同一个模型，持续地学习</p>
+<h1 id="knowledge-retention-but-not-intransigence"><a class="header" href="#knowledge-retention-but-not-intransigence">Knowledge Retention, but not intransigence</a></h1>
+<h2 id="catastropic-forgetting"><a class="header" href="#catastropic-forgetting">Catastropic Forgetting</a></h2>
+<p>例如有task 1和task 2:<br><img src="/assets/images/1209400866/15.png" alt=""><br>如果同时学task 1和task 2，两个都能学好：<br><img src="/assets/images/1209400866/17.png" alt=""><br>如果先学task 1，再学task 2，task 1会忘掉，这种遗忘称为：<br><img src="/assets/images/1209400866/16.png" alt=""></p>
+<h2 id="elastic-weight-consolidation-ewc"><a class="header" href="#elastic-weight-consolidation-ewc">Elastic Weight Consolidation (EWC)</a></h2>
+<p>Basic Idea：<br>model中某些参数对prev task特别重要，训练新task时只改变不重要的参数。<br>$$
+L’(\theta) = L(\theta) + \lambda \sum_i b_i(\theta_i - \theta^b_i)^2
+$$</p>
+<p>其中：<br>$\theta^b_i$：上一个Task的参数，在这个task中当作常数看待。<br>$\theta_i$：这个Task要调的参数<br>$b_i$：$\theta^b_i$的gurad，代表了$\theta^b_i$的重要性。<br>第一项：学好新task<br>第二项：与旧Task的参数差别不要太大。<br>$b_i=0$：$\theta^b_i$无保护，$\theta_i$随意发挥<br>$b_i=\inf$：$\theta^b_i$强保护，$\theta_i$必须等于$\theta^b_i$</p>
+<p>问：为什么会发生Catastropic Forgetting？<br>答：<br><img src="/assets/images/1209400866/18.png" alt=""><br>问：怎么定义bi?<br>答：$\theta^b$肯定位于谷底。$\theta^b$的二次微分代表$\theta^b$在这个方向的谷底是宽是窄。<br><img src="/assets/images/1209400866/19.png" alt=""><br>越平坦说明$\theta^b_i$的改动影响越小，越不需要保护。$b_i$就越小。</p>
+<h2 id="为什么ewc有用"><a class="header" href="#为什么ewc有用">为什么EWC有用？</a></h2>
+<p>答：<br><img src="/assets/images/1209400866/20.png" alt=""></p>
+<h2 id="generating-data"><a class="header" href="#generating-data">Generating Data</a></h2>
+<p>Multi-Task虽然可以解决LLL的问题，但缺点是需要存储大量的training data。<br>可以训练一个能生成training data的NN，这样只存一个NN就可以了。</p>
+<h1 id="knowledge-transfer"><a class="header" href="#knowledge-transfer">knowledge Transfer</a></h1>
+<p>问：为什么不“每个task各训练一个model”？<br>答：1.不同task之间学到的东西无法迁移。2，存不下那么多模型。</p>
+<p>问：LLL和transfer learning有什么区别？<br>答：TL只要求task 1的学习对Task 2有帮助。LLL进一步要求task 2的学习不会导致遗忘task 1，甚至希望能有助于task 1。</p>
+<h2 id="评价lll的好坏evaluation"><a class="header" href="#评价lll的好坏evaluation">评价LLL的好坏（Evaluation）</a></h2>
+<h3 id="填表"><a class="header" href="#填表">填表</a></h3>
+<p><img src="/assets/images/1209400866/21.png" alt=""></p>
+<p>$R_{i,j}$：训练过task [1 .. i]之后，task j的测试效果。</p>
+<ul>
+<li>i &lt; j，$R_{i,j}$代表task i transfer到task j的效果。</li>
+<li>i &gt; j，$R_{i,j}$代表task j对task i的影响</li>
+</ul>
+<h3 id="定义衡量指标"><a class="header" href="#定义衡量指标">定义衡量指标</a></h3>
+<p>$$
+\begin{aligned}
+\text{Accuracy} = \frac{1}{T} \sum_{i=1}^T R_{T,i}   \
+\text{Backward Transfer} = \frac{1}{T-1}\sum_{i=1}^{T-1} (R_{T,i} - R_{i,i})   \
+\text{Forward Transfer} = \frac{1}{T-1}\sum_{i=2}^{T} (R_{i-1,i} - R_{0,i})
+\end{aligned}
+$$</p>
+<h2 id="gem--gradient-episodic-memory"><a class="header" href="#gem--gradient-episodic-memory">GEM — Gradient Episodic Memory</a></h2>
+<p>一种让backward为正的方法。<br>正常情况下，Backward Transfer &lt; 0 — 遗忘<br>GEN算法效果，Backward Transfer &gt; 0 — 触类旁通、知识迁移<br><img src="/assets/images/1209400866/22.png" alt=""></p>
+<ol>
+<li>计算：<br>g: current task的梯度方向<br>gi：之前的task i的梯度方向</li>
+<li>判断<br>g * gi &gt; 0 ==&gt; g’ = g<br>g * gi &lt; 0 ==&gt; 调整g’，使g’ * gi &gt; 0 且 g和g’尽量接近</li>
+<li>更新<br>基于g’更新</li>
+</ol>
+<h1 id="model-expansion-but-parameter-efficiency"><a class="header" href="#model-expansion-but-parameter-efficiency">Model Expansion, but Parameter Efficiency</a></h1>
+<h2 id="progressive-neural-networks"><a class="header" href="#progressive-neural-networks">Progressive Neural Networks</a></h2>
+<p><img src="/assets/images/1209400866/23.png" alt=""></p>
+<h2 id="expert-gate"><a class="header" href="#expert-gate">Expert Gate</a></h2>
+<p><img src="/assets/images/1209400866/24.png" alt=""></p>
+<h2 id="net2net"><a class="header" href="#net2net">Net2Net</a></h2>
+<p><img src="/assets/images/1209400866/25.png" alt=""></p>
+<p>前两种方法每次有新的Task就要扩展模型，参数的增加速度与task成正比<br>第三种只在当前模型难以提升时才增加结点</p>
+<h1 id="curriculum-learning-1"><a class="header" href="#curriculum-learning-1">Curriculum Learning</a></h1>
+<p>还是上面例子中的task1和task 2<br><img src="/assets/images/1209400866/15.png" alt=""><br>如果先学task 1，再学task 2，task 1会忘掉<br>如果先学task 2，再学task 1，task 2不会忘掉<br><img src="/assets/images/1209400866/26.png" alt=""><br>说明task的顺序很重要。怎样排序最合适？</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p>Meta Learning = Learn to Learn</p>
+<h1 id="什么是meta-learning"><a class="header" href="#什么是meta-learning">什么是Meta Learning?</a></h1>
+<p>LLL与Meta Learning的关系？</p>
+<p>同：学过很多task之后，期待在新的task上会学得更好<br>异：LLL是让同一个model学会所有的task。Meta Learning是让Model学会学习的能力。</p>
+<p>什么是Mechine Learning？</p>
+<ol>
+<li>定义一个F（mechine learning algorithm），输入大量训练数据，输出一组参数f*</li>
+<li>基于参数f*，输入testing data，输出预测结果</li>
+</ol>
+<p>Mechine Learning是一种找f的能力。<br>Meta Learning是一种找F的能力。</p>
+<p>Meta Learning的步骤：<br><img src="/assets/images/1209400866/27.png" alt=""></p>
+<ol>
+<li>
+<p>定义一组learning algorithm F
+图是的红框原本都是人工设计出来的。选择不同的设计就是不同的F。</p>
+</li>
+<li>
+<p>评价一个F的好坏<br><img src="/assets/images/1209400866/28.png" alt=""><br>$$
+L(F) = \sum_{n=1}^N l^n
+$$</p>
+</li>
+<li>
+<p>找到最好的F</p>
+</li>
+</ol>
+<h1 id="maml"><a class="header" href="#maml">MAML</a></h1>
+<p>Model Agnostic Meta-Learning<br>只关注“初始化参数”
+<img src="/assets/images/1209400866/29.png" alt=""><br>$$
+\begin{aligned}
+L(\phi) = \sum_{n=1}^N l^n(\hat \theta^n)  \
+\phi = \phi - \eta \nabla_{\phi} L(\phi)
+\end{aligned}
+$$</p>
+<p><img src="/assets/images/1209400866/30.png" alt=""><br>横轴：model参数<br>纵轴：loss</p>
+<p>$\phi$参数可能在task 1和task 2上效果一般，<br>但是从$\phi$出发，<br>在task 1上能容易地找到最优参数$\hat \theta^1$，<br>在task 2上能容易地找到最优参数$\hat \theta^2$，<br>因此$\phi$是一个好的初始化参数。</p>
+<p><img src="/assets/images/1209400866/31.png" alt=""><br>这个$\phi$不是一个好的初始化参数，因为它会导致task 2收敛不到最小。</p>
+<p>MAML假设：<br>最后得到一个比较好的初始化参数$\phi$以后，只需经过一次gradient descent，就能找到最好的$\hat \theta$。<br>以下是推导公式：<br>$$
+\begin{aligned}
+\hat \theta = \phi - \epsilon \nabla_{\phi} l(\phi)  \
+L(\phi) = \sum_{n=1}^N l^n(\hat \theta^n) \
+\phi = \phi - \eta \nabla_{\phi} L(\phi)   \
+\nabla_{\phi}L(\theta) = \sum_{n=1}^N \nabla_\phi l^n(\hat \theta ^n)  \
+\nabla_{\phi} l(\hat \theta) = \frac{\partial l(\hat \theta)}{\partial \theta_i} = \sum_j \frac{\partial l(\hat \theta)}{\partial hat \theta_j} \frac{\partial hat \theta_j}{\partial \theta_i} \approx \frac{\partial hat \theta_j}{\partial hat \theta_i} = \nabla_{\hat\theta}l(\hat \theta)
+\end{aligned}
+$$</p>
+<p><img src="/assets/images/1209400866/32.png" alt=""></p>
+<h1 id="reptile"><a class="header" href="#reptile">Reptile</a></h1>
+<p><img src="/assets/images/1209400866/33.png" alt=""><br><img src="/assets/images/1209400866/34.png" alt=""></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/pagetoc-632bc451.js"></script>
+        <script src="theme/mermaid-eefea253.min.js"></script>
+        <script src="theme/mermaid-init-ccf746f1.js"></script>
+
+        <script>
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>
