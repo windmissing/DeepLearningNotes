@@ -89,6 +89,7 @@
 
 # Reinforcement Learning
 
+- [RL 基础](RL/README.md)
 - [增强学习](RL/Reinforce.md)
 - [Policy Based](RL/Policy/Policy.md)
     - [Basic Version](../Policy1.md)
@@ -104,6 +105,7 @@
     - [复习](../A3C1.md)
     - [A3C](../A3C2.md)
     - [Pathwise Derivative Policy Gradient](../A3C3.md)
+- [补充主题：RL vs 轨迹优化](RL/AdvancedTopics.md)
 - [稀疏奖励](RL/Sparse.md)
 - [模仿学习](RL/Imitation.md)
 
