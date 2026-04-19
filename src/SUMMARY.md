@@ -69,6 +69,11 @@
 - [深度自编码器](Common/AutoEncoder.md)
 - [Deep Learning VS Structured Learning](Common/Structured.md)
 
+# 生成模型
+
+- [VAE](GenerativeModels/VAE.md)
+- [CVAE](GenerativeModels/CVAE.md)
+
 # Generative Adversarial Networks
 
 - [深度生成模型](GAN/Generative.md)
