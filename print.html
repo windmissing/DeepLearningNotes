@@ -39,10 +39,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-26934014.js";
+            window.path_to_searchindex_js = "searchindex-a4fd0217.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-98665cc9.js"></script>
+        <script src="toc-47906c16.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -2469,6 +2469,278 @@ $$</p>
 <h2 id="未解决的问题"><a class="header" href="#未解决的问题">未解决的问题</a></h2>
 <p>如果GAN只是记住了database里的某些图像，而不是创造新图像，用这种方式识别不出来。</p>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="强化学习基础"><a class="header" href="#强化学习基础">强化学习基础</a></h1>
+<h2 id="核心概念"><a class="header" href="#核心概念">核心概念</a></h2>
+<p><strong>强化学习 (Reinforcement Learning, RL)</strong> 是一种通过<strong>与环境交互</strong>来学习最优行为的学习范式。</p>
+<pre><code>智能体 (Agent)
+    │
+    │ 观察状态 s_t
+    ▼
+环境 (Environment) ──→ 执行动作 a_t ──→ 获得奖励 r_t
+    │                                       │
+    └───────────────────────────────────────┘
+                环境状态更新
+</code></pre>
+<p><strong>关键特点</strong>：</p>
+<ul>
+<li><strong>试错学习</strong>：通过尝试错误来学习</li>
+<li><strong>延迟奖励</strong>：当前动作可能影响未来的奖励</li>
+<li><strong>序列决策</strong>：需要考虑长期后果</li>
+</ul>
+<h2 id="与监督学习的对比"><a class="header" href="#与监督学习的对比">与监督学习的对比</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th></th><th><strong>监督学习</strong></th><th><strong>强化学习</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>数据来源</strong></td><td>标注数据集</td><td>与环境交互</td></tr>
+<tr><td><strong>学习目标</strong></td><td>预测标签/值</td><td>最大化累积奖励</td></tr>
+<tr><td><strong>反馈形式</strong></td><td>正确答案</td><td>奖励信号（标量）</td></tr>
+<tr><td><strong>时间依赖</strong></td><td>通常独立同分布</td><td>序列依赖</td></tr>
+<tr><td><strong>典型应用</strong></td><td>图像分类、翻译</td><td>游戏 AI、机器人控制</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="马尔可夫决策过程-mdp"><a class="header" href="#马尔可夫决策过程-mdp">马尔可夫决策过程 (MDP)</a></h2>
+<h3 id="mdp-的定义"><a class="header" href="#mdp-的定义">MDP 的定义</a></h3>
+<p><strong>马尔可夫决策过程 (Markov Decision Process, MDP)</strong> 是强化学习的数学框架，用于描述序贯决策问题。</p>
+<p>一个 MDP 由五元组定义：</p>
+<p>$$
+\mathcal{M} = (S, A, P, R, \gamma)
+$$</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>符号</th><th>名称</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>$S$</td><td><strong>状态空间</strong> (State Space)</td><td>所有可能状态的集合</td></tr>
+<tr><td>$A$</td><td><strong>动作空间</strong> (Action Space)</td><td>所有可能动作的集合</td></tr>
+<tr><td>$P$</td><td><strong>状态转移概率</strong></td><td>$P(s’ \mid s, a)$：在状态 $s$ 执行动作 $a$ 后转移到 $s’$ 的概率</td></tr>
+<tr><td>$R$</td><td><strong>奖励函数</strong></td><td>$R(s, a, s’)$：状态转移的即时奖励</td></tr>
+<tr><td>$\gamma$</td><td><strong>折扣因子</strong></td><td>$\gamma \in [0,1]$：未来奖励的折现率</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="马尔可夫性质"><a class="header" href="#马尔可夫性质">马尔可夫性质</a></h3>
+<p><strong>马尔可夫性质</strong>：当前状态已知的情况下，下一时刻状态只与当前状态相关，而与历史无关。</p>
+<p>$$
+P(s_{t+1} \mid s_t, a_t, s_{t-1}, a_{t-1}, \dots) = P(s_{t+1} \mid s_t, a_t)
+$$</p>
+<p><strong>直观理解</strong>：当前状态 $s_t$ 包含了做决策所需的<strong>全部信息</strong>。</p>
+<h3 id="轨迹与回报"><a class="header" href="#轨迹与回报">轨迹与回报</a></h3>
+<p><strong>轨迹 (Trajectory)</strong>：一次完整的状态 - 动作序列</p>
+<p>$$
+\tau = (s_0, a_0, s_1, a_1, s_2, a_2, \dots)
+$$</p>
+<p><strong>回报 (Return)</strong>：轨迹的累积折扣奖励</p>
+<p>$$
+G_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k} = r_t + \gamma r_{t+1} + \gamma^2 r_{t+2} + \dots
+$$</p>
+<p><strong>折扣因子的作用</strong>：</p>
+<ul>
+<li>$\gamma = 0$：只关心眼前利益</li>
+<li>$\gamma \to 1$：考虑长远利益</li>
+<li>数学上保证无限时域回报有界</li>
+</ul>
+<hr>
+<h2 id="核心概念-1"><a class="header" href="#核心概念-1">核心概念</a></h2>
+<h3 id="策略-policy"><a class="header" href="#策略-policy">策略 (Policy)</a></h3>
+<p><strong>策略</strong> $\pi$ 是智能体的行为准则，定义了在每个状态下如何选择动作。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>类型</th><th>数学形式</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>确定性策略</strong></td><td>$a = \pi(s)$</td><td>状态 $s$ 下总是选择同一动作</td></tr>
+<tr><td><strong>随机性策略</strong></td><td>$\pi(a \mid s)$</td><td>状态 $s$ 下选择动作 $a$ 的概率</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="价值函数-value-function"><a class="header" href="#价值函数-value-function">价值函数 (Value Function)</a></h3>
+<p><strong>状态价值函数</strong> $V^\pi(s)$：从状态 $s$ 开始，遵循策略 $\pi$ 的期望回报</p>
+<p>$$
+V^\pi(s) = \mathbb{E}<em>\pi\left[G_t \mid s_t = s\right] = \mathbb{E}</em>\pi\left[\sum_{k=0}^{\infty} \gamma^k r_{t+k} \mid s_t = s\right]
+$$</p>
+<p><strong>动作价值函数 (Q 函数)</strong> $Q^\pi(s, a)$：在状态 $s$ 执行动作 $a$ 后，遵循策略 $\pi$ 的期望回报</p>
+<p>$$
+Q^\pi(s, a) = \mathbb{E}_\pi\left[G_t \mid s_t = s, a_t = a\right]
+$$</p>
+<h3 id="贝尔曼方程-bellman-equation"><a class="header" href="#贝尔曼方程-bellman-equation">贝尔曼方程 (Bellman Equation)</a></h3>
+<p>贝尔曼方程描述了价值函数的<strong>递归结构</strong>：</p>
+<p><strong>状态价值的贝尔曼方程</strong>：</p>
+<p>$$
+V^\pi(s) = \sum_a \pi(a \mid s) \sum_{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma V^\pi(s’)\right]
+$$</p>
+<p><strong>Q 函数的贝尔曼方程</strong>：</p>
+<p>$$
+Q^\pi(s, a) = \sum_{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma \sum_{a’} \pi(a’ \mid s’) Q^\pi(s’, a’)\right]
+$$</p>
+<h3 id="最优价值函数"><a class="header" href="#最优价值函数">最优价值函数</a></h3>
+<p><strong>最优状态价值函数</strong>：</p>
+<p>$$
+V^*(s) = \max_\pi V^\pi(s)
+$$</p>
+<p><strong>最优动作价值函数</strong>：</p>
+<p>$$
+Q^*(s, a) = \max_\pi Q^\pi(s, a)
+$$</p>
+<p><strong>贝尔曼最优方程</strong>：</p>
+<p>$$
+V^<em>(s) = \max_a \sum_{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma V^</em>(s’)\right]
+$$</p>
+<p>$$
+Q^<em>(s, a) = \sum_{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma \max_{a’} Q^</em>(s’, a’)\right]
+$$</p>
+<hr>
+<h2 id="强化学习算法分类"><a class="header" href="#强化学习算法分类">强化学习算法分类</a></h2>
+<h3 id="分类图谱"><a class="header" href="#分类图谱">分类图谱</a></h3>
+<pre class="mermaid">mindmap
+  root((强化学习算法))
+    基于价值
+      Q-learning
+      SARSA
+      DQN
+    基于策略
+      REINFORCE
+      Policy Gradient
+      TRPO
+      PPO
+    Actor-Critic
+      A2C/A3C
+      SAC
+      TD3
+    基于模型
+      动态规划
+      蒙特卡洛树搜索
+      模型学习
+</pre>
+
+<h3 id="1-基于价值的方法-value-based"><a class="header" href="#1-基于价值的方法-value-based">1. 基于价值的方法 (Value-based)</a></h3>
+<p><strong>核心思想</strong>：学习价值函数（Q 函数），通过价值函数导出策略。</p>
+<p>$$
+\pi(s) = \arg\max_a Q(s, a)
+$$</p>
+<p><strong>代表算法</strong>：</p>
+<ul>
+<li><strong>Q-learning</strong>：离线时序差分学习</li>
+<li><strong>SARSA</strong>：在线时序差分学习</li>
+<li><strong>DQN</strong>：深度 Q 网络（用神经网络近似 Q 函数）</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>✅ 样本效率较高</li>
+<li>✅ 适用于离散动作空间</li>
+<li>❌ 难以处理连续动作空间</li>
+</ul>
+<h3 id="2-基于策略的方法-policy-based"><a class="header" href="#2-基于策略的方法-policy-based">2. 基于策略的方法 (Policy-based)</a></h3>
+<p><strong>核心思想</strong>：直接学习并优化策略函数 $\pi(a \mid s; \theta)$。</p>
+<p>$$
+\max_\theta J(\theta) = \mathbb{E}<em>{\tau \sim \pi</em>\theta}\left[\sum_{t=0}^T \gamma^t r_t\right]
+$$</p>
+<p><strong>策略梯度定理</strong>：</p>
+<p>$$
+\nabla_\theta J(\theta) = \mathbb{E}<em>{\tau \sim \pi</em>\theta}\left[\sum_{t=0}^T \nabla_\theta \log \pi_\theta(a_t \mid s_t) Q^\pi(s_t, a_t)\right]
+$$</p>
+<p><strong>代表算法</strong>：</p>
+<ul>
+<li><strong>REINFORCE</strong>：蒙特卡洛策略梯度</li>
+<li><strong>TRPO</strong>：信赖域策略优化</li>
+<li><strong>PPO</strong>：近端策略优化</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>✅ 适用于连续动作空间</li>
+<li>✅ 可学习随机策略</li>
+<li>❌ 样本效率较低</li>
+</ul>
+<h3 id="3-actor-critic-方法"><a class="header" href="#3-actor-critic-方法">3. Actor-Critic 方法</a></h3>
+<p><strong>核心思想</strong>：结合基于价值和基于策略的方法。</p>
+<pre><code>Actor (策略网络) ──→ 选择动作 a
+       │
+       ▼
+Critic (价值网络) ──→ 评估动作好坏
+</code></pre>
+<p><strong>更新规则</strong>：</p>
+<ul>
+<li><strong>Actor</strong>：根据 Critic 的评估更新策略</li>
+<li><strong>Critic</strong>：学习价值函数</li>
+</ul>
+<p><strong>代表算法</strong>：</p>
+<ul>
+<li><strong>A2C/A3C</strong>：同步/异步优势 Actor-Critic</li>
+<li><strong>SAC</strong>：软 Actor-Critic（最大熵 RL）</li>
+<li><strong>TD3</strong>：双延迟深度确定性策略梯度</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>✅ 样本效率高</li>
+<li>✅ 适用于连续控制</li>
+<li>✅ 训练稳定</li>
+</ul>
+<h3 id="4-基于模型的方法-model-based"><a class="header" href="#4-基于模型的方法-model-based">4. 基于模型的方法 (Model-based)</a></h3>
+<p><strong>核心思想</strong>：学习环境的动力学模型，然后基于模型进行规划。</p>
+<p>$$
+s_{t+1} = f(s_t, a_t; \theta_{model})
+$$</p>
+<p><strong>方法分类</strong>：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>方法</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>已知模型</strong></td><td>使用已知的物理模型（如机器人动力学）</td></tr>
+<tr><td><strong>学习模型</strong></td><td>用神经网络学习状态转移函数</td></tr>
+<tr><td><strong>模型学习 + 规划</strong></td><td>学习模型后用 MPC 等方法规划</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>代表算法</strong>：</p>
+<ul>
+<li><strong>MBPO</strong>：基于模型的策略优化</li>
+<li><strong>MuZero</strong>：学习隐式模型 + 蒙特卡洛树搜索</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>✅ 样本效率最高</li>
+<li>✅ 可“想象“未来</li>
+<li>❌ 模型误差影响性能</li>
+</ul>
+<hr>
+<h2 id="关键要点总结"><a class="header" href="#关键要点总结">关键要点总结</a></h2>
+<h3 id="mdp-基础"><a class="header" href="#mdp-基础">MDP 基础</a></h3>
+<ul>
+<li><strong>状态</strong>、<strong>动作</strong>、<strong>转移概率</strong>、<strong>奖励</strong>、<strong>折扣因子</strong></li>
+<li><strong>策略</strong> $\pi$：状态到动作的映射</li>
+<li><strong>价值函数</strong> $V^\pi, Q^\pi$：评估状态/动作的好坏</li>
+<li><strong>贝尔曼方程</strong>：价值函数的递归分解</li>
+<li><strong>最优价值函数</strong>：$V^<em>, Q^</em>$ 满足贝尔曼最优方程</li>
+</ul>
+<h3 id="算法分类"><a class="header" href="#算法分类">算法分类</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>类别</th><th>代表算法</th><th>适用场景</th></tr>
+</thead>
+<tbody>
+<tr><td>基于价值</td><td>DQN</td><td>离散控制</td></tr>
+<tr><td>基于策略</td><td>PPO, TRPO</td><td>连续控制</td></tr>
+<tr><td>Actor-Critic</td><td>SAC, TD3</td><td>连续控制 + 高效率</td></tr>
+<tr><td>基于模型</td><td>MBPO</td><td>样本效率优先</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="与其他章节的关系"><a class="header" href="#与其他章节的关系">与其他章节的关系</a></h3>
+<ul>
+<li><a href="RL/Policy1.html">Policy Based 算法</a> - 详细推导策略梯度</li>
+<li><a href="RL/Value1.html">Value Based 算法</a> - 详细推导价值函数</li>
+<li><a href="RL/A3C2.html">A3C</a> - Actor-Critic 方法详解</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="background-1"><a class="header" href="#background-1">background</a></h1>
 <h2 id="深度学习一次迭代的三个步骤"><a class="header" href="#深度学习一次迭代的三个步骤">深度学习一次迭代的三个步骤</a></h2>
 <ol>
@@ -2486,7 +2758,7 @@ $$</p>
 <li>有些Action没有reward，甚至可能有牺牲。但它对帮助得到reward有重要贡献。</li>
 <li>需要Machine探索未尝试过的行为。</li>
 </ol>
-<h2 id="算法分类"><a class="header" href="#算法分类">算法分类</a></h2>
+<h2 id="算法分类-1"><a class="header" href="#算法分类-1">算法分类</a></h2>
 <ol>
 <li>policy based算法 — 学actor</li>
 <li>value based算法 — 学critic</li>
@@ -2567,6 +2839,145 @@ $$</li>
 <h1 id="a3c"><a class="header" href="#a3c">A3C</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="pathwise-derivative-policy-gradient"><a class="header" href="#pathwise-derivative-policy-gradient">Pathwise Derivative Policy Gradient</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="强化学习补充主题"><a class="header" href="#强化学习补充主题">强化学习补充主题</a></h1>
+<h2 id="rl-vs-轨迹优化"><a class="header" href="#rl-vs-轨迹优化">RL vs 轨迹优化</a></h2>
+<h3 id="核心对比"><a class="header" href="#核心对比">核心对比</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>维度</th><th>轨迹优化</th><th>强化学习</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>输出</strong></td><td>一条轨迹 $(\mathbf{x}, \mathbf{u})$</td><td>一个策略 $\pi(\mathbf{s})$</td></tr>
+<tr><td><strong>泛化能力</strong></td><td>❌ 仅适用于该轨迹</td><td>✅ 可处理新状态</td></tr>
+<tr><td><strong>训练时间</strong></td><td>秒级 ~ 分钟级</td><td>小时级 ~ 天级</td></tr>
+<tr><td><strong>推理速度</strong></td><td>N/A</td><td>毫秒级</td></tr>
+<tr><td><strong>模型需求</strong></td><td>✅ 需要精确模型</td><td>⚠️ 可有可无</td></tr>
+<tr><td><strong>样本效率</strong></td><td>✅ 高</td><td>❌ 低</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="方法选择决策树"><a class="header" href="#方法选择决策树">方法选择决策树</a></h3>
+<pre><code>开始：选择角色控制方法
+    │
+    ├─ 是否需要泛化能力？
+    │   ├─ 否 → 轨迹优化 ⭐
+    │   └─ 是 → 强化学习 ⭐
+    │
+    ├─ 是否有精确动力学模型？
+    │   ├─ 是 → MPC / 轨迹优化
+    │   └─ 否 → 强化学习
+    │
+    └─ 实时性要求？
+        ├─ 毫秒级 → 强化学习（推理）
+        └─ 秒级可接受 → MPC
+</code></pre>
+<hr>
+<h2 id="rl-在-3d-角色动画中的应用"><a class="header" href="#rl-在-3d-角色动画中的应用">RL 在 3D 角色动画中的应用</a></h2>
+<h3 id="deepmimic-范式"><a class="header" href="#deepmimic-范式">DeepMimic 范式</a></h3>
+<p><strong>核心思想</strong>：用强化学习模仿参考动作（来自动捕或轨迹优化）。</p>
+<pre><code>参考轨迹 (动捕/轨迹优化)
+         ↓
+奖励函数设计（跟踪误差 + 风格项）
+         ↓
+RL 训练（PPO/TRPO）
+         ↓
+泛化策略 π
+</code></pre>
+<p><strong>奖励函数设计</strong>：</p>
+<p>$$
+r_t = w_{pose} \cdot r_{pose} + w_{vel} \cdot r_{vel} + w_{com} \cdot r_{com} + w_{end} \cdot r_{end}
+$$</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>奖励项</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>$r_{pose}$</td><td>姿势跟踪奖励（关节角度）</td></tr>
+<tr><td>$r_{vel}$</td><td>速度跟踪奖励</td></tr>
+<tr><td>$r_{com}$</td><td>质心跟踪奖励</td></tr>
+<tr><td>$r_{end}$</td><td>终止奖励（摔倒惩罚）</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>代表工作</strong>：</p>
+<ul>
+<li><strong>DeepMimic (2018)</strong>：开创性工作，模仿多样化动作</li>
+<li><strong>AMP (2021)</strong>：无参考姿态的对抗模仿学习</li>
+<li><strong>ASE (2022)</strong>：环境交互的技能学习</li>
+</ul>
+<h3 id="状态空间设计"><a class="header" href="#状态空间设计">状态空间设计</a></h3>
+<p><strong>典型的角色状态表示</strong>：</p>
+<p>$$
+s_t = (q_{root}, \dot{q}<em>{root}, q</em>{local}, \dot{q}<em>{local}, q</em>{ref}, \dot{q}_{ref})
+$$</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>分量</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>$q_{root}$</td><td>根节点位置和旋转</td></tr>
+<tr><td>$\dot{q}_{root}$</td><td>根节点速度</td></tr>
+<tr><td>$q_{local}$</td><td>局部关节角度</td></tr>
+<tr><td>$\dot{q}_{local}$</td><td>局部关节角速度</td></tr>
+<tr><td>$q_{ref}$</td><td>参考姿势</td></tr>
+<tr><td>$\dot{q}_{ref}$</td><td>参考速度</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="动作空间设计"><a class="header" href="#动作空间设计">动作空间设计</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>类型</th><th>说明</th><th>适用场景</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>关节位置目标</strong></td><td>输出目标关节角度，用 PD 控制跟踪</td><td>最常用，平滑稳定</td></tr>
+<tr><td><strong>关节力矩</strong></td><td>直接输出关节力矩</td><td>精确控制，但难训练</td></tr>
+<tr><td><strong>肌肉激活</strong></td><td>输出肌肉激活信号</td><td>生物力学仿真</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="实践建议"><a class="header" href="#实践建议">实践建议</a></h2>
+<h3 id="训练技巧"><a class="header" href="#训练技巧">训练技巧</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>技巧</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>课程学习</strong></td><td>从简单任务开始，逐步增加难度</td></tr>
+<tr><td><strong>奖励塑形</strong></td><td>设计稠密奖励，加速学习</td></tr>
+<tr><td><strong>域随机化</strong></td><td>随机化物理参数，提高泛化性</td></tr>
+<tr><td><strong>并行采样</strong></td><td>多环境并行采样，提高样本效率</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="常见陷阱"><a class="header" href="#常见陷阱">常见陷阱</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>陷阱</th><th>症状</th><th>解决方案</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>奖励黑客</strong></td><td>智能体找到奖励漏洞</td><td>仔细设计奖励函数</td></tr>
+<tr><td><strong>欠训练</strong></td><td>策略不稳定、易摔倒</td><td>增加训练步数</td></tr>
+<tr><td><strong>过拟合</strong></td><td>只在特定场景有效</td><td>域随机化、增加多样性</td></tr>
+<tr><td><strong>稀疏奖励</strong></td><td>学习缓慢或不收敛</td><td>奖励塑形、课程学习</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="相关链接"><a class="header" href="#相关链接">相关链接</a></h2>
+<ul>
+<li><a href="Tracking/MethodComparison.html">轨迹优化方法对比</a> - GAMES105 中的轨迹优化章节</li>
+<li><a href="https://caterpillarstudygroup.github.io/ReadPapers/201.html">DeepMimic 论文笔记</a></li>
+<li><a href="https://caterpillarstudygroup.github.io/ReadPapers/198.html">AMP 论文笔记</a></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <p>稀疏奖励 Sparse Reward<br>指大多数情况action没有reward的游戏。</p>
 <h1 id="reward-shaping"><a class="header" href="#reward-shaping">Reward Shaping</a></h1>

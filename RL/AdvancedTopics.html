@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>情绪分类 - Deep Learning Notes</title>
+        <title>补充主题：RL vs 轨迹优化 - Deep Learning Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -180,28 +180,154 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <p>情绪分类的主要挑战： 没有那么多有标记的训练集<br>解决方法： Word Embedding</p>
-<h1 id="简单的情绪分类"><a class="header" href="#简单的情绪分类">简单的情绪分类</a></h1>
-<p><img src="/assets/46.png" alt=""></p>
-<ol>
-<li>把one shot向量转成word embedding向量</li>
-<li>句子中的所有向量做Average操作。</li>
-<li>基于softmax生成分类结果</li>
-</ol>
-<p>优点：适用于任意长度的文本<br>缺点：缺少词序，例如：<br>Completely lacking in good taste, good service and good ambience.
-这句很可能会误分类。</p>
-<h1 id="rnn的many-to-one结构"><a class="header" href="#rnn的many-to-one结构">RNN的Many to One结构</a></h1>
-<p><img src="/assets/47.png" alt=""></p>
+                        <h1 id="强化学习补充主题"><a class="header" href="#强化学习补充主题">强化学习补充主题</a></h1>
+<h2 id="rl-vs-轨迹优化"><a class="header" href="#rl-vs-轨迹优化">RL vs 轨迹优化</a></h2>
+<h3 id="核心对比"><a class="header" href="#核心对比">核心对比</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>维度</th><th>轨迹优化</th><th>强化学习</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>输出</strong></td><td>一条轨迹 $(\mathbf{x}, \mathbf{u})$</td><td>一个策略 $\pi(\mathbf{s})$</td></tr>
+<tr><td><strong>泛化能力</strong></td><td>❌ 仅适用于该轨迹</td><td>✅ 可处理新状态</td></tr>
+<tr><td><strong>训练时间</strong></td><td>秒级 ~ 分钟级</td><td>小时级 ~ 天级</td></tr>
+<tr><td><strong>推理速度</strong></td><td>N/A</td><td>毫秒级</td></tr>
+<tr><td><strong>模型需求</strong></td><td>✅ 需要精确模型</td><td>⚠️ 可有可无</td></tr>
+<tr><td><strong>样本效率</strong></td><td>✅ 高</td><td>❌ 低</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="方法选择决策树"><a class="header" href="#方法选择决策树">方法选择决策树</a></h3>
+<pre><code>开始：选择角色控制方法
+    │
+    ├─ 是否需要泛化能力？
+    │   ├─ 否 → 轨迹优化 ⭐
+    │   └─ 是 → 强化学习 ⭐
+    │
+    ├─ 是否有精确动力学模型？
+    │   ├─ 是 → MPC / 轨迹优化
+    │   └─ 否 → 强化学习
+    │
+    └─ 实时性要求？
+        ├─ 毫秒级 → 强化学习（推理）
+        └─ 秒级可接受 → MPC
+</code></pre>
+<hr>
+<h2 id="rl-在-3d-角色动画中的应用"><a class="header" href="#rl-在-3d-角色动画中的应用">RL 在 3D 角色动画中的应用</a></h2>
+<h3 id="deepmimic-范式"><a class="header" href="#deepmimic-范式">DeepMimic 范式</a></h3>
+<p><strong>核心思想</strong>：用强化学习模仿参考动作（来自动捕或轨迹优化）。</p>
+<pre><code>参考轨迹 (动捕/轨迹优化)
+         ↓
+奖励函数设计（跟踪误差 + 风格项）
+         ↓
+RL 训练（PPO/TRPO）
+         ↓
+泛化策略 π
+</code></pre>
+<p><strong>奖励函数设计</strong>：</p>
+<p>$$
+r_t = w_{pose} \cdot r_{pose} + w_{vel} \cdot r_{vel} + w_{com} \cdot r_{com} + w_{end} \cdot r_{end}
+$$</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>奖励项</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>$r_{pose}$</td><td>姿势跟踪奖励（关节角度）</td></tr>
+<tr><td>$r_{vel}$</td><td>速度跟踪奖励</td></tr>
+<tr><td>$r_{com}$</td><td>质心跟踪奖励</td></tr>
+<tr><td>$r_{end}$</td><td>终止奖励（摔倒惩罚）</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>代表工作</strong>：</p>
+<ul>
+<li><strong>DeepMimic (2018)</strong>：开创性工作，模仿多样化动作</li>
+<li><strong>AMP (2021)</strong>：无参考姿态的对抗模仿学习</li>
+<li><strong>ASE (2022)</strong>：环境交互的技能学习</li>
+</ul>
+<h3 id="状态空间设计"><a class="header" href="#状态空间设计">状态空间设计</a></h3>
+<p><strong>典型的角色状态表示</strong>：</p>
+<p>$$
+s_t = (q_{root}, \dot{q}<em>{root}, q</em>{local}, \dot{q}<em>{local}, q</em>{ref}, \dot{q}_{ref})
+$$</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>分量</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>$q_{root}$</td><td>根节点位置和旋转</td></tr>
+<tr><td>$\dot{q}_{root}$</td><td>根节点速度</td></tr>
+<tr><td>$q_{local}$</td><td>局部关节角度</td></tr>
+<tr><td>$\dot{q}_{local}$</td><td>局部关节角速度</td></tr>
+<tr><td>$q_{ref}$</td><td>参考姿势</td></tr>
+<tr><td>$\dot{q}_{ref}$</td><td>参考速度</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="动作空间设计"><a class="header" href="#动作空间设计">动作空间设计</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>类型</th><th>说明</th><th>适用场景</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>关节位置目标</strong></td><td>输出目标关节角度，用 PD 控制跟踪</td><td>最常用，平滑稳定</td></tr>
+<tr><td><strong>关节力矩</strong></td><td>直接输出关节力矩</td><td>精确控制，但难训练</td></tr>
+<tr><td><strong>肌肉激活</strong></td><td>输出肌肉激活信号</td><td>生物力学仿真</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="实践建议"><a class="header" href="#实践建议">实践建议</a></h2>
+<h3 id="训练技巧"><a class="header" href="#训练技巧">训练技巧</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>技巧</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>课程学习</strong></td><td>从简单任务开始，逐步增加难度</td></tr>
+<tr><td><strong>奖励塑形</strong></td><td>设计稠密奖励，加速学习</td></tr>
+<tr><td><strong>域随机化</strong></td><td>随机化物理参数，提高泛化性</td></tr>
+<tr><td><strong>并行采样</strong></td><td>多环境并行采样，提高样本效率</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="常见陷阱"><a class="header" href="#常见陷阱">常见陷阱</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>陷阱</th><th>症状</th><th>解决方案</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>奖励黑客</strong></td><td>智能体找到奖励漏洞</td><td>仔细设计奖励函数</td></tr>
+<tr><td><strong>欠训练</strong></td><td>策略不稳定、易摔倒</td><td>增加训练步数</td></tr>
+<tr><td><strong>过拟合</strong></td><td>只在特定场景有效</td><td>域随机化、增加多样性</td></tr>
+<tr><td><strong>稀疏奖励</strong></td><td>学习缓慢或不收敛</td><td>奖励塑形、课程学习</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="相关链接"><a class="header" href="#相关链接">相关链接</a></h2>
+<ul>
+<li><a href="../Tracking/MethodComparison.html">轨迹优化方法对比</a> - GAMES105 中的轨迹优化章节</li>
+<li><a href="https://caterpillarstudygroup.github.io/ReadPapers/201.html">DeepMimic 论文笔记</a></li>
+<li><a href="https://caterpillarstudygroup.github.io/ReadPapers/198.html">AMP 论文笔记</a></li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../NLP/Embedding.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../A3C3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../NLP/2020-11-12-NMT-Summary.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../RL/Sparse.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -211,11 +337,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../NLP/Embedding.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../A3C3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../NLP/2020-11-12-NMT-Summary.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../RL/Sparse.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>情绪分类 - Deep Learning Notes</title>
+        <title>RL 基础 - Deep Learning Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -180,28 +180,287 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <p>情绪分类的主要挑战： 没有那么多有标记的训练集<br>解决方法： Word Embedding</p>
-<h1 id="简单的情绪分类"><a class="header" href="#简单的情绪分类">简单的情绪分类</a></h1>
-<p><img src="/assets/46.png" alt=""></p>
-<ol>
-<li>把one shot向量转成word embedding向量</li>
-<li>句子中的所有向量做Average操作。</li>
-<li>基于softmax生成分类结果</li>
-</ol>
-<p>优点：适用于任意长度的文本<br>缺点：缺少词序，例如：<br>Completely lacking in good taste, good service and good ambience.
-这句很可能会误分类。</p>
-<h1 id="rnn的many-to-one结构"><a class="header" href="#rnn的many-to-one结构">RNN的Many to One结构</a></h1>
-<p><img src="/assets/47.png" alt=""></p>
+                        <h1 id="强化学习基础"><a class="header" href="#强化学习基础">强化学习基础</a></h1>
+<h2 id="核心概念"><a class="header" href="#核心概念">核心概念</a></h2>
+<p><strong>强化学习 (Reinforcement Learning, RL)</strong> 是一种通过<strong>与环境交互</strong>来学习最优行为的学习范式。</p>
+<pre><code>智能体 (Agent)
+    │
+    │ 观察状态 s_t
+    ▼
+环境 (Environment) ──→ 执行动作 a_t ──→ 获得奖励 r_t
+    │                                       │
+    └───────────────────────────────────────┘
+                环境状态更新
+</code></pre>
+<p><strong>关键特点</strong>：</p>
+<ul>
+<li><strong>试错学习</strong>：通过尝试错误来学习</li>
+<li><strong>延迟奖励</strong>：当前动作可能影响未来的奖励</li>
+<li><strong>序列决策</strong>：需要考虑长期后果</li>
+</ul>
+<h2 id="与监督学习的对比"><a class="header" href="#与监督学习的对比">与监督学习的对比</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th></th><th><strong>监督学习</strong></th><th><strong>强化学习</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>数据来源</strong></td><td>标注数据集</td><td>与环境交互</td></tr>
+<tr><td><strong>学习目标</strong></td><td>预测标签/值</td><td>最大化累积奖励</td></tr>
+<tr><td><strong>反馈形式</strong></td><td>正确答案</td><td>奖励信号（标量）</td></tr>
+<tr><td><strong>时间依赖</strong></td><td>通常独立同分布</td><td>序列依赖</td></tr>
+<tr><td><strong>典型应用</strong></td><td>图像分类、翻译</td><td>游戏 AI、机器人控制</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="马尔可夫决策过程-mdp"><a class="header" href="#马尔可夫决策过程-mdp">马尔可夫决策过程 (MDP)</a></h2>
+<h3 id="mdp-的定义"><a class="header" href="#mdp-的定义">MDP 的定义</a></h3>
+<p><strong>马尔可夫决策过程 (Markov Decision Process, MDP)</strong> 是强化学习的数学框架，用于描述序贯决策问题。</p>
+<p>一个 MDP 由五元组定义：</p>
+<p>$$
+\mathcal{M} = (S, A, P, R, \gamma)
+$$</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>符号</th><th>名称</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>$S$</td><td><strong>状态空间</strong> (State Space)</td><td>所有可能状态的集合</td></tr>
+<tr><td>$A$</td><td><strong>动作空间</strong> (Action Space)</td><td>所有可能动作的集合</td></tr>
+<tr><td>$P$</td><td><strong>状态转移概率</strong></td><td>$P(s’ \mid s, a)$：在状态 $s$ 执行动作 $a$ 后转移到 $s’$ 的概率</td></tr>
+<tr><td>$R$</td><td><strong>奖励函数</strong></td><td>$R(s, a, s’)$：状态转移的即时奖励</td></tr>
+<tr><td>$\gamma$</td><td><strong>折扣因子</strong></td><td>$\gamma \in [0,1]$：未来奖励的折现率</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="马尔可夫性质"><a class="header" href="#马尔可夫性质">马尔可夫性质</a></h3>
+<p><strong>马尔可夫性质</strong>：当前状态已知的情况下，下一时刻状态只与当前状态相关，而与历史无关。</p>
+<p>$$
+P(s_{t+1} \mid s_t, a_t, s_{t-1}, a_{t-1}, \dots) = P(s_{t+1} \mid s_t, a_t)
+$$</p>
+<p><strong>直观理解</strong>：当前状态 $s_t$ 包含了做决策所需的<strong>全部信息</strong>。</p>
+<h3 id="轨迹与回报"><a class="header" href="#轨迹与回报">轨迹与回报</a></h3>
+<p><strong>轨迹 (Trajectory)</strong>：一次完整的状态 - 动作序列</p>
+<p>$$
+\tau = (s_0, a_0, s_1, a_1, s_2, a_2, \dots)
+$$</p>
+<p><strong>回报 (Return)</strong>：轨迹的累积折扣奖励</p>
+<p>$$
+G_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k} = r_t + \gamma r_{t+1} + \gamma^2 r_{t+2} + \dots
+$$</p>
+<p><strong>折扣因子的作用</strong>：</p>
+<ul>
+<li>$\gamma = 0$：只关心眼前利益</li>
+<li>$\gamma \to 1$：考虑长远利益</li>
+<li>数学上保证无限时域回报有界</li>
+</ul>
+<hr>
+<h2 id="核心概念-1"><a class="header" href="#核心概念-1">核心概念</a></h2>
+<h3 id="策略-policy"><a class="header" href="#策略-policy">策略 (Policy)</a></h3>
+<p><strong>策略</strong> $\pi$ 是智能体的行为准则，定义了在每个状态下如何选择动作。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>类型</th><th>数学形式</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>确定性策略</strong></td><td>$a = \pi(s)$</td><td>状态 $s$ 下总是选择同一动作</td></tr>
+<tr><td><strong>随机性策略</strong></td><td>$\pi(a \mid s)$</td><td>状态 $s$ 下选择动作 $a$ 的概率</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="价值函数-value-function"><a class="header" href="#价值函数-value-function">价值函数 (Value Function)</a></h3>
+<p><strong>状态价值函数</strong> $V^\pi(s)$：从状态 $s$ 开始，遵循策略 $\pi$ 的期望回报</p>
+<p>$$
+V^\pi(s) = \mathbb{E}<em>\pi\left[G_t \mid s_t = s\right] = \mathbb{E}</em>\pi\left[\sum_{k=0}^{\infty} \gamma^k r_{t+k} \mid s_t = s\right]
+$$</p>
+<p><strong>动作价值函数 (Q 函数)</strong> $Q^\pi(s, a)$：在状态 $s$ 执行动作 $a$ 后，遵循策略 $\pi$ 的期望回报</p>
+<p>$$
+Q^\pi(s, a) = \mathbb{E}_\pi\left[G_t \mid s_t = s, a_t = a\right]
+$$</p>
+<h3 id="贝尔曼方程-bellman-equation"><a class="header" href="#贝尔曼方程-bellman-equation">贝尔曼方程 (Bellman Equation)</a></h3>
+<p>贝尔曼方程描述了价值函数的<strong>递归结构</strong>：</p>
+<p><strong>状态价值的贝尔曼方程</strong>：</p>
+<p>$$
+V^\pi(s) = \sum_a \pi(a \mid s) \sum_{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma V^\pi(s’)\right]
+$$</p>
+<p><strong>Q 函数的贝尔曼方程</strong>：</p>
+<p>$$
+Q^\pi(s, a) = \sum_{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma \sum_{a’} \pi(a’ \mid s’) Q^\pi(s’, a’)\right]
+$$</p>
+<h3 id="最优价值函数"><a class="header" href="#最优价值函数">最优价值函数</a></h3>
+<p><strong>最优状态价值函数</strong>：</p>
+<p>$$
+V^*(s) = \max_\pi V^\pi(s)
+$$</p>
+<p><strong>最优动作价值函数</strong>：</p>
+<p>$$
+Q^*(s, a) = \max_\pi Q^\pi(s, a)
+$$</p>
+<p><strong>贝尔曼最优方程</strong>：</p>
+<p>$$
+V^<em>(s) = \max_a \sum_{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma V^</em>(s’)\right]
+$$</p>
+<p>$$
+Q^<em>(s, a) = \sum_{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma \max_{a’} Q^</em>(s’, a’)\right]
+$$</p>
+<hr>
+<h2 id="强化学习算法分类"><a class="header" href="#强化学习算法分类">强化学习算法分类</a></h2>
+<h3 id="分类图谱"><a class="header" href="#分类图谱">分类图谱</a></h3>
+<pre class="mermaid">mindmap
+  root((强化学习算法))
+    基于价值
+      Q-learning
+      SARSA
+      DQN
+    基于策略
+      REINFORCE
+      Policy Gradient
+      TRPO
+      PPO
+    Actor-Critic
+      A2C/A3C
+      SAC
+      TD3
+    基于模型
+      动态规划
+      蒙特卡洛树搜索
+      模型学习
+</pre>
+
+<h3 id="1-基于价值的方法-value-based"><a class="header" href="#1-基于价值的方法-value-based">1. 基于价值的方法 (Value-based)</a></h3>
+<p><strong>核心思想</strong>：学习价值函数（Q 函数），通过价值函数导出策略。</p>
+<p>$$
+\pi(s) = \arg\max_a Q(s, a)
+$$</p>
+<p><strong>代表算法</strong>：</p>
+<ul>
+<li><strong>Q-learning</strong>：离线时序差分学习</li>
+<li><strong>SARSA</strong>：在线时序差分学习</li>
+<li><strong>DQN</strong>：深度 Q 网络（用神经网络近似 Q 函数）</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>✅ 样本效率较高</li>
+<li>✅ 适用于离散动作空间</li>
+<li>❌ 难以处理连续动作空间</li>
+</ul>
+<h3 id="2-基于策略的方法-policy-based"><a class="header" href="#2-基于策略的方法-policy-based">2. 基于策略的方法 (Policy-based)</a></h3>
+<p><strong>核心思想</strong>：直接学习并优化策略函数 $\pi(a \mid s; \theta)$。</p>
+<p>$$
+\max_\theta J(\theta) = \mathbb{E}<em>{\tau \sim \pi</em>\theta}\left[\sum_{t=0}^T \gamma^t r_t\right]
+$$</p>
+<p><strong>策略梯度定理</strong>：</p>
+<p>$$
+\nabla_\theta J(\theta) = \mathbb{E}<em>{\tau \sim \pi</em>\theta}\left[\sum_{t=0}^T \nabla_\theta \log \pi_\theta(a_t \mid s_t) Q^\pi(s_t, a_t)\right]
+$$</p>
+<p><strong>代表算法</strong>：</p>
+<ul>
+<li><strong>REINFORCE</strong>：蒙特卡洛策略梯度</li>
+<li><strong>TRPO</strong>：信赖域策略优化</li>
+<li><strong>PPO</strong>：近端策略优化</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>✅ 适用于连续动作空间</li>
+<li>✅ 可学习随机策略</li>
+<li>❌ 样本效率较低</li>
+</ul>
+<h3 id="3-actor-critic-方法"><a class="header" href="#3-actor-critic-方法">3. Actor-Critic 方法</a></h3>
+<p><strong>核心思想</strong>：结合基于价值和基于策略的方法。</p>
+<pre><code>Actor (策略网络) ──→ 选择动作 a
+       │
+       ▼
+Critic (价值网络) ──→ 评估动作好坏
+</code></pre>
+<p><strong>更新规则</strong>：</p>
+<ul>
+<li><strong>Actor</strong>：根据 Critic 的评估更新策略</li>
+<li><strong>Critic</strong>：学习价值函数</li>
+</ul>
+<p><strong>代表算法</strong>：</p>
+<ul>
+<li><strong>A2C/A3C</strong>：同步/异步优势 Actor-Critic</li>
+<li><strong>SAC</strong>：软 Actor-Critic（最大熵 RL）</li>
+<li><strong>TD3</strong>：双延迟深度确定性策略梯度</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>✅ 样本效率高</li>
+<li>✅ 适用于连续控制</li>
+<li>✅ 训练稳定</li>
+</ul>
+<h3 id="4-基于模型的方法-model-based"><a class="header" href="#4-基于模型的方法-model-based">4. 基于模型的方法 (Model-based)</a></h3>
+<p><strong>核心思想</strong>：学习环境的动力学模型，然后基于模型进行规划。</p>
+<p>$$
+s_{t+1} = f(s_t, a_t; \theta_{model})
+$$</p>
+<p><strong>方法分类</strong>：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>方法</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>已知模型</strong></td><td>使用已知的物理模型（如机器人动力学）</td></tr>
+<tr><td><strong>学习模型</strong></td><td>用神经网络学习状态转移函数</td></tr>
+<tr><td><strong>模型学习 + 规划</strong></td><td>学习模型后用 MPC 等方法规划</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>代表算法</strong>：</p>
+<ul>
+<li><strong>MBPO</strong>：基于模型的策略优化</li>
+<li><strong>MuZero</strong>：学习隐式模型 + 蒙特卡洛树搜索</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>✅ 样本效率最高</li>
+<li>✅ 可“想象“未来</li>
+<li>❌ 模型误差影响性能</li>
+</ul>
+<hr>
+<h2 id="关键要点总结"><a class="header" href="#关键要点总结">关键要点总结</a></h2>
+<h3 id="mdp-基础"><a class="header" href="#mdp-基础">MDP 基础</a></h3>
+<ul>
+<li><strong>状态</strong>、<strong>动作</strong>、<strong>转移概率</strong>、<strong>奖励</strong>、<strong>折扣因子</strong></li>
+<li><strong>策略</strong> $\pi$：状态到动作的映射</li>
+<li><strong>价值函数</strong> $V^\pi, Q^\pi$：评估状态/动作的好坏</li>
+<li><strong>贝尔曼方程</strong>：价值函数的递归分解</li>
+<li><strong>最优价值函数</strong>：$V^<em>, Q^</em>$ 满足贝尔曼最优方程</li>
+</ul>
+<h3 id="算法分类"><a class="header" href="#算法分类">算法分类</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>类别</th><th>代表算法</th><th>适用场景</th></tr>
+</thead>
+<tbody>
+<tr><td>基于价值</td><td>DQN</td><td>离散控制</td></tr>
+<tr><td>基于策略</td><td>PPO, TRPO</td><td>连续控制</td></tr>
+<tr><td>Actor-Critic</td><td>SAC, TD3</td><td>连续控制 + 高效率</td></tr>
+<tr><td>基于模型</td><td>MBPO</td><td>样本效率优先</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="与其他章节的关系"><a class="header" href="#与其他章节的关系">与其他章节的关系</a></h3>
+<ul>
+<li><a href="Policy1.html">Policy Based 算法</a> - 详细推导策略梯度</li>
+<li><a href="Value1.html">Value Based 算法</a> - 详细推导价值函数</li>
+<li><a href="A3C2.html">A3C</a> - Actor-Critic 方法详解</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../NLP/Embedding.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../GAN/Evaluation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../NLP/2020-11-12-NMT-Summary.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../RL/Reinforce.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -211,11 +470,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../NLP/Embedding.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../GAN/Evaluation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../NLP/2020-11-12-NMT-Summary.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../RL/Reinforce.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
