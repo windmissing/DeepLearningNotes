@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>用语言模型学习 Embedding Matrix - Deep Learning Notes</title>
+        <title>CVAE - Deep Learning Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -12,36 +12,36 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../../favicon-de23e50b.svg">
-        <link rel="shortcut icon" href="../../favicon-8114d1fc.png">
-        <link rel="stylesheet" href="../../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../../css/general-2459343d.css">
-        <link rel="stylesheet" href="../../css/chrome-ae938929.css">
-        <link rel="stylesheet" href="../../css/print-9e4910d8.css" media="print">
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../fonts/fonts-9644e21d.css">
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="mdbook-highlight-css" href="../../highlight-493f70e1.css">
-        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../../tomorrow-night-4c0ae647.css">
-        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../../ayu-highlight-3fdfc3ac.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../../theme/pagetoc-2272f8a0.css">
+        <link rel="stylesheet" href="../theme/pagetoc-2272f8a0.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../../";
+            const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-0edf8d6b.js";
+            window.path_to_searchindex_js = "../searchindex-0edf8d6b.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../toc-339cdf75.js"></script>
+        <script src="../toc-339cdf75.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -108,7 +108,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -143,7 +143,7 @@
                     <h1 class="menu-title">Deep Learning Notes</h1>
 
                     <div class="right-buttons">
-                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
                         <a href="https://github.com/windmissing/DeepLearningNotes" title="Git repository" aria-label="Git repository">
@@ -180,26 +180,176 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="用语言模型学习embedding-matrix"><a class="header" href="#用语言模型学习embedding-matrix">用语言模型学习Embedding Matrix</a></h1>
-<p>Bengio et. al., 2003. A neura; probabilistic language model</p>
-<p>I want a  glass of orange ______.<br>语言模型的目标是预测下一个单词。</p>
+                        <h1 id="cvae-conditional-variational-autoencoder"><a class="header" href="#cvae-conditional-variational-autoencoder">CVAE (Conditional Variational AutoEncoder)</a></h1>
+<h2 id="背景从-vae-到-cvae"><a class="header" href="#背景从-vae-到-cvae">背景：从 VAE 到 CVAE</a></h2>
+<h3 id="vae-的局限性"><a class="header" href="#vae-的局限性">VAE 的局限性</a></h3>
+<p>VAE (Variational AutoEncoder) 是一种<strong>无条件生成模型</strong>：</p>
+<ul>
+<li>输入：随机噪声 $z \sim \mathcal{N}(0, 1)$</li>
+<li>输出：生成的样本 $x$</li>
+</ul>
+<p><strong>问题</strong>：无法控制生成的内容，完全随机。</p>
+<h3 id="cvae-的核心思想"><a class="header" href="#cvae-的核心思想">CVAE 的核心思想</a></h3>
+<p>CVAE (Conditional VAE) 通过<strong>引入条件信息</strong>来实现可控生成：</p>
+<ul>
+<li>输入：条件 $c$ + 随机噪声 $z$</li>
+<li>输出：基于条件 $c$ 生成的样本 $x$</li>
+</ul>
+<p>$$p_\theta(x|c) = \int p_\theta(x|z,c)p(z)dz$$</p>
+<hr>
+<h2 id="模型结构"><a class="header" href="#模型结构">模型结构</a></h2>
+<h3 id="vae-vs-cvae"><a class="header" href="#vae-vs-cvae">VAE vs CVAE</a></h3>
+<pre><code>VAE:
+  Encoder: x → q_ϕ(z|x)
+  Decoder: z → p_θ(x)
+
+CVAE:
+  Encoder: (x, c) → q_ϕ(z|x,c)
+  Decoder: (z, c) → p_θ(x|c)
+</code></pre>
+<h3 id="网络架构"><a class="header" href="#网络架构">网络架构</a></h3>
+<pre class="mermaid">graph LR
+    c[条件 c] --&gt; Encoder
+    x[输入 x] --&gt; Encoder
+    Encoder --&gt; z[潜在变量 z]
+    z --&gt; Decoder
+    c --&gt; Decoder
+    Decoder --&gt; x_hat[重建 x̂]
+</pre>
+
+<hr>
+<h2 id="数学推导"><a class="header" href="#数学推导">数学推导</a></h2>
+<h3 id="vae-的-elbo-evidence-lower-bound"><a class="header" href="#vae-的-elbo-evidence-lower-bound">VAE 的 ELBO (Evidence Lower Bound)</a></h3>
+<p>VAE 最大化以下目标：</p>
+<p>$$\mathcal{L}<em>{VAE} = \mathbb{E}</em>{q_\phi(z|x)}[\log p_\theta(x|z)] - D_{KL}(q_\phi(z|x) || p(z))$$</p>
+<h3 id="cvae-的-elbo"><a class="header" href="#cvae-的-elbo">CVAE 的 ELBO</a></h3>
+<p>将条件 $c$ 加入每一项：</p>
+<p>$$\mathcal{L}<em>{CVAE} = \mathbb{E}</em>{q_\phi(z|x,c)}[\log p_\theta(x|z,c)] - D_{KL}(q_\phi(z|x,c) || p(z|c))$$</p>
+<p>通常假设 $p(z|c) = p(z) = \mathcal{N}(0, I)$，即先验与条件无关。</p>
+<h3 id="重参数化技巧-reparameterization-trick"><a class="header" href="#重参数化技巧-reparameterization-trick">重参数化技巧 (Reparameterization Trick)</a></h3>
+<p>为了能够反向传播，使用重参数化：</p>
+<p>$$z = \mu_\phi(x,c) + \sigma_\phi(x,c) \odot \epsilon, \quad \epsilon \sim \mathcal{N}(0, I)$$</p>
+<hr>
+<h2 id="训练算法"><a class="header" href="#训练算法">训练算法</a></h2>
+<h3 id="cvae-训练流程"><a class="header" href="#cvae-训练流程">CVAE 训练流程</a></h3>
+<pre><code>1. Sample (x, c) from training data
+2. Encode: (μ, σ) = Encoder(x, c)
+3. Reparameterize: z = μ + σ ⊙ ε, ε ~ N(0,I)
+4. Decode: x̂ = Decoder(z, c)
+5. Compute loss:
+   - Reconstruction loss: ||x - x̂||²
+   - KL divergence: -log(σ) + 0.5(μ² + σ² - 1)
+6. Backprop and update
+</code></pre>
+<h3 id="损失函数"><a class="header" href="#损失函数">损失函数</a></h3>
+<p>$$\mathcal{L} = \underbrace{||x - \hat{x}||^2}<em>{\text{Reconstruction}} + \underbrace{\beta \cdot D</em>{KL}(q_\phi(z|x,c) || p(z))}_{\text{Regularization}}$$</p>
+<hr>
+<h2 id="cvae-的应用"><a class="header" href="#cvae-的应用">CVAE 的应用</a></h2>
+<h3 id="1-条件图像生成"><a class="header" href="#1-条件图像生成">1. 条件图像生成</a></h3>
+<p>给定类别标签生成对应图像：</p>
+<ul>
+<li>条件 $c$：类别标签（如“猫“、“狗”）</li>
+<li>输出 $x$：对应类别的图像</li>
+</ul>
+<h3 id="2-对话生成"><a class="header" href="#2-对话生成">2. 对话生成</a></h3>
+<p>给定上下文生成回复：</p>
+<ul>
+<li>条件 $c$：上文句子</li>
+<li>输出 $x$：回复句子</li>
+</ul>
+<h3 id="3-图像修复-inpainting"><a class="header" href="#3-图像修复-inpainting">3. 图像修复 (Inpainting)</a></h3>
+<p>给定部分图像修复完整图像：</p>
+<ul>
+<li>条件 $c$：不完整的图像</li>
+<li>输出 $x$：完整的图像</li>
+</ul>
+<h3 id="4-超分辨率"><a class="header" href="#4-超分辨率">4. 超分辨率</a></h3>
+<p>给定低分辨率图像生成高分辨率图像：</p>
+<ul>
+<li>条件 $c$：低分辨率图像</li>
+<li>输出 $x$：高分辨率图像</li>
+</ul>
+<h3 id="5-多模态生成"><a class="header" href="#5-多模态生成">5. 多模态生成</a></h3>
+<p>给定一种模态生成另一种模态：</p>
+<ul>
+<li>条件 $c$：文本描述</li>
+<li>输出 $x$：图像</li>
+</ul>
+<hr>
+<h2 id="cvae-vs-其他生成模型"><a class="header" href="#cvae-vs-其他生成模型">CVAE vs 其他生成模型</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>模型</th><th>条件生成</th><th>采样速度</th><th>生成质量</th><th>训练稳定性</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>CVAE</strong></td><td>✅</td><td>✅ 快</td><td>⚠️ 中等</td><td>✅ 稳定</td></tr>
+<tr><td><strong>CGAN</strong></td><td>✅</td><td>✅ 快</td><td>✅ 好</td><td>❌ 不稳定</td></tr>
+<tr><td><strong>Diffusion</strong></td><td>✅</td><td>❌ 慢</td><td>✅✅ 最好</td><td>✅ 稳定</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="实践技巧"><a class="header" href="#实践技巧">实践技巧</a></h2>
+<h3 id="1-β-cvae"><a class="header" href="#1-β-cvae">1. β-CVAE</a></h3>
+<p>增加 KL 项的权重，学习更解耦的表示：</p>
+<p>$$\mathcal{L} = \text{Reconstruction} + \beta \cdot \text{KL}, \quad \beta &gt; 1$$</p>
+<h3 id="2-条件编码方式"><a class="header" href="#2-条件编码方式">2. 条件编码方式</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>方式</th><th>说明</th><th>适用场景</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Concat</strong></td><td>将 $c$ 与输入拼接</td><td>通用</td></tr>
+<tr><td><strong>FiLM</strong></td><td>用 $c$ 生成缩放和平移参数</td><td>图像生成</td></tr>
+<tr><td><strong>AdaIN</strong></td><td>条件实例归一化</td><td>风格迁移</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="3-潜在空间插值"><a class="header" href="#3-潜在空间插值">3. 潜在空间插值</a></h3>
+<p>在潜在空间插值可以生成平滑过渡的样本：</p>
+<p>$$z_\alpha = \alpha \cdot z_1 + (1-\alpha) \cdot z_2$$</p>
+<hr>
+<h2 id="代码结构示例"><a class="header" href="#代码结构示例">代码结构示例</a></h2>
+<pre><code class="language-python">class CVAE(nn.Module):
+    def __init__(self, latent_dim, condition_dim):
+        self.encoder = Encoder(latent_dim, condition_dim)
+        self.decoder = Decoder(latent_dim, condition_dim)
+    
+    def forward(self, x, c):
+        mu, logvar = self.encoder(x, c)
+        z = self.reparameterize(mu, logvar)
+        x_hat = self.decoder(z, c)
+        return x_hat, mu, logvar
+    
+    def sample(self, c, n_samples):
+        z = torch.randn(n_samples, self.latent_dim)
+        return self.decoder(z, c)
+</code></pre>
+<hr>
+<h2 id="相关链接"><a class="header" href="#相关链接">相关链接</a></h2>
+<ul>
+<li><a href="../Common/AutoEncoder.html">Common/AutoEncoder.md</a> - 基础 AutoEncoder</li>
+<li><a href="../GAN/VAEGAN.html">GAN/VAEGAN.md</a> - VAE 与 GAN 结合</li>
+<li><a href="../GAN/Condition.html">GAN/Condition.md</a> - 条件 GAN</li>
+</ul>
+<hr>
+<h2 id="参考资料"><a class="header" href="#参考资料">参考资料</a></h2>
 <ol>
-<li>提取target的前K个单词。</li>
-<li>one shot向量经过embedding matrix得到embedding向量</li>
-<li>embedding向量通过RNN神经网络进行训练</li>
-<li>softmax作为NN的输出Unit，来计算w是每个单词的概率。<br><img src="/assets/42.png" alt=""></li>
+<li>Sohn, K., Yan, X., &amp; Lee, H. (2015). Learning Structured Output Representation using Deep Conditional Generative Models. <em>NeurIPS</em>.</li>
+<li>Kingma, D. P., &amp; Welling, M. (2014). Auto-Encoding Variational Bayes. <em>ICLR</em>.</li>
 </ol>
-<p>这个模型中有softmax的参数和E的参数，都可以通过GD迭代得到。</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../NLP/WordEmbedding/ReasonableAnalogies.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../GenerativeModels/VAE.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../../NLP/WordEmbedding/Word2Vec.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../GAN/Generative.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -209,11 +359,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../NLP/WordEmbedding/ReasonableAnalogies.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../GenerativeModels/VAE.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../../NLP/WordEmbedding/Word2Vec.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../GAN/Generative.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
@@ -233,18 +383,18 @@
         </script>
 
 
-        <script src="../../elasticlunr-ef4e11c1.min.js"></script>
-        <script src="../../mark-09e88c2c.min.js"></script>
-        <script src="../../searcher-c2a407aa.js"></script>
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
 
-        <script src="../../clipboard-1626706a.min.js"></script>
-        <script src="../../highlight-abc7f01d.js"></script>
-        <script src="../../book-a0b12cfe.js"></script>
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="../../theme/pagetoc-632bc451.js"></script>
-        <script src="../../theme/mermaid-eefea253.min.js"></script>
-        <script src="../../theme/mermaid-init-ccf746f1.js"></script>
+        <script src="../theme/pagetoc-632bc451.js"></script>
+        <script src="../theme/mermaid-eefea253.min.js"></script>
+        <script src="../theme/mermaid-init-ccf746f1.js"></script>
 
 
 

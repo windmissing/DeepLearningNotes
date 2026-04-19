@@ -39,10 +39,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2ceb1d71.js";
+            window.path_to_searchindex_js = "searchindex-0edf8d6b.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a29874ac.js"></script>
+        <script src="toc-339cdf75.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -1928,11 +1928,390 @@ $$</p>
 <h1 id="is-structured-learning-practical"><a class="header" href="#is-structured-learning-practical">is structured learning practical</a></h1>
 <p>1:22’12’’，这部分没听懂</p>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="vae-variational-autoencoder"><a class="header" href="#vae-variational-autoencoder">VAE (Variational AutoEncoder)</a></h1>
+<h2 id="背景从-autoencoder-到-vae"><a class="header" href="#背景从-autoencoder-到-vae">背景：从 AutoEncoder 到 VAE</a></h2>
+<h3 id="autoencoder-的局限性"><a class="header" href="#autoencoder-的局限性">AutoEncoder 的局限性</a></h3>
+<p>传统的 AutoEncoder 存在以下问题：</p>
+<ol>
+<li><strong>不能生成新样本</strong>：只能重建输入，无法从潜在空间生成新样本</li>
+<li><strong>潜在空间不连续</strong>：相近的潜在向量可能解码出完全不同的图像</li>
+<li><strong>没有概率解释</strong>：无法给出生成样本的概率</li>
+</ol>
+<h3 id="vae-的核心思想"><a class="header" href="#vae-的核心思想">VAE 的核心思想</a></h3>
+<p>VAE (Variational AutoEncoder) 通过<strong>引入概率分布</strong>来解决上述问题：</p>
+<ul>
+<li><strong>AE</strong>: $z = \text{Encoder}(x)$  →  确定的向量</li>
+<li><strong>VAE</strong>: $z \sim q_\phi(z|x)$  →  概率分布中采样</li>
+</ul>
+<hr>
+<h2 id="核心概念"><a class="header" href="#核心概念">核心概念</a></h2>
+<h3 id="1-潜在空间正则化"><a class="header" href="#1-潜在空间正则化">1. 潜在空间正则化</a></h3>
+<p>VAE 不仅学习重建输入，还要求潜在变量的分布接近某个<strong>先验分布</strong>（通常是标准正态分布）：</p>
+<p>$$p(z) = \mathcal{N}(0, I)$$</p>
+<h3 id="2-编码器的输出"><a class="header" href="#2-编码器的输出">2. 编码器的输出</a></h3>
+<p>VAE 的编码器输出不是单一的向量，而是<strong>分布的参数</strong>：</p>
+<pre><code>Encoder 输出:
+  - μ (mean): 分布的中心
+  - σ (std): 分布的宽度
+  - z ~ N(μ, σ²): 从分布中采样
+</code></pre>
+<h3 id="3-解码器的输入"><a class="header" href="#3-解码器的输入">3. 解码器的输入</a></h3>
+<p>解码器接收从潜在分布中<strong>采样</strong>得到的向量：</p>
+<p>$$\hat{x} = \text{Decoder}(z), \quad z \sim \mathcal{N}(\mu, \sigma^2)$$</p>
+<hr>
+<h2 id="数学推导"><a class="header" href="#数学推导">数学推导</a></h2>
+<h3 id="变分推断-variational-inference"><a class="header" href="#变分推断-variational-inference">变分推断 (Variational Inference)</a></h3>
+<p>目标：最大化数据的对数似然 $\log p_\theta(x)$</p>
+<p>由于后验 $p(z|x)$ 难以计算，使用变分分布 $q_\phi(z|x)$ 来近似。</p>
+<h3 id="elbo-evidence-lower-bound"><a class="header" href="#elbo-evidence-lower-bound">ELBO (Evidence Lower Bound)</a></h3>
+<p>VAE 最大化以下目标（ELBO）：</p>
+<p>$$\mathcal{L} = \mathbb{E}<em>{q</em>\phi(z|x)}[\log p_\theta(x|z)] - D_{KL}(q_\phi(z|x) || p(z))$$</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>项</th><th>名称</th><th>作用</th></tr>
+</thead>
+<tbody>
+<tr><td>$\mathbb{E}<em>{q</em>\phi(z</td><td>x)}[\log p_\theta(x</td><td>z)]$</td></tr>
+<tr><td>$D_{KL}(q_\phi(z</td><td>x)</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="kl-散度的计算"><a class="header" href="#kl-散度的计算">KL 散度的计算</a></h3>
+<p>当 $q_\phi(z|x) = \mathcal{N}(\mu, \sigma^2)$ 且 $p(z) = \mathcal{N}(0, I)$ 时：</p>
+<p>$$D_{KL}(q_\phi(z|x) || p(z)) = -\frac{1}{2}\sum_{j=1}^{J}(1 + \log\sigma_j^2 - \mu_j^2 - \sigma_j^2)$$</p>
+<hr>
+<h2 id="重参数化技巧-reparameterization-trick"><a class="header" href="#重参数化技巧-reparameterization-trick">重参数化技巧 (Reparameterization Trick)</a></h2>
+<h3 id="问题"><a class="header" href="#问题">问题</a></h3>
+<p>直接从 $\mathcal{N}(\mu, \sigma^2)$ 采样是不可导的，无法反向传播。</p>
+<h3 id="解决方案"><a class="header" href="#解决方案">解决方案</a></h3>
+<p>将采样过程分解为：</p>
+<p>$$z = \mu + \sigma \odot \epsilon, \quad \epsilon \sim \mathcal{N}(0, I)$$</p>
+<pre class="mermaid">graph LR
+    x[输入 x] --&gt; Encoder
+    Encoder --&gt; mu[μ]
+    Encoder --&gt; sigma[σ]
+    epsilon[ε ~ N(0,I)] --&gt; z
+    mu --&gt; z
+    sigma --&gt; z
+    z --&gt; Decoder
+    Decoder --&gt; x_hat[输出 x̂]
+</pre>
+
+<h3 id="代码实现"><a class="header" href="#代码实现">代码实现</a></h3>
+<pre><code class="language-python">def reparameterize(mu, logvar):
+    std = torch.exp(0.5 * logvar)
+    eps = torch.randn_like(std)  # ε ~ N(0, 1)
+    return mu + eps * std  # z = μ + σ * ε
+</code></pre>
+<hr>
+<h2 id="训练算法"><a class="header" href="#训练算法">训练算法</a></h2>
+<h3 id="vae-训练流程"><a class="header" href="#vae-训练流程">VAE 训练流程</a></h3>
+<pre><code>1. Sample x from training data
+2. Encode: (μ, σ) = Encoder(x)
+3. Reparameterize: z = μ + σ ⊙ ε, ε ~ N(0,I)
+4. Decode: x̂ = Decoder(z)
+5. Compute loss:
+   - Reconstruction: ||x - x̂||² or BCE(x, x̂)
+   - KL: -0.5 * Σ(1 + log(σ²) - μ² - σ²)
+6. Backprop and update
+</code></pre>
+<h3 id="完整损失函数"><a class="header" href="#完整损失函数">完整损失函数</a></h3>
+<pre><code class="language-python">def vae_loss(x, x_hat, mu, logvar):
+    # Reconstruction loss
+    BCE = F.binary_cross_entropy(x_hat, x, reduction='sum')
+    
+    # KL divergence
+    KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
+    
+    return BCE + KLD
+</code></pre>
+<hr>
+<h2 id="vae-的变体"><a class="header" href="#vae-的变体">VAE 的变体</a></h2>
+<h3 id="1-β-vae"><a class="header" href="#1-β-vae">1. β-VAE</a></h3>
+<p>增加 KL 项的权重，学习更解耦的表示：</p>
+<p>$$\mathcal{L} = \text{Reconstruction} + \beta \cdot \text{KL}, \quad \beta &gt; 1$$</p>
+<h3 id="2-conditional-vae-cvae"><a class="header" href="#2-conditional-vae-cvae">2. Conditional VAE (CVAE)</a></h3>
+<p>引入条件信息实现可控生成：</p>
+<p>$$\mathcal{L} = \mathbb{E}<em>{q</em>\phi(z|x,c)}[\log p_\theta(x|z,c)] - D_{KL}(q_\phi(z|x,c) || p(z))$$</p>
+<h3 id="3-vector-quantized-vae-vq-vae"><a class="header" href="#3-vector-quantized-vae-vq-vae">3. Vector Quantized VAE (VQ-VAE)</a></h3>
+<p>使用离散的潜在变量，适用于序列建模和图像生成。</p>
+<h3 id="4-hierarchical-vae"><a class="header" href="#4-hierarchical-vae">4. Hierarchical VAE</a></h3>
+<p>多层潜在变量，捕捉不同层次的特征。</p>
+<hr>
+<h2 id="vae-vs-gan"><a class="header" href="#vae-vs-gan">VAE vs GAN</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>特性</th><th>VAE</th><th>GAN</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>生成质量</strong></td><td>⚠️ 较模糊</td><td>✅ 清晰</td></tr>
+<tr><td><strong>训练稳定性</strong></td><td>✅ 稳定</td><td>❌ 需要技巧</td></tr>
+<tr><td><strong>潜在空间</strong></td><td>✅ 连续、可插值</td><td>⚠️ 可能不连续</td></tr>
+<tr><td><strong>概率解释</strong></td><td>✅ 有</td><td>❌ 无</td></tr>
+<tr><td><strong>Inference</strong></td><td>✅ Encoder 推断</td><td>❌ 需要额外训练</td></tr>
+<tr><td><strong>应用</strong></td><td>表示学习、异常检测</td><td>图像生成、编辑</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="应用场景"><a class="header" href="#应用场景">应用场景</a></h2>
+<h3 id="1-图像生成"><a class="header" href="#1-图像生成">1. 图像生成</a></h3>
+<p>生成新的、类似的样本。</p>
+<h3 id="2-异常检测"><a class="header" href="#2-异常检测">2. 异常检测</a></h3>
+<p>重建误差大的样本为异常：</p>
+<p>$$\text{Anomaly Score} = ||x - \hat{x}||^2$$</p>
+<h3 id="3-图像修复-inpainting"><a class="header" href="#3-图像修复-inpainting">3. 图像修复 (Inpainting)</a></h3>
+<p>给定部分图像，重建完整图像。</p>
+<h3 id="4-表示学习"><a class="header" href="#4-表示学习">4. 表示学习</a></h3>
+<p>学习解耦的潜在表示，用于下游任务。</p>
+<h3 id="5-数据增强"><a class="header" href="#5-数据增强">5. 数据增强</a></h3>
+<p>生成合成数据扩充训练集。</p>
+<hr>
+<h2 id="实践技巧"><a class="header" href="#实践技巧">实践技巧</a></h2>
+<h3 id="1-kl-annealing"><a class="header" href="#1-kl-annealing">1. KL Annealing</a></h3>
+<p>训练初期减小 KL 权重，避免“posterior collapse“：</p>
+<p>$$\mathcal{L} = \text{Reconstruction} + w(t) \cdot \text{KL}$$</p>
+<p>$w(t)$ 从 0 逐渐增加到 1。</p>
+<h3 id="2-重建损失选择"><a class="header" href="#2-重建损失选择">2. 重建损失选择</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>数据类型</th><th>推荐损失</th></tr>
+</thead>
+<tbody>
+<tr><td>归一化图像</td><td>BCE (Binary Cross Entropy)</td></tr>
+<tr><td>自然图像</td><td>MSE 或 Perceptual Loss</td></tr>
+<tr><td>文本</td><td>Cross Entropy</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="3-潜在空间维度"><a class="header" href="#3-潜在空间维度">3. 潜在空间维度</a></h3>
+<ul>
+<li>太小：重建质量差</li>
+<li>太大：后验坍塌 (posterior collapse)</li>
+<li>常用：16 ~ 256</li>
+</ul>
+<hr>
+<h2 id="代码结构示例"><a class="header" href="#代码结构示例">代码结构示例</a></h2>
+<pre><code class="language-python">import torch
+import torch.nn as nn
+
+class VAE(nn.Module):
+    def __init__(self, latent_dim=20):
+        super().__init__()
+        self.encoder = nn.Sequential(
+            nn.Linear(784, 400),
+            nn.ReLU(),
+        )
+        self.fc_mu = nn.Linear(400, latent_dim)
+        self.fc_logvar = nn.Linear(400, latent_dim)
+        
+        self.decoder = nn.Sequential(
+            nn.Linear(latent_dim, 400),
+            nn.ReLU(),
+            nn.Linear(400, 784),
+            nn.Sigmoid()
+        )
+    
+    def encode(self, x):
+        h = self.encoder(x)
+        return self.fc_mu(h), self.fc_logvar(h)
+    
+    def reparameterize(self, mu, logvar):
+        std = torch.exp(0.5 * logvar)
+        eps = torch.randn_like(std)
+        return mu + eps * std
+    
+    def decode(self, z):
+        return self.decoder(z)
+    
+    def forward(self, x):
+        mu, logvar = self.encode(x)
+        z = self.reparameterize(mu, logvar)
+        return self.decode(z), mu, logvar
+</code></pre>
+<hr>
+<h2 id="相关链接"><a class="header" href="#相关链接">相关链接</a></h2>
+<ul>
+<li><a href="#background">Common/AutoEncoder.md</a> - 基础 AutoEncoder</li>
+<li><a href="#cvae-conditional-variational-autoencoder">GenerativeModels/CVAE.md</a> - 条件 VAE</li>
+<li><a href="#训练步骤-1">GAN/VAEGAN.md</a> - VAE 与 GAN 结合</li>
+</ul>
+<hr>
+<h2 id="参考资料"><a class="header" href="#参考资料">参考资料</a></h2>
+<ol>
+<li>Kingma, D. P., &amp; Welling, M. (2014). Auto-Encoding Variational Bayes. <em>ICLR</em>.</li>
+<li>Doersch, C. (2016). Tutorial on Variational Autoencoders. <em>arXiv</em>.</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cvae-conditional-variational-autoencoder"><a class="header" href="#cvae-conditional-variational-autoencoder">CVAE (Conditional Variational AutoEncoder)</a></h1>
+<h2 id="背景从-vae-到-cvae"><a class="header" href="#背景从-vae-到-cvae">背景：从 VAE 到 CVAE</a></h2>
+<h3 id="vae-的局限性"><a class="header" href="#vae-的局限性">VAE 的局限性</a></h3>
+<p>VAE (Variational AutoEncoder) 是一种<strong>无条件生成模型</strong>：</p>
+<ul>
+<li>输入：随机噪声 $z \sim \mathcal{N}(0, 1)$</li>
+<li>输出：生成的样本 $x$</li>
+</ul>
+<p><strong>问题</strong>：无法控制生成的内容，完全随机。</p>
+<h3 id="cvae-的核心思想"><a class="header" href="#cvae-的核心思想">CVAE 的核心思想</a></h3>
+<p>CVAE (Conditional VAE) 通过<strong>引入条件信息</strong>来实现可控生成：</p>
+<ul>
+<li>输入：条件 $c$ + 随机噪声 $z$</li>
+<li>输出：基于条件 $c$ 生成的样本 $x$</li>
+</ul>
+<p>$$p_\theta(x|c) = \int p_\theta(x|z,c)p(z)dz$$</p>
+<hr>
+<h2 id="模型结构-1"><a class="header" href="#模型结构-1">模型结构</a></h2>
+<h3 id="vae-vs-cvae"><a class="header" href="#vae-vs-cvae">VAE vs CVAE</a></h3>
+<pre><code>VAE:
+  Encoder: x → q_ϕ(z|x)
+  Decoder: z → p_θ(x)
+
+CVAE:
+  Encoder: (x, c) → q_ϕ(z|x,c)
+  Decoder: (z, c) → p_θ(x|c)
+</code></pre>
+<h3 id="网络架构"><a class="header" href="#网络架构">网络架构</a></h3>
+<pre class="mermaid">graph LR
+    c[条件 c] --&gt; Encoder
+    x[输入 x] --&gt; Encoder
+    Encoder --&gt; z[潜在变量 z]
+    z --&gt; Decoder
+    c --&gt; Decoder
+    Decoder --&gt; x_hat[重建 x̂]
+</pre>
+
+<hr>
+<h2 id="数学推导-1"><a class="header" href="#数学推导-1">数学推导</a></h2>
+<h3 id="vae-的-elbo-evidence-lower-bound"><a class="header" href="#vae-的-elbo-evidence-lower-bound">VAE 的 ELBO (Evidence Lower Bound)</a></h3>
+<p>VAE 最大化以下目标：</p>
+<p>$$\mathcal{L}<em>{VAE} = \mathbb{E}</em>{q_\phi(z|x)}[\log p_\theta(x|z)] - D_{KL}(q_\phi(z|x) || p(z))$$</p>
+<h3 id="cvae-的-elbo"><a class="header" href="#cvae-的-elbo">CVAE 的 ELBO</a></h3>
+<p>将条件 $c$ 加入每一项：</p>
+<p>$$\mathcal{L}<em>{CVAE} = \mathbb{E}</em>{q_\phi(z|x,c)}[\log p_\theta(x|z,c)] - D_{KL}(q_\phi(z|x,c) || p(z|c))$$</p>
+<p>通常假设 $p(z|c) = p(z) = \mathcal{N}(0, I)$，即先验与条件无关。</p>
+<h3 id="重参数化技巧-reparameterization-trick-1"><a class="header" href="#重参数化技巧-reparameterization-trick-1">重参数化技巧 (Reparameterization Trick)</a></h3>
+<p>为了能够反向传播，使用重参数化：</p>
+<p>$$z = \mu_\phi(x,c) + \sigma_\phi(x,c) \odot \epsilon, \quad \epsilon \sim \mathcal{N}(0, I)$$</p>
+<hr>
+<h2 id="训练算法-1"><a class="header" href="#训练算法-1">训练算法</a></h2>
+<h3 id="cvae-训练流程"><a class="header" href="#cvae-训练流程">CVAE 训练流程</a></h3>
+<pre><code>1. Sample (x, c) from training data
+2. Encode: (μ, σ) = Encoder(x, c)
+3. Reparameterize: z = μ + σ ⊙ ε, ε ~ N(0,I)
+4. Decode: x̂ = Decoder(z, c)
+5. Compute loss:
+   - Reconstruction loss: ||x - x̂||²
+   - KL divergence: -log(σ) + 0.5(μ² + σ² - 1)
+6. Backprop and update
+</code></pre>
+<h3 id="损失函数-2"><a class="header" href="#损失函数-2">损失函数</a></h3>
+<p>$$\mathcal{L} = \underbrace{||x - \hat{x}||^2}<em>{\text{Reconstruction}} + \underbrace{\beta \cdot D</em>{KL}(q_\phi(z|x,c) || p(z))}_{\text{Regularization}}$$</p>
+<hr>
+<h2 id="cvae-的应用"><a class="header" href="#cvae-的应用">CVAE 的应用</a></h2>
+<h3 id="1-条件图像生成"><a class="header" href="#1-条件图像生成">1. 条件图像生成</a></h3>
+<p>给定类别标签生成对应图像：</p>
+<ul>
+<li>条件 $c$：类别标签（如“猫“、“狗”）</li>
+<li>输出 $x$：对应类别的图像</li>
+</ul>
+<h3 id="2-对话生成"><a class="header" href="#2-对话生成">2. 对话生成</a></h3>
+<p>给定上下文生成回复：</p>
+<ul>
+<li>条件 $c$：上文句子</li>
+<li>输出 $x$：回复句子</li>
+</ul>
+<h3 id="3-图像修复-inpainting-1"><a class="header" href="#3-图像修复-inpainting-1">3. 图像修复 (Inpainting)</a></h3>
+<p>给定部分图像修复完整图像：</p>
+<ul>
+<li>条件 $c$：不完整的图像</li>
+<li>输出 $x$：完整的图像</li>
+</ul>
+<h3 id="4-超分辨率"><a class="header" href="#4-超分辨率">4. 超分辨率</a></h3>
+<p>给定低分辨率图像生成高分辨率图像：</p>
+<ul>
+<li>条件 $c$：低分辨率图像</li>
+<li>输出 $x$：高分辨率图像</li>
+</ul>
+<h3 id="5-多模态生成"><a class="header" href="#5-多模态生成">5. 多模态生成</a></h3>
+<p>给定一种模态生成另一种模态：</p>
+<ul>
+<li>条件 $c$：文本描述</li>
+<li>输出 $x$：图像</li>
+</ul>
+<hr>
+<h2 id="cvae-vs-其他生成模型"><a class="header" href="#cvae-vs-其他生成模型">CVAE vs 其他生成模型</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>模型</th><th>条件生成</th><th>采样速度</th><th>生成质量</th><th>训练稳定性</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>CVAE</strong></td><td>✅</td><td>✅ 快</td><td>⚠️ 中等</td><td>✅ 稳定</td></tr>
+<tr><td><strong>CGAN</strong></td><td>✅</td><td>✅ 快</td><td>✅ 好</td><td>❌ 不稳定</td></tr>
+<tr><td><strong>Diffusion</strong></td><td>✅</td><td>❌ 慢</td><td>✅✅ 最好</td><td>✅ 稳定</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="实践技巧-1"><a class="header" href="#实践技巧-1">实践技巧</a></h2>
+<h3 id="1-β-cvae"><a class="header" href="#1-β-cvae">1. β-CVAE</a></h3>
+<p>增加 KL 项的权重，学习更解耦的表示：</p>
+<p>$$\mathcal{L} = \text{Reconstruction} + \beta \cdot \text{KL}, \quad \beta &gt; 1$$</p>
+<h3 id="2-条件编码方式"><a class="header" href="#2-条件编码方式">2. 条件编码方式</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>方式</th><th>说明</th><th>适用场景</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Concat</strong></td><td>将 $c$ 与输入拼接</td><td>通用</td></tr>
+<tr><td><strong>FiLM</strong></td><td>用 $c$ 生成缩放和平移参数</td><td>图像生成</td></tr>
+<tr><td><strong>AdaIN</strong></td><td>条件实例归一化</td><td>风格迁移</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="3-潜在空间插值"><a class="header" href="#3-潜在空间插值">3. 潜在空间插值</a></h3>
+<p>在潜在空间插值可以生成平滑过渡的样本：</p>
+<p>$$z_\alpha = \alpha \cdot z_1 + (1-\alpha) \cdot z_2$$</p>
+<hr>
+<h2 id="代码结构示例-1"><a class="header" href="#代码结构示例-1">代码结构示例</a></h2>
+<pre><code class="language-python">class CVAE(nn.Module):
+    def __init__(self, latent_dim, condition_dim):
+        self.encoder = Encoder(latent_dim, condition_dim)
+        self.decoder = Decoder(latent_dim, condition_dim)
+    
+    def forward(self, x, c):
+        mu, logvar = self.encoder(x, c)
+        z = self.reparameterize(mu, logvar)
+        x_hat = self.decoder(z, c)
+        return x_hat, mu, logvar
+    
+    def sample(self, c, n_samples):
+        z = torch.randn(n_samples, self.latent_dim)
+        return self.decoder(z, c)
+</code></pre>
+<hr>
+<h2 id="相关链接-1"><a class="header" href="#相关链接-1">相关链接</a></h2>
+<ul>
+<li><a href="#background">Common/AutoEncoder.md</a> - 基础 AutoEncoder</li>
+<li><a href="#训练步骤-1">GAN/VAEGAN.md</a> - VAE 与 GAN 结合</li>
+<li><a href="#根据text生成image">GAN/Condition.md</a> - 条件 GAN</li>
+</ul>
+<hr>
+<h2 id="参考资料-1"><a class="header" href="#参考资料-1">参考资料</a></h2>
+<ol>
+<li>Sohn, K., Yan, X., &amp; Lee, H. (2015). Learning Structured Output Representation using Deep Conditional Generative Models. <em>NeurIPS</em>.</li>
+<li>Kingma, D. P., &amp; Welling, M. (2014). Auto-Encoding Variational Bayes. <em>ICLR</em>.</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="方法一pixel-rnn"><a class="header" href="#方法一pixel-rnn">方法一：Pixel RNN</a></h1>
 <p>每次使用RNN生成一个像素，直至最后生成一整张图。<br>一个像素用一个向量表示。<br><img src="/assets/images/Chapter7/56.png" alt=""><br>优点：无监督学习，训练时只需要输入图像，不需要annotation。<br>这种方法也可以用于语音合成或视频生成。</p>
 <p><strong>Tip:</strong><br>想要生成的图像颜色鲜明，像素的RGB三个值要差别够大。如果三个值差不多大，生成的图像是灰色的。<br>如果使用向量$[R, G, B]^\top$来代表一个像素，向量的值由sigmoid生成。sigmoid倾向于落在0.5附近，使得RBG值都差不多，生成出的图像是“水墨风”。<br>改进方法：<br>用1 of N encoding方法表示像素的颜色<br><img src="/assets/images/Chapter7/57.png" alt=""></p>
 <h1 id="方法二vae"><a class="header" href="#方法二vae">方法二：VAE</a></h1>
-<h2 id="模型结构-1"><a class="header" href="#模型结构-1">模型结构</a></h2>
+<h2 id="模型结构-2"><a class="header" href="#模型结构-2">模型结构</a></h2>
 <p>VAE = Viational auto encoder
 对比<a href="#方法一pixel-rnn">Auto Encoder</a>的模型：<br><img src="/assets/images/Chapter7/58.png" alt=""><br>VAE的模型为：<br><img src="/assets/images/Chapter7/59.png" alt=""></p>
 <ol>
@@ -2470,7 +2849,7 @@ $$</p>
 <p>如果GAN只是记住了database里的某些图像，而不是创造新图像，用这种方式识别不出来。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="强化学习基础"><a class="header" href="#强化学习基础">强化学习基础</a></h1>
-<h2 id="核心概念"><a class="header" href="#核心概念">核心概念</a></h2>
+<h2 id="核心概念-1"><a class="header" href="#核心概念-1">核心概念</a></h2>
 <p><strong>强化学习 (Reinforcement Learning, RL)</strong> 是一种通过<strong>与环境交互</strong>来学习最优行为的学习范式。</p>
 <pre><code>智能体 (Agent)
     │
@@ -2546,7 +2925,7 @@ $$</p>
 <li>数学上保证无限时域回报有界</li>
 </ul>
 <hr>
-<h2 id="核心概念-1"><a class="header" href="#核心概念-1">核心概念</a></h2>
+<h2 id="核心概念-1-1"><a class="header" href="#核心概念-1-1">核心概念</a></h2>
 <h3 id="策略-policy"><a class="header" href="#策略-policy">策略 (Policy)</a></h3>
 <p><strong>策略</strong> $\pi$ 是智能体的行为准则，定义了在每个状态下如何选择动作。</p>
 <div class="table-wrapper">
@@ -2972,7 +3351,7 @@ $$</p>
 </table>
 </div>
 <hr>
-<h2 id="相关链接"><a class="header" href="#相关链接">相关链接</a></h2>
+<h2 id="相关链接-2"><a class="header" href="#相关链接-2">相关链接</a></h2>
 <ul>
 <li><a href="Tracking/MethodComparison.html">轨迹优化方法对比</a> - GAMES105 中的轨迹优化章节</li>
 <li><a href="https://caterpillarstudygroup.github.io/ReadPapers/201.html">DeepMimic 论文笔记</a></li>
