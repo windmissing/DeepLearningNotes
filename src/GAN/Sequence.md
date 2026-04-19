@@ -66,7 +66,7 @@ $$
 
 **每次更新过$\theta$后要重新sample data**  
 
-### 最大似然法 VS 增强学习法  
+### 最大似然法 VS 强化学习法  
 
 ||Maximum Likelihood|Reinforement Learning|
 |---|---|---|

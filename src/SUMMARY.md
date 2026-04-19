@@ -87,10 +87,10 @@
 - [序列生成的应用](GAN/Sequence.md)
 - [GAN 的估计](GAN/Evaluation.md)
 
-# Reinforcement Learning
+# 强化学习
 
 - [RL 基础](RL/README.md)
-- [增强学习](RL/Reinforce.md)
+- [强化学习](RL/Reinforce.md)
 - [Policy Based](RL/Policy/Policy.md)
     - [Basic Version](../Policy1.md)
     - [公式改进](../Policy2.md)
