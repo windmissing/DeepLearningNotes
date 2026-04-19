@@ -6,9 +6,13 @@
 ## Commenting this out is preferred by some people, see
 ## https://docs.npmjs.com/misc/faq#should-i-check-my-node_modules-folder-into-git
 node_modules
+package-lock.json
 
-# Book build output
+# Book build output (GitBook)
 _book
+
+# Book build output (mdBook)
+book/
 
 # eBook build output
 *.epub

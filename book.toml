@@ -1,0 +1,26 @@
+[book]
+authors = ["windmissing"]
+language = "zh"
+description = "Deep Learning Notes - 深度学习笔记"
+src = "src"
+title = "Deep Learning Notes"
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
+[output.html]
+mathjax-support = true
+git-repository-url = "https://github.com/windmissing/DeepLearningNotes"
+git-repository-icon = "fa-github"
+additional-css = ["theme/pagetoc.css"]
+additional-js  = ["theme/pagetoc.js", "theme/mermaid.min.js", "theme/mermaid-init.js"]
+
+[output.html.fold]
+enable = true
+level = 1
+
+[output.html.print]
+enable = true
+
+[output.html.search]
+enable = true
