@@ -27,7 +27,7 @@ Kelvin Xu. al., 2015. Show, Attend and Tell: Neural Image Cpation Generation Wit
 
 ### 贪心搜索 greedy search
 
-每个时刻t都选择t时刻p(y)最大的y，直至输出\`<EOS>\`  
+每个时刻t都选择t时刻p(y)最大的y，直至输出 `<EOS>`  
 缺点：每一步都选择概率最高的y，但最后句子的整体概率不一定是最高的。  
 例如：  
 Jane is visiting Africa in September.   
@@ -42,7 +42,7 @@ Jane is going to visit Africa in September.
 2. 对每个y1分别计算它与各种y2组合的概率。并找出其中概率最高的B组y1, y2  
 ![](/assets/images/Chapter10/55.png)   
 3. 对B个y1y2串，用同样的方法找出B个概率最高的y1y2y3。  
-4. 直至最后得到了`\`<EOS>\``。  
+4. 直至最后得到了 `<EOS>`。  
 
 当B=1时，beam search = greedy search  
 B大，则生成的句子可能更好，但计算代价更大。B小则反之。  
