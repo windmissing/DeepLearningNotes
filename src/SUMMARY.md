@@ -13,7 +13,7 @@
 - [Inception 网络](CaseStudy/Inception.md)
 - [Seq2Seq](CaseStudy/Seq2Seq.md)
 - [注意力模型](CaseStudy/Attention/Attention.md)
-- [Memory Network](CaseStudy/Attention/MemoryNetwork.md)
+- [Memory Network](CaseStudy/Attention/MemoryNetowrk.md)
 - [指针网络](CaseStudy/PointerNetwork.md)
 - [循环网络](CaseStudy/Recursive.md)
 - [RNN 的各种应用](CaseStudy/Applications.md)
@@ -24,7 +24,7 @@
 - [CV 基础](CV/CV.md)
 - [目标定位](CV/Localization.md)
 - [Landmark Detection](CV/LandmarkDetection.md)
-- 目标检测
+- [目标检测](CV/Detection/Detection.md)
     - [滑动窗口算法](CV/Detection/SlidingWindow.md)
     - [YOLO 算法](CV/Detection/YOLO.md)
     - [候选区域算法](CV/Detection/RegionProposal.md)
@@ -35,7 +35,7 @@
 - [Domain-Adversarial Training](CV/DomainAdversarial.md)
 - [人体姿态估计 HPE](CV/HPE/HPE.md)
     - [DeepPose](CV/HPE/DeepPose.md)
-- 实践
+- [实践](CV/Practice/Practice.md)
     - [读入 VGG16 预训练模型](CV/Practice/load_vgg_model.md)
     - [基于预训练模型的图像重构](CV/Practice/ImageReconstruction.md)
     - [基于预训练模型的风格重构](CV/Practice/StyleReconstruction.md)
@@ -43,7 +43,7 @@
 # Natural Language Processing
 
 - [语言模型](NLP/LanguageModel.md)
-- 词汇表征
+- [词汇表征](NLP/WordEmbedding/README.md)
     - [One-hot Embedding](NLP/WordEmbedding/OneHotEmbedding.md)
     - [Word Embedding](NLP/WordEmbedding/WordEmbedding.md)
     - [类比推理](NLP/WordEmbedding/ReasonableAnalogies.md)
@@ -52,8 +52,8 @@
     - [skip-grams 算法](NLP/WordEmbedding/Skipgrams.md)
     - [负采样算法](NLP/WordEmbedding/NegativeSampling.md)
     - [词向量算法](NLP/WordEmbedding/GloVec.md)
-    - [词嵌入除偏](NLP/Debiasing.md)
-    - [Embedding](NLP/Embedding.md)
+    - [词嵌入除偏](NLP/WordEmbedding/Debiasing.md)
+- [Embedding](NLP/Embedding.md)
 - [情绪分类](NLP/SentimentClassification.md)
 - [NMT](NLP/2020-11-12-NMT-Summary.md)
 
@@ -90,20 +90,20 @@
 # Reinforcement Learning
 
 - [增强学习](RL/Reinforce.md)
-- Policy Based
-    - [Basic Version](RL/Policy1.md)
-    - [公式改进](RL/Policy2.md)
-    - [off-policy](RL/Policy3.md)
-    - [近端优化策略](RL/Policy4.md)
-- Value Based
-    - [value function](RL/Value1.md)
-    - [Q-Learning](RL/Value2.md)
-    - [Q-Learning 的改进算法](RL/Value3.md)
+- [Policy Based](RL/Policy/Policy.md)
+    - [Basic Version](../Policy1.md)
+    - [公式改进](../Policy2.md)
+    - [off-policy](../Policy3.md)
+    - [近端优化策略](../Policy4.md)
+- [Value Based](RL/Value/Value.md)
+    - [value function](../Value1.md)
+    - [Q-Learning](../Value2.md)
+    - [Q-Learning 的改进算法](../Value3.md)
 - [Q-Learning Vs Policy Based](RL/Compare.md)
-- Q-Learning 结合 Policy Based
-    - [复习](RL/A3C1.md)
-    - [A3C](RL/A3C2.md)
-    - [Pathwise Derivative Policy Gradient](RL/A3C3.md)
+- [A3C](RL/A3C/A3C.md)
+    - [复习](../A3C1.md)
+    - [A3C](../A3C2.md)
+    - [Pathwise Derivative Policy Gradient](../A3C3.md)
 - [稀疏奖励](RL/Sparse.md)
 - [模仿学习](RL/Imitation.md)
 
@@ -112,7 +112,7 @@
 - [异常侦测](1209400866/Anomaly.md)
     - [case 1: labelled data](1209400866/Labelled.md)
     - [case 3: polluted unlabelled data](1209400866/Unlabelled.md)
-- 对抗模型 attack ML models
+- [对抗模型](1209400866/AttackModel.md)
     - [攻击](1209400866/Attack.md)
     - [防御](1209400866/Defense.md)
 - [模型的可解释性 Explainable ML](1209400866/Explainable.md)
