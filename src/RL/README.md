@@ -57,7 +57,7 @@ $$
 **马尔可夫性质**：当前状态已知的情况下，下一时刻状态只与当前状态相关，而与历史无关。
 
 $$
-P(s_{t+1} \mid s_t, a_t, s_{t-1}, a_{t-1}, \dots) = P(s_{t+1} \mid s_t, a_t)
+P(s _{t+1} \mid s_t, a_t, s _{t-1}, a _{t-1}, \dots) = P(s _{t+1} \mid s_t, a_t)
 $$
 
 **直观理解**：当前状态 $s_t$ 包含了做决策所需的**全部信息**。
@@ -73,7 +73,7 @@ $$
 **回报 (Return)**：轨迹的累积折扣奖励
 
 $$
-G_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k} = r_t + \gamma r_{t+1} + \gamma^2 r_{t+2} + \dots
+G_t = \sum _{k=0} ^{\infty} \gamma ^k r _{t+k} = r_t + \gamma r _{t+1} + \gamma ^2 r _{t+2} + \dots
 $$
 
 **折扣因子的作用**：
@@ -99,13 +99,13 @@ $$
 **状态价值函数** $V^\pi(s)$：从状态 $s$ 开始，遵循策略 $\pi$ 的期望回报
 
 $$
-V^\pi(s) = \mathbb{E}_\pi\left[G_t \mid s_t = s\right] = \mathbb{E}_\pi\left[\sum_{k=0}^{\infty} \gamma^k r_{t+k} \mid s_t = s\right]
+V^\pi(s) = \mathbb{E} _\pi\left[G_t \mid s_t = s\right] = \mathbb{E} _\pi\left[\sum _{k=0} ^{\infty} \gamma ^k r _{t+k} \mid s_t = s\right]
 $$
 
 **动作价值函数 (Q 函数)** $Q^\pi(s, a)$：在状态 $s$ 执行动作 $a$ 后，遵循策略 $\pi$ 的期望回报
 
 $$
-Q^\pi(s, a) = \mathbb{E}_\pi\left[G_t \mid s_t = s, a_t = a\right]
+Q^\pi(s, a) = \mathbb{E} _\pi\left[G_t \mid s_t = s, a_t = a\right]
 $$
 
 ### 贝尔曼方程 (Bellman Equation)
@@ -115,13 +115,13 @@ $$
 **状态价值的贝尔曼方程**：
 
 $$
-V^\pi(s) = \sum_a \pi(a \mid s) \sum_{s'} P(s' \mid s, a) \left[R(s, a, s') + \gamma V^\pi(s')\right]
+V^\pi(s) = \sum_a \pi(a \mid s) \sum _{s'} P(s' \mid s, a) \left[R(s, a, s') + \gamma V^\pi(s')\right]
 $$
 
 **Q 函数的贝尔曼方程**：
 
 $$
-Q^\pi(s, a) = \sum_{s'} P(s' \mid s, a) \left[R(s, a, s') + \gamma \sum_{a'} \pi(a' \mid s') Q^\pi(s', a')\right]
+Q^\pi(s, a) = \sum _{s'} P(s' \mid s, a) \left[R(s, a, s') + \gamma \sum _{a'} \pi(a' \mid s') Q^\pi(s', a')\right]
 $$
 
 ### 最优价值函数
@@ -141,11 +141,11 @@ $$
 **贝尔曼最优方程**：
 
 $$
-V^*(s) = \max_a \sum_{s'} P(s' \mid s, a) \left[R(s, a, s') + \gamma V^*(s')\right]
+V^*(s) = \max_a \sum _{s'} P(s' \mid s, a) \left[R(s, a, s') + \gamma V^*(s')\right]
 $$
 
 $$
-Q^*(s, a) = \sum_{s'} P(s' \mid s, a) \left[R(s, a, s') + \gamma \max_{a'} Q^*(s', a')\right]
+Q^*(s, a) = \sum _{s'} P(s' \mid s, a) \left[R(s, a, s') + \gamma \max _{a'} Q^*(s', a')\right]
 $$
 
 ---
@@ -199,13 +199,13 @@ $$
 **核心思想**：直接学习并优化策略函数 $\pi(a \mid s; \theta)$。
 
 $$
-\max_\theta J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta}\left[\sum_{t=0}^T \gamma^t r_t\right]
+\max _\theta J(\theta) = \mathbb{E} _{\tau \sim \pi _\theta}\left[\sum _{t=0} ^T \gamma ^t r_t\right]
 $$
 
 **策略梯度定理**：
 
 $$
-\nabla_\theta J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta}\left[\sum_{t=0}^T \nabla_\theta \log \pi_\theta(a_t \mid s_t) Q^\pi(s_t, a_t)\right]
+\nabla _\theta J(\theta) = \mathbb{E} _{\tau \sim \pi _\theta}\left[\sum _{t=0} ^T \nabla _\theta \log \pi _\theta(a_t \mid s_t) Q^\pi(s_t, a_t)\right]
 $$
 
 **代表算法**：
@@ -248,7 +248,7 @@ Critic (价值网络) ──→ 评估动作好坏
 **核心思想**：学习环境的动力学模型，然后基于模型进行规划。
 
 $$
-s_{t+1} = f(s_t, a_t; \theta_{model})
+s _{t+1} = f(s_t, a_t; \theta _{model})
 $$
 
 **方法分类**：
