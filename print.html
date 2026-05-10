@@ -39,7 +39,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-0edf8d6b.js";
+            window.path_to_searchindex_js = "searchindex-572803d3.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-339cdf75.js"></script>
@@ -2906,7 +2906,7 @@ $$</p>
 <h3 id="马尔可夫性质"><a class="header" href="#马尔可夫性质">马尔可夫性质</a></h3>
 <p><strong>马尔可夫性质</strong>：当前状态已知的情况下，下一时刻状态只与当前状态相关，而与历史无关。</p>
 <p>$$
-P(s_{t+1} \mid s_t, a_t, s_{t-1}, a_{t-1}, \dots) = P(s_{t+1} \mid s_t, a_t)
+P(s _{t+1} \mid s_t, a_t, s _{t-1}, a _{t-1}, \dots) = P(s _{t+1} \mid s_t, a_t)
 $$</p>
 <p><strong>直观理解</strong>：当前状态 $s_t$ 包含了做决策所需的<strong>全部信息</strong>。</p>
 <h3 id="轨迹与回报"><a class="header" href="#轨迹与回报">轨迹与回报</a></h3>
@@ -2916,7 +2916,7 @@ $$</p>
 $$</p>
 <p><strong>回报 (Return)</strong>：轨迹的累积折扣奖励</p>
 <p>$$
-G_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k} = r_t + \gamma r_{t+1} + \gamma^2 r_{t+2} + \dots
+G_t = \sum _{k=0} ^{\infty} \gamma ^k r _{t+k} = r_t + \gamma r _{t+1} + \gamma ^2 r _{t+2} + \dots
 $$</p>
 <p><strong>折扣因子的作用</strong>：</p>
 <ul>
@@ -2942,21 +2942,21 @@ $$</p>
 <h3 id="价值函数-value-function"><a class="header" href="#价值函数-value-function">价值函数 (Value Function)</a></h3>
 <p><strong>状态价值函数</strong> $V^\pi(s)$：从状态 $s$ 开始，遵循策略 $\pi$ 的期望回报</p>
 <p>$$
-V^\pi(s) = \mathbb{E}<em>\pi\left[G_t \mid s_t = s\right] = \mathbb{E}</em>\pi\left[\sum_{k=0}^{\infty} \gamma^k r_{t+k} \mid s_t = s\right]
+V^\pi(s) = \mathbb{E} _\pi\left[G_t \mid s_t = s\right] = \mathbb{E} _\pi\left[\sum _{k=0} ^{\infty} \gamma ^k r _{t+k} \mid s_t = s\right]
 $$</p>
 <p><strong>动作价值函数 (Q 函数)</strong> $Q^\pi(s, a)$：在状态 $s$ 执行动作 $a$ 后，遵循策略 $\pi$ 的期望回报</p>
 <p>$$
-Q^\pi(s, a) = \mathbb{E}_\pi\left[G_t \mid s_t = s, a_t = a\right]
+Q^\pi(s, a) = \mathbb{E} _\pi\left[G_t \mid s_t = s, a_t = a\right]
 $$</p>
 <h3 id="贝尔曼方程-bellman-equation"><a class="header" href="#贝尔曼方程-bellman-equation">贝尔曼方程 (Bellman Equation)</a></h3>
 <p>贝尔曼方程描述了价值函数的<strong>递归结构</strong>：</p>
 <p><strong>状态价值的贝尔曼方程</strong>：</p>
 <p>$$
-V^\pi(s) = \sum_a \pi(a \mid s) \sum_{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma V^\pi(s’)\right]
+V^\pi(s) = \sum_a \pi(a \mid s) \sum _{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma V^\pi(s’)\right]
 $$</p>
 <p><strong>Q 函数的贝尔曼方程</strong>：</p>
 <p>$$
-Q^\pi(s, a) = \sum_{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma \sum_{a’} \pi(a’ \mid s’) Q^\pi(s’, a’)\right]
+Q^\pi(s, a) = \sum _{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma \sum _{a’} \pi(a’ \mid s’) Q^\pi(s’, a’)\right]
 $$</p>
 <h3 id="最优价值函数"><a class="header" href="#最优价值函数">最优价值函数</a></h3>
 <p><strong>最优状态价值函数</strong>：</p>
@@ -2969,10 +2969,10 @@ Q^*(s, a) = \max_\pi Q^\pi(s, a)
 $$</p>
 <p><strong>贝尔曼最优方程</strong>：</p>
 <p>$$
-V^<em>(s) = \max_a \sum_{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma V^</em>(s’)\right]
+V^<em>(s) = \max_a \sum _{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma V^</em>(s’)\right]
 $$</p>
 <p>$$
-Q^<em>(s, a) = \sum_{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma \max_{a’} Q^</em>(s’, a’)\right]
+Q^<em>(s, a) = \sum _{s’} P(s’ \mid s, a) \left[R(s, a, s’) + \gamma \max _{a’} Q^</em>(s’, a’)\right]
 $$</p>
 <hr>
 <h2 id="强化学习算法分类"><a class="header" href="#强化学习算法分类">强化学习算法分类</a></h2>
@@ -3018,11 +3018,11 @@ $$</p>
 <h3 id="2-基于策略的方法-policy-based"><a class="header" href="#2-基于策略的方法-policy-based">2. 基于策略的方法 (Policy-based)</a></h3>
 <p><strong>核心思想</strong>：直接学习并优化策略函数 $\pi(a \mid s; \theta)$。</p>
 <p>$$
-\max_\theta J(\theta) = \mathbb{E}<em>{\tau \sim \pi</em>\theta}\left[\sum_{t=0}^T \gamma^t r_t\right]
+\max _\theta J(\theta) = \mathbb{E} _{\tau \sim \pi _\theta}\left[\sum _{t=0} ^T \gamma ^t r_t\right]
 $$</p>
 <p><strong>策略梯度定理</strong>：</p>
 <p>$$
-\nabla_\theta J(\theta) = \mathbb{E}<em>{\tau \sim \pi</em>\theta}\left[\sum_{t=0}^T \nabla_\theta \log \pi_\theta(a_t \mid s_t) Q^\pi(s_t, a_t)\right]
+\nabla _\theta J(\theta) = \mathbb{E} _{\tau \sim \pi _\theta}\left[\sum _{t=0} ^T \nabla _\theta \log \pi _\theta(a_t \mid s_t) Q^\pi(s_t, a_t)\right]
 $$</p>
 <p><strong>代表算法</strong>：</p>
 <ul>
@@ -3063,7 +3063,7 @@ Critic (价值网络) ──→ 评估动作好坏
 <h3 id="4-基于模型的方法-model-based"><a class="header" href="#4-基于模型的方法-model-based">4. 基于模型的方法 (Model-based)</a></h3>
 <p><strong>核心思想</strong>：学习环境的动力学模型，然后基于模型进行规划。</p>
 <p>$$
-s_{t+1} = f(s_t, a_t; \theta_{model})
+s _{t+1} = f(s_t, a_t; \theta _{model})
 $$</p>
 <p><strong>方法分类</strong>：</p>
 <div class="table-wrapper">
