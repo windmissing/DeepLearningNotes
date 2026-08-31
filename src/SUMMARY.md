@@ -95,7 +95,6 @@
 # 强化学习
 
 - [RL 基础](RL/README.md)
-- [强化学习](RL/Reinforce.md)
 - [Policy Based](RL/Policy/Policy.md)
     - [Basic Version](../Policy1.md)
     - [公式改进](../Policy2.md)

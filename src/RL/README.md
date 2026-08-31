@@ -4,15 +4,10 @@
 
 **强化学习 (Reinforcement Learning, RL)** 是一种通过**与环境交互**来学习最优行为的学习范式。
 
-```
-智能体 (Agent)
-    │
-    │ 观察状态 s_t
-    ▼
-环境 (Environment) ──→ 执行动作 a_t ──→ 获得奖励 r_t
-    │                                       │
-    └───────────────────────────────────────┘
-                环境状态更新
+```mermaid
+graph LR
+    A[智能体 Agent] -->|执行动作 a_t| E[环境 Environment]
+    E -->|"奖励 r_t, 新状态 s_{t+1}"| A
 ```
 
 **关键特点**：
@@ -29,6 +24,15 @@
 | **反馈形式** | 正确答案 | 奖励信号（标量） |
 | **时间依赖** | 通常独立同分布 | 序列依赖 |
 | **典型应用** | 图像分类、翻译 | 游戏 AI、机器人控制 |
+
+监督学习：从数据(State, Action)学习，学习的好坏取决于数据(State, Action)的好坏，因此需要大量数据。  
+强化学习：根据自己的(State, Action)经验学习，因此需要大量的经验。  
+
+## 强化学习的难点  
+
+1. reward delay  
+2. 有些Action没有reward，甚至可能有牺牲reward。但它对帮助得到长期reward有重要贡献。  
+3. 需要Machine探索未尝试过的行为。  
 
 ---
 
@@ -193,6 +197,7 @@ $$
 - ✅ 样本效率较高
 - ✅ 适用于离散动作空间
 - ❌ 难以处理连续动作空间
+- 常用于棋类游戏
 
 ### 2. 基于策略的方法 (Policy-based)
 
@@ -230,8 +235,12 @@ Critic (价值网络) ──→ 评估动作好坏
 ```
 
 **更新规则**：
-- **Actor**：根据 Critic 的评估更新策略
-- **Critic**：学习价值函数
+- **Actor**：根据 Critic 的评估更新策略，state->action
+- **Critic**：学习价值函数，state->value
+
+策略网络产生的策略的分布，从分布中采样得到不同的action，不同的action对应不同的状态。critic网络计算各新状态与原状态的value，通过value的对比，得到哪个action更好。对比结果转化为loss，使策略网络生产的分布向更好的action偏移。  
+advantage = 即时奖励 + gamma * Vnew - Vold。如果advantage为正，代码动作好，loss为负，鼓励策略网络生产这样的动作。反之亦然。
+critic网络的训练数据来自真实世界的长期reward。长期reward来自逐帧reward的累加。或者说，critic是对长期reward的统计，因此比真实的长期reward更稳定、平滑。
 
 **代表算法**：
 - **A2C/A3C**：同步/异步优势 Actor-Critic
